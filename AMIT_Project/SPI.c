@@ -1,7 +1,9 @@
-#include "SPI.h"
-#include "DIO.h"
 #include <avr/io.h>
 #include "BitHelpers.h"
+#include "DIO.h"
+#include "SPI_private.h"
+#include "SPI_config.h"
+#include "SPI.h"
 #define SS_PORT     PORT_B
 #define SS_PIN      PIN_4
 #define MOSI_PORT   PORT_B

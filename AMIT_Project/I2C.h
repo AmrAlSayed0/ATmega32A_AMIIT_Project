@@ -1,5 +1,8 @@
 #ifndef AMIT_PROJECT_I2C_H_
 #define AMIT_PROJECT_I2C_H_
+#ifndef F_CPU
+    #error "CPU clock frequency not defined"
+#endif
 #include "Std_Types.h"
 typedef enum _I2C_TRANS_MODE_t
 {

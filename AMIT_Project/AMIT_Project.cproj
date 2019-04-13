@@ -377,6 +377,12 @@
     <Compile Include="SPI.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="SPI_config.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="SPI_private.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="Std_Types.h">
       <SubType>compile</SubType>
     </Compile>
@@ -386,10 +392,22 @@
     <Compile Include="TIMER.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="TIMER_config.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="TIMER_private.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="UART.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="UART.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="UART_config.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="UART_private.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="WTCHDG.c">

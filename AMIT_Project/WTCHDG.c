@@ -1,6 +1,8 @@
 #include <avr/io.h>
 #include <avr/wdt.h>
 #include "BitHelpers.h"
+#include "WTCHDG_private.h"
+#include "WTCHDG_config.h"
 #include "WTCHDG.h"
 WTCHDG_STD_ERR_t WTCHDG_setPrescaller ( WTCHDG_PRESCALLER_t prescSetting )
 {

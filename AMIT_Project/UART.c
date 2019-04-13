@@ -1,10 +1,10 @@
-#include "BitHelpers.h"
-#include "UART.h"
-#include "DIO.h"
 #include <avr/io.h>
 #include <math.h>
-#define UBBR_CALC( BAUD_RATE , FACTOR )         ( ( ( ( double ) ( F_CPU ) ) / ( ( ( double ) ( FACTOR ) ) * ( ( double ) ( BAUD_RATE ) ) ) ) - ( ( double ) 1 ) )
-#define BAUD_RATE_CALC( UBBR , FACTOR )         ( ( ( double ) ( F_CPU ) ) / ( ( ( double ) ( FACTOR ) ) * ( ( ( double ) ( UBBR ) ) + ( ( double ) 1 ) ) ) )
+#include "BitHelpers.h"
+#include "DIO.h"
+#include "UART_private.h"
+#include "UART_config.h"
+#include "UART.h"
 #define MAX_UBBR_VALUE                          ( ( uint16_t ) 0x7FF )
 #define BIT_9_SIZE_VALUE                        ( ( uint8_t ) 0x7 )
 #define UCSZ_VALUE                              ( ( READ_BIT ( UCSRB , UCSZ2 ) << 2 ) | ( READ_BIT ( UCSRC , UCSZ1 ) << 1 ) | ( READ_BIT ( UCSRC , UCSZ0 ) << 0 ) )
@@ -12,7 +12,6 @@
 #define TX_PIN                                  PIN_0
 #define RX_PORT                                 PORT_C
 #define RX_PIN                                  PIN_7
-static UART_STD_ERR_t UART_UBBR_calc ( uint32_t baudRate , UART_TRANS_MODE_t transmissionMode , UART_TRANS_SPEED_t transmissionSpeed , uint16_t* ubbrValue );
 static UART_STD_ERR_t UART_UBBR_calc ( uint32_t baudRate , UART_TRANS_MODE_t transmissionMode , UART_TRANS_SPEED_t transmissionSpeed , uint16_t* ubbrValue )
 {
     UART_STD_ERR_t ubbrResult = UART_OK;

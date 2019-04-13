@@ -1,0 +1,3 @@
+#ifndef AMIT_PROJECT_SPI_PRIVATE_H_
+#define AMIT_PROJECT_SPI_PRIVATE_H_
+#endif

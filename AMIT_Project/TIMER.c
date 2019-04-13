@@ -1,9 +1,11 @@
 #include <avr/interrupt.h>
 #include <math.h>
 #include "BitHelpers.h"
+#include "TIMER_private.h"
+#include "TIMER_config.h"
 #include "TIMER.h"
-#define MAX_SMALL_OCR_VALUE ( 0xFF )
-#define MAX_SMALL_TIMER_VALUE ( 0xFF )
+#define MAX_SMALL_OCR_VALUE     ( 0xFF )
+#define MAX_SMALL_TIMER_VALUE   ( 0xFF )
 TIMER_STD_ERR_t TIMER_setInterruptState ( TIMER_t timer , TIMER_FLAG_t flagType )
 {
     TIMER_STD_ERR_t opResult = TIMER_OK;
@@ -402,12 +404,11 @@ TIMER_STD_ERR_t TIMER_forceOcrMatch ( TIMER_t timer )
         case TIMER_0:
             SET_BIT ( TCCR0 , FOC0 );
             break;
-        case TIMER_1A:
-            SET_BIT ( TCCR1A , FOC1A );
             break;
         case TIMER_1B:
             SET_BIT ( TCCR1A , FOC1B );
             break;
+        case TIMER_1A:
         case TIMER_1:
             SET_BIT ( TCCR1A , FOC1A );
             break;
@@ -949,7 +950,7 @@ TIMER_STD_ERR_t TIMER_read ( TIMER_t timer , uint16_t* timerValue )
         case TIMER_1A:
         case TIMER_1B:
         case TIMER_1:
-            *timerValue = ( ( uint16_t ) ( ( uint16_t ) TCNT1H << ( uint8_t ) 8 ) ) | ( ( uint16_t ) TCNT1L );
+            *timerValue = ( ( uint16_t ) ( ( ( uint16_t ) TCNT1H ) << ( uint8_t ) 8 ) ) | ( ( uint16_t ) TCNT1L );
             break;
         case TIMER_2:
             *timerValue = ( uint16_t ) TCNT2;

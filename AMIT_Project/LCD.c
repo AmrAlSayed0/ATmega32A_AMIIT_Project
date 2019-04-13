@@ -226,7 +226,6 @@ void LCD_writeData ( uint8_t ui8Data )
         DIO_write ( LCD_D5_PORT , LCD_D5_PIN , PIN_STATE_LOW );
         DIO_write ( LCD_D6_PORT , LCD_D6_PIN , PIN_STATE_LOW );
         DIO_write ( LCD_D7_PORT , LCD_D7_PIN , PIN_STATE_LOW );
-
     }
 }
 /*

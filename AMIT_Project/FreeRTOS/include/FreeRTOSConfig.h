@@ -83,7 +83,7 @@
  *----------------------------------------------------------*/
 
 /* System wide definitions. */
-#define configCPU_CLOCK_HZ                         1000000UL
+#define configCPU_CLOCK_HZ                         F_CPU
 #define configUSE_TICKLESS_IDLE                    0
 #define configTICK_RATE_HZ                         ( ( TickType_t ) 1000 )
 /* Modes definitions. */

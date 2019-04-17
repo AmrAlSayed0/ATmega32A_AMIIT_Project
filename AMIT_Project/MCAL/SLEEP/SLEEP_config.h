@@ -1,0 +1,3 @@
+#ifndef AMIT_PROJECT_SLEEP_CONFIG_H_
+#define AMIT_PROJECT_SLEEP_CONFIG_H_
+#endif

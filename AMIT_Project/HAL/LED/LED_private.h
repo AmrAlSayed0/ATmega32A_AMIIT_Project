@@ -1,0 +1,3 @@
+#ifndef AMIT_PROJECT_LED_PRIVATE_H_
+#define AMIT_PROJECT_LED_PRIVATE_H_
+#endif

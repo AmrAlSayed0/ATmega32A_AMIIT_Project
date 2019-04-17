@@ -1,4 +1,5 @@
 #include <avr/io.h>
+#include "io_extras.h"
 #include <util/delay.h>
 #include "FreeRTOS.h"
 #include "task.h"
@@ -10,24 +11,98 @@
 #include "I2C.h"
 #include "LCD.h"
 #include "UART.h"
+#include "KEYPAD.h"
+#include "LED.h"
 int main ( void )
 {
+    EEPROM_fill ( 0 , 1024 , 0xFF );
     WTCHDG_disable ();
-    //EEPROM_fill ( 0 , 1024 , 0xFF );
     DIO_init ();
     UART_CNF_t uartCng = {
-        .baudRate = 9600 , .transmissionSpeedMode = NORMAL_SPEED , .multiProcessorMode = SINGLE , .transmissionMode = ASYNC , .transmitterState = COM_ENABLED , .receiverState = COM_ENABLED , .dataFrameSize = BIT_8_SIZE , .parity = ODD_PARITY , .stopFrameSize = BIT_1_SIZE , .clckPolarity = RISING_FALLING
+        9600 ,
+        UART_NORMAL_SPEED ,
+        UART_PROC_MODE_SINGLE ,
+        UART_TRANS_ASYNC ,
+        UART_COM_ENABLED ,
+        UART_COM_ENABLED ,
+        UART_DATA_SIZE_8_BIT ,
+        UART_PARITY_ODD ,
+        UART_STP_SIZE_1_BIT ,
+        UART_CLCK_POLARITY_NOT_CARE
     };
     UART_init ( &uartCng );
-    SPI_CFG_t spiCng = { .dataOrder = DATA_ORDER_LSB , .freq=SPI_FREQ_128 , .mode=SPI_MODE_0 };
-    SPI_masterInit ( &spiCng );
-    LCD_init ( INS_FUNCTION_SET_4_BIT | INS_FUNCTION_SET_2_LINES | INS_FUNCTION_SET_5_7_DOTS , INS_ENTRY_MODE_SET_DECREMENT | INS_ENTRY_MODE_SET_NO_SHIFT , INS_DISPLAY_ON | INS_DISPLAY_CURSOR_OFF | INS_DISPLAY_CURSOR_BLINK_OFF );
+    LED_init ();
+    LCD_init ( INS_FUNCTION_8_BIT | INS_FUNCTION_2_LINES | INS_FUNCTION_5_7_DOTS , INS_ENTRY_MODE_DECREMENT | INS_ENTRY_MODE_NO_SHIFT , INS_DISPLAY_ON | INS_DISPLAY_CURSOR_OFF | INS_DISPLAY_CURSOR_BLINK_OFF );
+    KEYPAD_init ();
     while ( 1 )
     {
-        UART_transmitString ( "ABC" );
-        SPI_masterTransmit ( 1 );
+        uint16_t pressedKeys = KEYPAD_getPressedKey ();
+        if ( ( pressedKeys & KEY_0 ) == KEY_0 )
+        {
+            UART_transmitString ( "0" );
+        }
+        if ( ( pressedKeys & KEY_1 ) == KEY_1 )
+        {
+            UART_transmitString ( "1" );
+        }
+        if ( ( pressedKeys & KEY_2 ) == KEY_2 )
+        {
+            UART_transmitString ( "2" );
+        }
+        if ( ( pressedKeys & KEY_3 ) == KEY_3 )
+        {
+            UART_transmitString ( "3" );
+        }
+        if ( ( pressedKeys & KEY_4 ) == KEY_4 )
+        {
+            UART_transmitString ( "4" );
+        }
+        if ( ( pressedKeys & KEY_5 ) == KEY_5 )
+        {
+            UART_transmitString ( "5" );
+        }
+        if ( ( pressedKeys & KEY_6 ) == KEY_6 )
+        {
+            UART_transmitString ( "6" );
+        }
+        if ( ( pressedKeys & KEY_7 ) == KEY_7 )
+        {
+            UART_transmitString ( "7" );
+        }
+        if ( ( pressedKeys & KEY_8 ) == KEY_8 )
+        {
+            UART_transmitString ( "8" );
+        }
+        if ( ( pressedKeys & KEY_9 ) == KEY_9 )
+        {
+            UART_transmitString ( "9" );
+        }
+        if ( ( pressedKeys & KEY_C ) == KEY_C )
+        {
+            UART_transmitString ( "C" );
+        }
+        if ( ( pressedKeys & KEY_EQ ) == KEY_EQ )
+        {
+            UART_transmitString ( "=" );
+        }
+        if ( ( pressedKeys & KEY_PLUS ) == KEY_PLUS )
+        {
+            UART_transmitString ( "+" );
+        }
+        if ( ( pressedKeys & KEY_NEG ) == KEY_NEG )
+        {
+            UART_transmitString ( "-" );
+        }
+        if ( ( pressedKeys & KEY_MULT ) == KEY_MULT )
+        {
+            UART_transmitString ( "x" );
+        }
+        if ( ( pressedKeys & KEY_DIV ) == KEY_DIV )
+        {
+            UART_transmitString ( "/" );
+        }
         LCD_clearAndWriteString ( "ABC" );
-        _delay_ms ( 1000 );
+        _delay_ms ( 50 );
     }
 }
 

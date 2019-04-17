@@ -82,7 +82,7 @@
   <avrgcc.compiler.general.ChangeDefaultBitFieldUnsigned>True</avrgcc.compiler.general.ChangeDefaultBitFieldUnsigned>
   <avrgcc.compiler.symbols.DefSymbols>
     <ListValues>
-      <Value>F_CPU=8000000ULL</Value>
+      <Value>F_CPU=16000000ULL</Value>
       <Value>NDEBUG</Value>
     </ListValues>
   </avrgcc.compiler.symbols.DefSymbols>
@@ -94,6 +94,22 @@
       <Value>../FreeRTOS/portable/GCC</Value>
       <Value>../FreeRTOS/portable/GCC/ATMega323</Value>
       <Value>../FreeRTOS/portable/MemMang</Value>
+      <Value>../HAL</Value>
+      <Value>../HAL/KEYPAD</Value>
+      <Value>../HAL/LCD</Value>
+      <Value>../HAL/LED</Value>
+      <Value>../MCAL</Value>
+      <Value>../MCAL/CTRL</Value>
+      <Value>../MCAL/DIO</Value>
+      <Value>../MCAL/EEPROM</Value>
+      <Value>../MCAL/EXT_INT</Value>
+      <Value>../MCAL/I2C</Value>
+      <Value>../MCAL/SLEEP</Value>
+      <Value>../MCAL/SPI</Value>
+      <Value>../MCAL/TIMER</Value>
+      <Value>../MCAL/UART</Value>
+      <Value>../MCAL/WTCHDG</Value>
+      <Value>../include</Value>
     </ListValues>
   </avrgcc.compiler.directories.IncludePaths>
   <avrgcc.compiler.optimization.level>Optimize for size (-Os)</avrgcc.compiler.optimization.level>
@@ -119,6 +135,22 @@
       <Value>../FreeRTOS/portable/GCC</Value>
       <Value>../FreeRTOS/portable/GCC/ATMega323</Value>
       <Value>../FreeRTOS/portable/MemMang</Value>
+      <Value>../include</Value>
+      <Value>../HAL</Value>
+      <Value>../HAL/KEYPAD</Value>
+      <Value>../HAL/LCD</Value>
+      <Value>../HAL/LED</Value>
+      <Value>../MCAL</Value>
+      <Value>../MCAL/CTRL</Value>
+      <Value>../MCAL/DIO</Value>
+      <Value>../MCAL/EEPROM</Value>
+      <Value>../MCAL/EXT_INT</Value>
+      <Value>../MCAL/I2C</Value>
+      <Value>../MCAL/SLEEP</Value>
+      <Value>../MCAL/SPI</Value>
+      <Value>../MCAL/TIMER</Value>
+      <Value>../MCAL/UART</Value>
+      <Value>../MCAL/WTCHDG</Value>
     </ListValues>
   </avrgcc.linker.libraries.LibrarySearchPaths>
   <avrgcc.assembler.general.IncludePaths>
@@ -129,6 +161,22 @@
       <Value>../FreeRTOS/portable/GCC</Value>
       <Value>../FreeRTOS/portable/GCC/ATMega323</Value>
       <Value>../FreeRTOS/portable/MemMang</Value>
+      <Value>../include</Value>
+      <Value>../HAL</Value>
+      <Value>../HAL/KEYPAD</Value>
+      <Value>../HAL/LCD</Value>
+      <Value>../HAL/LED</Value>
+      <Value>../MCAL</Value>
+      <Value>../MCAL/CTRL</Value>
+      <Value>../MCAL/DIO</Value>
+      <Value>../MCAL/EEPROM</Value>
+      <Value>../MCAL/EXT_INT</Value>
+      <Value>../MCAL/I2C</Value>
+      <Value>../MCAL/SLEEP</Value>
+      <Value>../MCAL/SPI</Value>
+      <Value>../MCAL/TIMER</Value>
+      <Value>../MCAL/UART</Value>
+      <Value>../MCAL/WTCHDG</Value>
     </ListValues>
   </avrgcc.assembler.general.IncludePaths>
 </AvrGcc>
@@ -147,7 +195,7 @@
   <avrgcc.compiler.general.ChangeDefaultBitFieldUnsigned>True</avrgcc.compiler.general.ChangeDefaultBitFieldUnsigned>
   <avrgcc.compiler.symbols.DefSymbols>
     <ListValues>
-      <Value>F_CPU=8000000ULL</Value>
+      <Value>F_CPU=16000000ULL</Value>
       <Value>DEBUG</Value>
     </ListValues>
   </avrgcc.compiler.symbols.DefSymbols>
@@ -159,6 +207,22 @@
       <Value>../FreeRTOS/portable/GCC</Value>
       <Value>../FreeRTOS/portable/GCC/ATMega323</Value>
       <Value>../FreeRTOS/portable/MemMang</Value>
+      <Value>../HAL</Value>
+      <Value>../HAL/KEYPAD</Value>
+      <Value>../HAL/LCD</Value>
+      <Value>../HAL/LED</Value>
+      <Value>../MCAL</Value>
+      <Value>../MCAL/CTRL</Value>
+      <Value>../MCAL/DIO</Value>
+      <Value>../MCAL/EEPROM</Value>
+      <Value>../MCAL/EXT_INT</Value>
+      <Value>../MCAL/I2C</Value>
+      <Value>../MCAL/SLEEP</Value>
+      <Value>../MCAL/SPI</Value>
+      <Value>../MCAL/TIMER</Value>
+      <Value>../MCAL/UART</Value>
+      <Value>../MCAL/WTCHDG</Value>
+      <Value>../include</Value>
     </ListValues>
   </avrgcc.compiler.directories.IncludePaths>
   <avrgcc.compiler.optimization.level>Optimize debugging experience (-Og)</avrgcc.compiler.optimization.level>
@@ -185,6 +249,22 @@
       <Value>../FreeRTOS/portable/GCC</Value>
       <Value>../FreeRTOS/portable/GCC/ATMega323</Value>
       <Value>../FreeRTOS/portable/MemMang</Value>
+      <Value>../HAL</Value>
+      <Value>../HAL/KEYPAD</Value>
+      <Value>../HAL/LCD</Value>
+      <Value>../HAL/LED</Value>
+      <Value>../MCAL</Value>
+      <Value>../MCAL/CTRL</Value>
+      <Value>../MCAL/DIO</Value>
+      <Value>../MCAL/EEPROM</Value>
+      <Value>../MCAL/EXT_INT</Value>
+      <Value>../MCAL/I2C</Value>
+      <Value>../MCAL/SLEEP</Value>
+      <Value>../MCAL/SPI</Value>
+      <Value>../MCAL/TIMER</Value>
+      <Value>../MCAL/UART</Value>
+      <Value>../MCAL/WTCHDG</Value>
+      <Value>../include</Value>
     </ListValues>
   </avrgcc.linker.libraries.LibrarySearchPaths>
   <avrgcc.assembler.general.IncludePaths>
@@ -195,6 +275,22 @@
       <Value>../FreeRTOS/portable/GCC</Value>
       <Value>../FreeRTOS/portable/GCC/ATMega323</Value>
       <Value>../FreeRTOS/portable/MemMang</Value>
+      <Value>../HAL</Value>
+      <Value>../HAL/KEYPAD</Value>
+      <Value>../HAL/LCD</Value>
+      <Value>../HAL/LED</Value>
+      <Value>../MCAL</Value>
+      <Value>../MCAL/CTRL</Value>
+      <Value>../MCAL/DIO</Value>
+      <Value>../MCAL/EEPROM</Value>
+      <Value>../MCAL/EXT_INT</Value>
+      <Value>../MCAL/I2C</Value>
+      <Value>../MCAL/SLEEP</Value>
+      <Value>../MCAL/SPI</Value>
+      <Value>../MCAL/TIMER</Value>
+      <Value>../MCAL/UART</Value>
+      <Value>../MCAL/WTCHDG</Value>
+      <Value>../include</Value>
     </ListValues>
   </avrgcc.assembler.general.IncludePaths>
   <avrgcc.assembler.general.AnounceVersion>True</avrgcc.assembler.general.AnounceVersion>
@@ -203,63 +299,6 @@
     </ToolchainSettings>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="BitHelpers.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="common.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="CTRL.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="CTRL.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="CTRL_config.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="CTRL_private.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="DIO.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="DIO.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="DIO_config.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="DIO_config.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="DIO_private.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="EEPROM.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="EEPROM.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="EEPROM_config.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="EEPROM_private.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="EXT_INT.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="EXT_INT.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="EXT_INT_config.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="EXT_INT_private.h">
-      <SubType>compile</SubType>
-    </Compile>
     <Compile Include="FreeRTOS\croutine.c">
       <SubType>compile</SubType>
     </Compile>
@@ -344,76 +383,178 @@
     <Compile Include="FreeRTOS\timers.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="I2C.c">
+    <Compile Include="HAL\KEYPAD\KEYPAD.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="I2C.h">
+    <Compile Include="HAL\KEYPAD\KEYPAD.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="I2C_config.h">
+    <Compile Include="HAL\KEYPAD\KEYPAD_config.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="I2C_private.h">
+    <Compile Include="HAL\KEYPAD\KEYPAD_private.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="LCD.c">
+    <Compile Include="HAL\LCD\LCD.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="LCD.h">
+    <Compile Include="HAL\LCD\LCD.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="LCD_config.h">
+    <Compile Include="HAL\LCD\LCD_config.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="LCD_private.h">
+    <Compile Include="HAL\LCD\LCD_private.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="HAL\LED\LED.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="HAL\LED\LED.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="HAL\LED\LED_config.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="HAL\LED\LED_private.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="include\BitHelpers.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="include\common.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="include\io_extras.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="include\Std_Types.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="main.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="SPI.c">
+    <Compile Include="MCAL\CTRL\CTRL.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="SPI.h">
+    <Compile Include="MCAL\CTRL\CTRL.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="SPI_config.h">
+    <Compile Include="MCAL\CTRL\CTRL_config.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="SPI_private.h">
+    <Compile Include="MCAL\CTRL\CTRL_private.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="Std_Types.h">
+    <Compile Include="MCAL\DIO\DIO.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="TIMER.c">
+    <Compile Include="MCAL\DIO\DIO.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="TIMER.h">
+    <Compile Include="MCAL\DIO\DIO_config.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="TIMER_config.h">
+    <Compile Include="MCAL\DIO\DIO_config.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="TIMER_private.h">
+    <Compile Include="MCAL\DIO\DIO_private.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="UART.c">
+    <Compile Include="MCAL\EEPROM\EEPROM.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="UART.h">
+    <Compile Include="MCAL\EEPROM\EEPROM.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="UART_config.h">
+    <Compile Include="MCAL\EEPROM\EEPROM_config.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="UART_private.h">
+    <Compile Include="MCAL\EEPROM\EEPROM_private.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="WTCHDG.c">
+    <Compile Include="MCAL\EXT_INT\EXT_INT.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="WTCHDG.h">
+    <Compile Include="MCAL\EXT_INT\EXT_INT.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="MCAL\EXT_INT\EXT_INT_config.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="MCAL\EXT_INT\EXT_INT_private.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="MCAL\I2C\I2C.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="MCAL\I2C\I2C.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="MCAL\I2C\I2C_config.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="MCAL\I2C\I2C_private.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="MCAL\SLEEP\SLEEP.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="MCAL\SLEEP\SLEEP.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="MCAL\SLEEP\SLEEP_config.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="MCAL\SLEEP\SLEEP_private.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="MCAL\SPI\SPI.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="MCAL\SPI\SPI.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="MCAL\SPI\SPI_config.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="MCAL\SPI\SPI_private.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="MCAL\TIMER\TIMER.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="MCAL\TIMER\TIMER.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="MCAL\TIMER\TIMER_config.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="MCAL\TIMER\TIMER_private.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="MCAL\UART\UART.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="MCAL\UART\UART.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="MCAL\UART\UART_config.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="MCAL\UART\UART_private.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="MCAL\WTCHDG\WTCHDG.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="MCAL\WTCHDG\WTCHDG.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="MCAL\WTCHDG\WTCHDG_config.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="MCAL\WTCHDG\WTCHDG_private.h">
       <SubType>compile</SubType>
     </Compile>
   </ItemGroup>
@@ -424,6 +565,22 @@
     <Folder Include="FreeRTOS\portable\GCC\" />
     <Folder Include="FreeRTOS\portable\GCC\ATMega323\" />
     <Folder Include="FreeRTOS\portable\MemMang\" />
+    <Folder Include="HAL\KEYPAD" />
+    <Folder Include="HAL\LCD" />
+    <Folder Include="HAL\LED" />
+    <Folder Include="MCAL" />
+    <Folder Include="MCAL\CTRL" />
+    <Folder Include="MCAL\DIO" />
+    <Folder Include="MCAL\EEPROM" />
+    <Folder Include="MCAL\EXT_INT" />
+    <Folder Include="MCAL\I2C" />
+    <Folder Include="MCAL\WTCHDG" />
+    <Folder Include="MCAL\UART" />
+    <Folder Include="MCAL\SPI" />
+    <Folder Include="MCAL\TIMER" />
+    <Folder Include="MCAL\SLEEP" />
+    <Folder Include="HAL" />
+    <Folder Include="include" />
   </ItemGroup>
   <Import Project="$(AVRSTUDIO_EXE_PATH)\\Vs\\Compiler.targets" />
 </Project>

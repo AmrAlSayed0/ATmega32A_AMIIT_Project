@@ -218,7 +218,7 @@ typedef void (* PendedFunction_t) ( void* , uint32_t );
  * }
  * @endverbatim
  */
-#if( configSUPPORT_DYNAMIC_ALLOCATION == 1 )
+#if ( configSUPPORT_DYNAMIC_ALLOCATION == 1 )
 TimerHandle_t xTimerCreate(	const char * const pcTimerName,			/*lint !e971 Unqualified char types are allowed for strings and single characters only. */
                             const TickType_t xTimerPeriodInTicks,
                             const UBaseType_t uxAutoReload,
@@ -348,7 +348,7 @@ TimerHandle_t xTimerCreate(	const char * const pcTimerName,			/*lint !e971 Unqua
  * }
  * @endverbatim
  */
-#if( configSUPPORT_STATIC_ALLOCATION == 1 )
+#if ( configSUPPORT_STATIC_ALLOCATION == 1 )
 TimerHandle_t xTimerCreateStatic(	const char * const pcTimerName,			/*lint !e971 Unqualified char types are allowed for strings and single characters only. */
                                     const TickType_t xTimerPeriodInTicks,
                                     const UBaseType_t uxAutoReload,
@@ -1267,7 +1267,7 @@ TickType_t xTimerGetPeriod ( TimerHandle_t xTimer ) PRIVILEGED_FUNCTION;
  */
 BaseType_t xTimerCreateTimerTask ( void ) PRIVILEGED_FUNCTION;
     BaseType_t xTimerGenericCommand ( TimerHandle_t xTimer , const BaseType_t xCommandID , const TickType_t xOptionalValue , BaseType_t* const pxHigherPriorityTaskWoken , const TickType_t xTicksToWait ) PRIVILEGED_FUNCTION;
-#if( configUSE_TRACE_FACILITY == 1 )
+#if ( configUSE_TRACE_FACILITY == 1 )
 void vTimerSetTimerNumber( TimerHandle_t xTimer, UBaseType_t uxTimerNumber ) PRIVILEGED_FUNCTION;
 UBaseType_t uxTimerGetTimerNumber( TimerHandle_t xTimer ) PRIVILEGED_FUNCTION;
 #endif

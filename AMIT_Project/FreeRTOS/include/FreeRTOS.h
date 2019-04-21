@@ -24,15 +24,12 @@
  *
  * 1 tab == 4 spaces!
  */
-
 #ifndef INC_FREERTOS_H
 #define INC_FREERTOS_H
-
 /*
  * Include the generic headers required for the FreeRTOS port being used.
  */
 #include <stddef.h>
-
 /*
  * If stdint.h cannot be located then:
  *   + If using GCC ensure the -nostdint options is *not* being used.
@@ -50,21 +47,16 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
-
 /* Application specific configuration options. */
 #include "FreeRTOSConfig.h"
-
 /* Basic FreeRTOS definitions. */
 #include "projdefs.h"
-
 /* Definitions specific to the port being used. */
 #include "portable.h"
-
 /* Must be defaulted before configUSE_NEWLIB_REENTRANT is used below. */
 #ifndef configUSE_NEWLIB_REENTRANT
     #define configUSE_NEWLIB_REENTRANT 0
 #endif
-
 /* Required if struct _reent is used. */
 #if ( configUSE_NEWLIB_REENTRANT == 1 )
     #include <reent.h>
@@ -74,27 +66,26 @@ extern "C" {
  * These macros are application specific and (as downloaded) are defined
  * within FreeRTOSConfig.h.
  */
-
 #ifndef configMINIMAL_STACK_SIZE
-    #error Missing definition:  configMINIMAL_STACK_SIZE must be defined in FreeRTOSConfig.h.  configMINIMAL_STACK_SIZE defines the size (in words) of the stack allocated to the idle task.  Refer to the demo project provided for your port for a suitable value.
+    #error Missing definition : configMINIMAL_STACK_SIZE must be defined in FreeRTOSConfig.h. configMINIMAL_STACK_SIZE defines the size (in words) of the stack allocated to the idle task. Refer to the demo project provided for your port for a suitable value.
 #endif
 #ifndef configMAX_PRIORITIES
-    #error Missing definition:  configMAX_PRIORITIES must be defined in FreeRTOSConfig.h.  See the Configuration section of the FreeRTOS API documentation for details.
+    #error Missing definition : configMAX_PRIORITIES must be defined in FreeRTOSConfig.h. See the Configuration section of the FreeRTOS API documentation for details.
 #endif
 #if configMAX_PRIORITIES < 1
     #error configMAX_PRIORITIES must be defined to be greater than or equal to 1.
 #endif
 #ifndef configUSE_PREEMPTION
-    #error Missing definition:  configUSE_PREEMPTION must be defined in FreeRTOSConfig.h as either 1 or 0.  See the Configuration section of the FreeRTOS API documentation for details.
+    #error Missing definition : configUSE_PREEMPTION must be defined in FreeRTOSConfig.h as either 1 or 0. See the Configuration section of the FreeRTOS API documentation for details.
 #endif
 #ifndef configUSE_IDLE_HOOK
-    #error Missing definition:  configUSE_IDLE_HOOK must be defined in FreeRTOSConfig.h as either 1 or 0.  See the Configuration section of the FreeRTOS API documentation for details.
+    #error Missing definition : configUSE_IDLE_HOOK must be defined in FreeRTOSConfig.h as either 1 or 0. See the Configuration section of the FreeRTOS API documentation for details.
 #endif
 #ifndef configUSE_TICK_HOOK
-    #error Missing definition:  configUSE_TICK_HOOK must be defined in FreeRTOSConfig.h as either 1 or 0.  See the Configuration section of the FreeRTOS API documentation for details.
+    #error Missing definition : configUSE_TICK_HOOK must be defined in FreeRTOSConfig.h as either 1 or 0. See the Configuration section of the FreeRTOS API documentation for details.
 #endif
 #ifndef configUSE_16_BIT_TICKS
-    #error Missing definition:  configUSE_16_BIT_TICKS must be defined in FreeRTOSConfig.h as either 1 or 0.  See the Configuration section of the FreeRTOS API documentation for details.
+    #error Missing definition : configUSE_16_BIT_TICKS must be defined in FreeRTOSConfig.h as either 1 or 0. See the Configuration section of the FreeRTOS API documentation for details.
 #endif
 #ifndef configUSE_CO_ROUTINES
     #define configUSE_CO_ROUTINES 0
@@ -200,7 +191,6 @@ extern "C" {
 #else
     #define configASSERT_DEFINED 1
 #endif
-
 /* The timers module relies on xTaskGetSchedulerState(). */
 #if configUSE_TIMERS == 1
     #ifndef configTIMER_TASK_PRIORITY
@@ -239,7 +229,6 @@ extern "C" {
 #ifndef portPOINTER_SIZE_TYPE
     #define portPOINTER_SIZE_TYPE uint32_t
 #endif
-
 /* Remove any unused trace macros. */
 #ifndef traceSTART
 /* Used to perform any necessary initialisation - for example, open a file
@@ -554,17 +543,14 @@ task that attempted the write. */
     #define configGENERATE_RUN_TIME_STATS 0
 #endif
 #if ( configGENERATE_RUN_TIME_STATS == 1 )
-
     #ifndef portCONFIGURE_TIMER_FOR_RUN_TIME_STATS
-        #error If configGENERATE_RUN_TIME_STATS is defined then portCONFIGURE_TIMER_FOR_RUN_TIME_STATS must also be defined.  portCONFIGURE_TIMER_FOR_RUN_TIME_STATS should call a port layer function to setup a peripheral timer/counter that can then be used as the run time counter time base.
+        #error If configGENERATE_RUN_TIME_STATS is defined then portCONFIGURE_TIMER_FOR_RUN_TIME_STATS must also be defined. portCONFIGURE_TIMER_FOR_RUN_TIME_STATS should call a port layer function to setup a peripheral timer/counter that can then be used as the run time counter time base.
     #endif /* portCONFIGURE_TIMER_FOR_RUN_TIME_STATS */
-
     #ifndef portGET_RUN_TIME_COUNTER_VALUE
         #ifndef portALT_GET_RUN_TIME_COUNTER_VALUE
-            #error If configGENERATE_RUN_TIME_STATS is defined then either portGET_RUN_TIME_COUNTER_VALUE or portALT_GET_RUN_TIME_COUNTER_VALUE must also be defined.  See the examples provided and the FreeRTOS web site for more information.
+            #error If configGENERATE_RUN_TIME_STATS is defined then either portGET_RUN_TIME_COUNTER_VALUE or portALT_GET_RUN_TIME_COUNTER_VALUE must also be defined. See the examples provided and the FreeRTOS web site for more information.
         #endif /* portALT_GET_RUN_TIME_COUNTER_VALUE */
     #endif /* portGET_RUN_TIME_COUNTER_VALUE */
-
 #endif /* configGENERATE_RUN_TIME_STATS */
 #ifndef portCONFIGURE_TIMER_FOR_RUN_TIME_STATS
     #define portCONFIGURE_TIMER_FOR_RUN_TIME_STATS()
@@ -666,23 +652,22 @@ in FreeRTOSConfig.h if lengths will always be less than the number of bytes
 in a size_t. */
     #define configMESSAGE_BUFFER_LENGTH_TYPE size_t
 #endif
-
 /* Sanity check the configuration. */
-#if( configUSE_TICKLESS_IDLE != 0 )
-    #if( INCLUDE_vTaskSuspend != 1 )
+#if ( configUSE_TICKLESS_IDLE != 0 )
+    #if ( INCLUDE_vTaskSuspend != 1 )
         #error INCLUDE_vTaskSuspend must be set to 1 if configUSE_TICKLESS_IDLE is not set to 0
     #endif /* INCLUDE_vTaskSuspend */
 #endif /* configUSE_TICKLESS_IDLE */
-#if( ( configSUPPORT_STATIC_ALLOCATION == 0 ) && ( configSUPPORT_DYNAMIC_ALLOCATION == 0 ) )
+#if ( ( configSUPPORT_STATIC_ALLOCATION == 0 ) && ( configSUPPORT_DYNAMIC_ALLOCATION == 0 ) )
     #error configSUPPORT_STATIC_ALLOCATION and configSUPPORT_DYNAMIC_ALLOCATION cannot both be 0, but can both be 1.
 #endif
-#if( ( configUSE_RECURSIVE_MUTEXES == 1 ) && ( configUSE_MUTEXES != 1 ) )
+#if ( ( configUSE_RECURSIVE_MUTEXES == 1 ) && ( configUSE_MUTEXES != 1 ) )
     #error configUSE_MUTEXES must be set to 1 to use recursive mutexes
 #endif
 #ifndef configINITIAL_TICK_COUNT
     #define configINITIAL_TICK_COUNT 0
 #endif
-#if( portTICK_TYPE_IS_ATOMIC == 0 )
+#if ( portTICK_TYPE_IS_ATOMIC == 0 )
 /* Either variables of tick type cannot be read atomically, or
 portTICK_TYPE_IS_ATOMIC was not set - map the critical sections used when
 the tick count is returned to the standard critical section macros. */
@@ -698,7 +683,6 @@ tick count is returned can be defined away. */
     #define portTICK_TYPE_SET_INTERRUPT_MASK_FROM_ISR() 0
     #define portTICK_TYPE_CLEAR_INTERRUPT_MASK_FROM_ISR( x ) ( void ) x
 #endif
-
 /* Definitions to allow backward compatibility with FreeRTOS versions prior to
 V8 if desired. */
 #ifndef configENABLE_BACKWARD_COMPATIBILITY
@@ -708,10 +692,8 @@ V8 if desired. */
 /* configPRINTF() was not defined, so define it away to nothing.  To use
 configPRINTF() then define it as follows (where MyPrintFunction() is
 provided by the application writer):
-
 void MyPrintFunction(const char *pcFormat, ... );
 #define configPRINTF( X )   MyPrintFunction X
-
 Then call like a standard printf() function, but placing brackets around
 all parameters so they are passed as a single parameter.  For example:
 configPRINTF( ("Value = %d", MyVariable) ); */
@@ -747,22 +729,19 @@ the following generic implementation. */
     #define pcTimerGetTimerName pcTimerGetName
     #define pcQueueGetQueueName pcQueueGetName
     #define vTaskGetTaskInfo vTaskGetInfo
-
-    /* Backward compatibility within the scheduler code only - these definitions
-    are not really required but are included for completeness. */
+/* Backward compatibility within the scheduler code only - these definitions
+are not really required but are included for completeness. */
     #define tmrTIMER_CALLBACK TimerCallbackFunction_t
     #define pdTASK_CODE TaskFunction_t
     #define xListItem ListItem_t
     #define xList List_t
-
-    /* For libraries that break the list data hiding, and access list structure
-    members directly (which is not supposed to be done). */
+/* For libraries that break the list data hiding, and access list structure
+members directly (which is not supposed to be done). */
     #define pxContainer pvContainer
 #endif /* configENABLE_BACKWARD_COMPATIBILITY */
-#if( configUSE_ALTERNATIVE_API != 0 )
+#if ( configUSE_ALTERNATIVE_API != 0 )
     #error The alternative API was deprecated some time ago, and was removed in FreeRTOS V9.0 0
 #endif
-
 /* Set configUSE_TASK_FPU_SUPPORT to 0 to omit floating point support even
 if floating point hardware is otherwise supported by the FreeRTOS port in use.
 This constant is not supported by all FreeRTOS ports that include floating
@@ -770,31 +749,26 @@ point support. */
 #ifndef configUSE_TASK_FPU_SUPPORT
     #define configUSE_TASK_FPU_SUPPORT 1
 #endif
-
 /* Set configENABLE_MPU to 1 to enable MPU support and 0 to disable it. This is
 currently used in ARMv8M ports. */
 #ifndef configENABLE_MPU
     #define configENABLE_MPU 0
 #endif
-
 /* Set configENABLE_FPU to 1 to enable FPU support and 0 to disable it. This is
 currently used in ARMv8M ports. */
 #ifndef configENABLE_FPU
     #define configENABLE_FPU 1
 #endif
-
 /* Set configENABLE_TRUSTZONE to 1 enable TrustZone support and 0 to disable it.
 This is currently used in ARMv8M ports. */
 #ifndef configENABLE_TRUSTZONE
     #define configENABLE_TRUSTZONE 1
 #endif
-
 /* Set configRUN_FREERTOS_SECURE_ONLY to 1 to run the FreeRTOS ARMv8M port on
 the Secure Side only. */
 #ifndef configRUN_FREERTOS_SECURE_ONLY
     #define configRUN_FREERTOS_SECURE_ONLY 0
 #endif
-
 /* Sometimes the FreeRTOSConfig.h settings only allow a task to be created using
  * dynamically allocated RAM, in which case when any task is deleted it is known
  * that both the task's stack and TCB need to be freed.  Sometimes the
@@ -837,8 +811,7 @@ the Secure Side only. */
  * |     |         |        | xTaskCreateRestrictedStatic |                                   |                  |           |
  * +-----+---------+--------+-----------------------------+-----------------------------------+------------------+-----------+
  */
-#define tskSTATIC_AND_DYNAMIC_ALLOCATION_POSSIBLE    ( ( ( portUSING_MPU_WRAPPERS == 0 ) && ( configSUPPORT_DYNAMIC_ALLOCATION == 1 ) && ( configSUPPORT_STATIC_ALLOCATION == 1 ) ) || \
-                                                      ( ( portUSING_MPU_WRAPPERS == 1 ) && ( configSUPPORT_DYNAMIC_ALLOCATION == 1 ) ) )
+#define tskSTATIC_AND_DYNAMIC_ALLOCATION_POSSIBLE    ( ( ( portUSING_MPU_WRAPPERS == 0 ) && ( configSUPPORT_DYNAMIC_ALLOCATION == 1 ) && ( configSUPPORT_STATIC_ALLOCATION == 1 ) ) || ( ( portUSING_MPU_WRAPPERS == 1 ) && ( configSUPPORT_DYNAMIC_ALLOCATION == 1 ) ) )
 /*
  * In line with software engineering best practice, FreeRTOS implements a strict
  * data hiding policy, so the real structures used by FreeRTOS to maintain the
@@ -851,37 +824,37 @@ the Secure Side only. */
  */
 struct xSTATIC_LIST_ITEM
 {
-    #if( configUSE_LIST_DATA_INTEGRITY_CHECK_BYTES == 1 )
-    TickType_t xDummy1;
+    #if ( configUSE_LIST_DATA_INTEGRITY_CHECK_BYTES == 1 )
+    TickType_t  xDummy1;
     #endif
-    TickType_t xDummy2;
-    void* pvDummy3[4];
-    #if( configUSE_LIST_DATA_INTEGRITY_CHECK_BYTES == 1 )
-    TickType_t xDummy4;
+    TickType_t  xDummy2;
+    void*       pvDummy3[4];
+    #if ( configUSE_LIST_DATA_INTEGRITY_CHECK_BYTES == 1 )
+    TickType_t  xDummy4;
     #endif
 };
 typedef struct xSTATIC_LIST_ITEM StaticListItem_t;
 /* See the comments above the struct xSTATIC_LIST_ITEM definition. */
 struct xSTATIC_MINI_LIST_ITEM
 {
-    #if( configUSE_LIST_DATA_INTEGRITY_CHECK_BYTES == 1 )
-    TickType_t xDummy1;
+    #if ( configUSE_LIST_DATA_INTEGRITY_CHECK_BYTES == 1 )
+    TickType_t  xDummy1;
     #endif
-    TickType_t xDummy2;
-    void* pvDummy3[2];
+    TickType_t  xDummy2;
+    void*       pvDummy3[2];
 };
 typedef struct xSTATIC_MINI_LIST_ITEM StaticMiniListItem_t;
 /* See the comments above the struct xSTATIC_LIST_ITEM definition. */
 typedef struct xSTATIC_LIST
 {
-    #if( configUSE_LIST_DATA_INTEGRITY_CHECK_BYTES == 1 )
-    TickType_t xDummy1;
+    #if ( configUSE_LIST_DATA_INTEGRITY_CHECK_BYTES == 1 )
+    TickType_t              xDummy1;
     #endif
-    UBaseType_t uxDummy2;
-    void* pvDummy3;
-    StaticMiniListItem_t xDummy4;
-    #if( configUSE_LIST_DATA_INTEGRITY_CHECK_BYTES == 1 )
-    TickType_t xDummy5;
+    UBaseType_t             uxDummy2;
+    void*                   pvDummy3;
+    StaticMiniListItem_t    xDummy4;
+    #if ( configUSE_LIST_DATA_INTEGRITY_CHECK_BYTES == 1 )
+    TickType_t              xDummy5;
     #endif
 } StaticList_t;
 /*
@@ -901,48 +874,48 @@ typedef struct xSTATIC_TCB
 {
     void* pxDummy1;
     #if ( portUSING_MPU_WRAPPERS == 1 )
-    xMPU_SETTINGS xDummy2;
+    xMPU_SETTINGS       xDummy2;
     #endif
-    StaticListItem_t xDummy3[2];
-    UBaseType_t uxDummy5;
-    void* pxDummy6;
-    uint8_t ucDummy7[configMAX_TASK_NAME_LEN];
+    StaticListItem_t    xDummy3[2];
+    UBaseType_t         uxDummy5;
+    void*               pxDummy6;
+    uint8_t             ucDummy7[configMAX_TASK_NAME_LEN];
     #if ( ( portSTACK_GROWTH > 0 ) || ( configRECORD_STACK_HIGH_ADDRESS == 1 ) )
-    void* pxDummy8;
+    void*               pxDummy8;
     #endif
     #if ( portCRITICAL_NESTING_IN_TCB == 1 )
-    UBaseType_t uxDummy9;
+    UBaseType_t         uxDummy9;
     #endif
     #if ( configUSE_TRACE_FACILITY == 1 )
-    UBaseType_t uxDummy10[2];
+    UBaseType_t         uxDummy10[2];
     #endif
     #if ( configUSE_MUTEXES == 1 )
-    UBaseType_t uxDummy12[2];
+    UBaseType_t         uxDummy12[2];
     #endif
     #if ( configUSE_APPLICATION_TASK_TAG == 1 )
-    void* pxDummy14;
+    void*               pxDummy14;
     #endif
-    #if( configNUM_THREAD_LOCAL_STORAGE_POINTERS > 0 )
-    void* pvDummy15[ configNUM_THREAD_LOCAL_STORAGE_POINTERS ];
+    #if ( configNUM_THREAD_LOCAL_STORAGE_POINTERS > 0 )
+    void*               pvDummy15[ configNUM_THREAD_LOCAL_STORAGE_POINTERS ];
     #endif
     #if ( configGENERATE_RUN_TIME_STATS == 1 )
-    uint32_t ulDummy16;
+    uint32_t            ulDummy16;
     #endif
     #if ( configUSE_NEWLIB_REENTRANT == 1 )
-    struct _reent xDummy17;
+    struct _reent       xDummy17;
     #endif
     #if ( configUSE_TASK_NOTIFICATIONS == 1 )
-    uint32_t ulDummy18;
-    uint8_t ucDummy19;
+    uint32_t            ulDummy18;
+    uint8_t             ucDummy19;
     #endif
     #if ( tskSTATIC_AND_DYNAMIC_ALLOCATION_POSSIBLE != 0 )
-    uint8_t uxDummy20;
+    uint8_t             uxDummy20;
     #endif
-    #if( INCLUDE_xTaskAbortDelay == 1 )
-    uint8_t ucDummy21;
+    #if ( INCLUDE_xTaskAbortDelay == 1 )
+    uint8_t             ucDummy21;
     #endif
     #if ( configUSE_POSIX_ERRNO == 1 )
-    int iDummy22;
+    int                 iDummy22;
     #endif
 } StaticTask_t;
 /*
@@ -961,24 +934,24 @@ typedef struct xSTATIC_TCB
  */
 typedef struct xSTATIC_QUEUE
 {
-    void* pvDummy1[3];
+    void*       pvDummy1[3];
     union
     {
-        void* pvDummy2;
+        void*       pvDummy2;
         UBaseType_t uxDummy2;
-    } u;
-    StaticList_t xDummy3[2];
-    UBaseType_t uxDummy4[3];
-    uint8_t ucDummy5[2];
-    #if( ( configSUPPORT_STATIC_ALLOCATION == 1 ) && ( configSUPPORT_DYNAMIC_ALLOCATION == 1 ) )
-    uint8_t ucDummy6;
+    }               u;
+    StaticList_t    xDummy3[2];
+    UBaseType_t     uxDummy4[3];
+    uint8_t         ucDummy5[2];
+    #if ( ( configSUPPORT_STATIC_ALLOCATION == 1 ) && ( configSUPPORT_DYNAMIC_ALLOCATION == 1 ) )
+    uint8_t         ucDummy6;
     #endif
     #if ( configUSE_QUEUE_SETS == 1 )
-    void *pvDummy7;
+    void*           pvDummy7;
     #endif
     #if ( configUSE_TRACE_FACILITY == 1 )
-    UBaseType_t uxDummy8;
-    uint8_t ucDummy9;
+    UBaseType_t     uxDummy8;
+    uint8_t         ucDummy9;
     #endif
 } StaticQueue_t;
 typedef StaticQueue_t StaticSemaphore_t;
@@ -998,13 +971,13 @@ typedef StaticQueue_t StaticSemaphore_t;
  */
 typedef struct xSTATIC_EVENT_GROUP
 {
-    TickType_t xDummy1;
-    StaticList_t xDummy2;
-    #if( configUSE_TRACE_FACILITY == 1 )
-    UBaseType_t uxDummy3;
+    TickType_t      xDummy1;
+    StaticList_t    xDummy2;
+    #if ( configUSE_TRACE_FACILITY == 1 )
+    UBaseType_t     uxDummy3;
     #endif
-    #if( ( configSUPPORT_STATIC_ALLOCATION == 1 ) && ( configSUPPORT_DYNAMIC_ALLOCATION == 1 ) )
-    uint8_t ucDummy4;
+    #if ( ( configSUPPORT_STATIC_ALLOCATION == 1 ) && ( configSUPPORT_DYNAMIC_ALLOCATION == 1 ) )
+    uint8_t         ucDummy4;
     #endif
 } StaticEventGroup_t;
 /*
@@ -1024,14 +997,14 @@ typedef struct xSTATIC_EVENT_GROUP
 typedef struct xSTATIC_TIMER
 {
     void* pvDummy1;
-    StaticListItem_t xDummy2;
-    TickType_t xDummy3;
-    void* pvDummy5;
-    TaskFunction_t pvDummy6;
-    #if( configUSE_TRACE_FACILITY == 1 )
-    UBaseType_t uxDummy7;
+    StaticListItem_t    xDummy2;
+    TickType_t          xDummy3;
+    void*               pvDummy5;
+    TaskFunction_t      pvDummy6;
+    #if ( configUSE_TRACE_FACILITY == 1 )
+    UBaseType_t         uxDummy7;
     #endif
-    uint8_t ucDummy8;
+    uint8_t             ucDummy8;
 } StaticTimer_t;
 /*
 * In line with software engineering best practice, especially when supplying a
@@ -1049,9 +1022,9 @@ typedef struct xSTATIC_TIMER
 */
 typedef struct xSTATIC_STREAM_BUFFER
 {
-    size_t uxDummy1[4];
-    void* pvDummy2[3];
-    uint8_t ucDummy3;
+    size_t      uxDummy1[4];
+    void*       pvDummy2[3];
+    uint8_t     ucDummy3;
     #if ( configUSE_TRACE_FACILITY == 1 )
     UBaseType_t uxDummy4;
     #endif

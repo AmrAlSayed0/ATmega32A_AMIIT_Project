@@ -1,5 +1,5 @@
 #include <avr/sleep.h>
-#include "BitHelpers.h"
+#include "bit_helpers.h"
 #include "SLEEP_private.h"
 #include "SLEEP_config.h"
 #include "SLEEP.h"

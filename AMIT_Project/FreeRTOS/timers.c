@@ -75,7 +75,7 @@ typedef struct tmrTimerControl /* The old naming convention is used to prevent b
     TickType_t              xTimerPeriodInTicks;/*<< How quickly and often the timer expires. */
     void*                   pvTimerID;          /*<< An ID to identify the timer.  This allows the timer to be identified when the same callback is used for multiple timers. */
     TimerCallbackFunction_t pxCallbackFunction; /*<< The function that will be called when the timer expires. */
-#if( configUSE_TRACE_FACILITY == 1 )
+#if ( configUSE_TRACE_FACILITY == 1 )
     UBaseType_t             uxTimerNumber;      /*<< An ID assigned by trace tools such as FreeRTOS+Trace */
 #endif
     uint8_t                 ucStatus;           /*<< Holds bits to say if the timer was statically allocated or not, and if it is active or not. */
@@ -143,7 +143,7 @@ PRIVILEGED_DATA static TaskHandle_t xTimerTaskHandle = NULL;
 
 /*-----------------------------------------------------------*/
 
-#if( configSUPPORT_STATIC_ALLOCATION == 1 )
+#if ( configSUPPORT_STATIC_ALLOCATION == 1 )
 
     /* If static allocation is supported then the application must provide the
     following callback function - which enables the application to optionally
@@ -234,7 +234,7 @@ BaseType_t xReturn = pdFAIL;
 
     if( xTimerQueue != NULL )
     {
-    #if( configSUPPORT_STATIC_ALLOCATION == 1 )
+    #if ( configSUPPORT_STATIC_ALLOCATION == 1 )
         {
             StaticTask_t *pxTimerTaskTCBBuffer = NULL;
             StackType_t *pxTimerTaskStackBuffer = NULL;
@@ -275,7 +275,7 @@ BaseType_t xReturn = pdFAIL;
 }
 /*-----------------------------------------------------------*/
 
-#if( configSUPPORT_DYNAMIC_ALLOCATION == 1 )
+#if ( configSUPPORT_DYNAMIC_ALLOCATION == 1 )
 
     TimerHandle_t xTimerCreate(	const char * const pcTimerName,			/*lint !e971 Unqualified char types are allowed for strings and single characters only. */
                                 const TickType_t xTimerPeriodInTicks,
@@ -302,7 +302,7 @@ BaseType_t xReturn = pdFAIL;
 #endif /* configSUPPORT_DYNAMIC_ALLOCATION */
 /*-----------------------------------------------------------*/
 
-#if( configSUPPORT_STATIC_ALLOCATION == 1 )
+#if ( configSUPPORT_STATIC_ALLOCATION == 1 )
 
     TimerHandle_t xTimerCreateStatic(	const char * const pcTimerName,		/*lint !e971 Unqualified char types are allowed for strings and single characters only. */
                                         const TickType_t xTimerPeriodInTicks,
@@ -313,7 +313,7 @@ BaseType_t xReturn = pdFAIL;
     {
     Timer_t *pxNewTimer;
 
-    #if( configASSERT_DEFINED == 1 )
+    #if ( configASSERT_DEFINED == 1 )
         {
             /* Sanity check that the size of the structure used to declare a
             variable of type StaticTimer_t equals the size of the real timer
@@ -526,7 +526,7 @@ BaseType_t xListWasEmpty;
     /* Just to avoid compiler warnings. */
     ( void ) pvParameters;
 
-    #if( configUSE_DAEMON_TASK_STARTUP_HOOK == 1 )
+    #if ( configUSE_DAEMON_TASK_STARTUP_HOOK == 1 )
     {
         extern void vApplicationDaemonTaskStartupHook( void );
 
@@ -925,7 +925,7 @@ static void prvCheckForValidListAndQueue( void )
             pxCurrentTimerList = &xActiveTimerList1;
             pxOverflowTimerList = &xActiveTimerList2;
 
-    #if( configSUPPORT_STATIC_ALLOCATION == 1 )
+    #if ( configSUPPORT_STATIC_ALLOCATION == 1 )
             {
                 /* The timer queue is allocated statically in case
                 configSUPPORT_DYNAMIC_ALLOCATION is 0. */
@@ -1018,7 +1018,7 @@ Timer_t * const pxTimer = xTimer;
 }
 /*-----------------------------------------------------------*/
 
-#if( INCLUDE_xTimerPendFunctionCall == 1 )
+#if ( INCLUDE_xTimerPendFunctionCall == 1 )
 
     BaseType_t xTimerPendFunctionCallFromISR( PendedFunction_t xFunctionToPend, void *pvParameter1, uint32_t ulParameter2, BaseType_t *pxHigherPriorityTaskWoken )
     {
@@ -1042,7 +1042,7 @@ Timer_t * const pxTimer = xTimer;
 #endif /* INCLUDE_xTimerPendFunctionCall */
 /*-----------------------------------------------------------*/
 
-#if( INCLUDE_xTimerPendFunctionCall == 1 )
+#if ( INCLUDE_xTimerPendFunctionCall == 1 )
 
     BaseType_t xTimerPendFunctionCall( PendedFunction_t xFunctionToPend, void *pvParameter1, uint32_t ulParameter2, TickType_t xTicksToWait )
     {

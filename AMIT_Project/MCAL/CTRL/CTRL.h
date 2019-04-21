@@ -1,6 +1,6 @@
 #ifndef AMIT_PROJECT_CTRL_H_
 #define AMIT_PROJECT_CTRL_H_
-#include "Std_Types.h"
+#include "std_types.h"
 #include "common.h"
 typedef enum _STATUS_FLAG_t
 {

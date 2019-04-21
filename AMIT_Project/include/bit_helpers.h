@@ -15,4 +15,6 @@
 #define TOGGLE_BITS( Byte , Mask ) ( ( Byte ) ^= ( Mask ) )
 #define REPLACE_BIT( Byte , BitNum , BitState ) ( ( Byte ) &= ( ~ BIT_MASK ( BitNum ) ) | ( ( ! ( ! ( BitState ) ) ) << ( BitNum ) ) )
 #define REPLACE_BITS( Byte , NewValue , Mask ) ( ( Byte ) = ( ( ( Byte ) & ~ ( Mask ) ) | ( ( NewValue ) & ( Mask ) ) ) )
+#define MIN( x , y ) ( ( x ) < ( y ) ? ( x ) : ( y ) )
+#define MAX( x , y ) ( ( x ) > ( y ) ? ( x ) : ( y ) )
 #endif

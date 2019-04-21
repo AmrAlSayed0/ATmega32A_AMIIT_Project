@@ -55,7 +55,7 @@ definition here is not suitable for your application. */
 #ifndef configUSE_LIST_DATA_INTEGRITY_CHECK_BYTES
     #define configUSE_LIST_DATA_INTEGRITY_CHECK_BYTES 0
 #endif
-#if( configUSE_16_BIT_TICKS == 1 )
+#if ( configUSE_16_BIT_TICKS == 1 )
     #define pdINTEGRITY_CHECK_VALUE 0x5a5a
 #else
     #define pdINTEGRITY_CHECK_VALUE 0x5a5a5a5aUL

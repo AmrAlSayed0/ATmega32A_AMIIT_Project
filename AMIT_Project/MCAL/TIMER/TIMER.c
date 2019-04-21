@@ -1,6 +1,6 @@
 #include <avr/interrupt.h>
 #include <math.h>
-#include "BitHelpers.h"
+#include "bit_helpers.h"
 #include "TIMER_private.h"
 #include "TIMER_config.h"
 #include "TIMER.h"

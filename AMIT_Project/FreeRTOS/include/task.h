@@ -314,7 +314,7 @@ is used in assert() statements. */
  * \defgroup xTaskCreate xTaskCreate
  * \ingroup Tasks
  */
-#if( configSUPPORT_DYNAMIC_ALLOCATION == 1 )
+#if ( configSUPPORT_DYNAMIC_ALLOCATION == 1 )
 BaseType_t xTaskCreate(	TaskFunction_t pxTaskCode,
                         const char * const pcName,	/*lint !e971 Unqualified char types are allowed for strings and single characters only. */
                         const configSTACK_DEPTH_TYPE usStackDepth,
@@ -430,7 +430,7 @@ BaseType_t xTaskCreate(	TaskFunction_t pxTaskCode,
  * \defgroup xTaskCreateStatic xTaskCreateStatic
  * \ingroup Tasks
  */
-#if( configSUPPORT_STATIC_ALLOCATION == 1 )
+#if ( configSUPPORT_STATIC_ALLOCATION == 1 )
 TaskHandle_t xTaskCreateStatic(	TaskFunction_t pxTaskCode,
                                 const char * const pcName, /*lint !e971 Unqualified char types are allowed for strings and single characters only. */
                                 const uint32_t ulStackDepth,
@@ -512,7 +512,7 @@ TaskHandle_t xHandle;
  * \defgroup xTaskCreateRestricted xTaskCreateRestricted
  * \ingroup Tasks
  */
-#if( portUSING_MPU_WRAPPERS == 1 )
+#if ( portUSING_MPU_WRAPPERS == 1 )
 BaseType_t xTaskCreateRestricted( const TaskParameters_t * const pxTaskDefinition, TaskHandle_t *pxCreatedTask ) PRIVILEGED_FUNCTION;
 #endif
 
@@ -600,7 +600,7 @@ TaskHandle_t xHandle;
  * \defgroup xTaskCreateRestrictedStatic xTaskCreateRestrictedStatic
  * \ingroup Tasks
  */
-#if( ( portUSING_MPU_WRAPPERS == 1 ) && ( configSUPPORT_STATIC_ALLOCATION == 1 ) )
+#if ( ( portUSING_MPU_WRAPPERS == 1 ) && ( configSUPPORT_STATIC_ALLOCATION == 1 ) )
 BaseType_t xTaskCreateRestrictedStatic( const TaskParameters_t * const pxTaskDefinition, TaskHandle_t *pxCreatedTask ) PRIVILEGED_FUNCTION;
 #endif
 /**
@@ -1470,7 +1470,7 @@ TaskHookFunction_t xTaskGetApplicationTaskTag( TaskHandle_t xTask ) PRIVILEGED_F
 TaskHookFunction_t xTaskGetApplicationTaskTagFromISR( TaskHandle_t xTask ) PRIVILEGED_FUNCTION;
     #endif /* configUSE_APPLICATION_TASK_TAG ==1 */
 #endif /* ifdef configUSE_APPLICATION_TASK_TAG */
-#if( configNUM_THREAD_LOCAL_STORAGE_POINTERS > 0 )
+#if ( configNUM_THREAD_LOCAL_STORAGE_POINTERS > 0 )
 
 /* Each task contains an array of pointers that is dimensioned by the
 configNUM_THREAD_LOCAL_STORAGE_POINTERS setting in FreeRTOSConfig.h.  The

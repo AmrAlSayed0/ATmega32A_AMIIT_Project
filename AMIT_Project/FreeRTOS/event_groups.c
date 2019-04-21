@@ -65,11 +65,11 @@ typedef struct EventGroupDef_t
 	EventBits_t uxEventBits;
 	List_t xTasksWaitingForBits;		/*< List of tasks waiting for a bit to be set. */
 
-	#if( configUSE_TRACE_FACILITY == 1 )
+	#if ( configUSE_TRACE_FACILITY == 1 )
 		UBaseType_t uxEventGroupNumber;
 	#endif
 
-	#if( ( configSUPPORT_STATIC_ALLOCATION == 1 ) && ( configSUPPORT_DYNAMIC_ALLOCATION == 1 ) )
+	#if ( ( configSUPPORT_STATIC_ALLOCATION == 1 ) && ( configSUPPORT_DYNAMIC_ALLOCATION == 1 ) )
 		uint8_t ucStaticallyAllocated; /*< Set to pdTRUE if the event group is statically allocated to ensure no attempt is made to free the memory. */
 	#endif
 } EventGroup_t;
@@ -88,7 +88,7 @@ static BaseType_t prvTestWaitCondition( const EventBits_t uxCurrentEventBits, co
 
 /*-----------------------------------------------------------*/
 
-#if( configSUPPORT_STATIC_ALLOCATION == 1 )
+#if ( configSUPPORT_STATIC_ALLOCATION == 1 )
 
 	EventGroupHandle_t xEventGroupCreateStatic( StaticEventGroup_t *pxEventGroupBuffer )
 	{
@@ -97,7 +97,7 @@ static BaseType_t prvTestWaitCondition( const EventBits_t uxCurrentEventBits, co
 		/* A StaticEventGroup_t object must be provided. */
 		configASSERT( pxEventGroupBuffer );
 
-		#if( configASSERT_DEFINED == 1 )
+		#if ( configASSERT_DEFINED == 1 )
 		{
 			/* Sanity check that the size of the structure used to declare a
 			variable of type StaticEventGroup_t equals the size of the real
@@ -115,7 +115,7 @@ static BaseType_t prvTestWaitCondition( const EventBits_t uxCurrentEventBits, co
 			pxEventBits->uxEventBits = 0;
 			vListInitialise( &( pxEventBits->xTasksWaitingForBits ) );
 
-			#if( configSUPPORT_DYNAMIC_ALLOCATION == 1 )
+			#if ( configSUPPORT_DYNAMIC_ALLOCATION == 1 )
 			{
 				/* Both static and dynamic allocation can be used, so note that
 				this event group was created statically in case the event group
@@ -140,7 +140,7 @@ static BaseType_t prvTestWaitCondition( const EventBits_t uxCurrentEventBits, co
 #endif /* configSUPPORT_STATIC_ALLOCATION */
 /*-----------------------------------------------------------*/
 
-#if( configSUPPORT_DYNAMIC_ALLOCATION == 1 )
+#if ( configSUPPORT_DYNAMIC_ALLOCATION == 1 )
 
 	EventGroupHandle_t xEventGroupCreate( void )
 	{
@@ -166,7 +166,7 @@ static BaseType_t prvTestWaitCondition( const EventBits_t uxCurrentEventBits, co
 			pxEventBits->uxEventBits = 0;
 			vListInitialise( &( pxEventBits->xTasksWaitingForBits ) );
 
-			#if( configSUPPORT_STATIC_ALLOCATION == 1 )
+			#if ( configSUPPORT_STATIC_ALLOCATION == 1 )
 			{
 				/* Both static and dynamic allocation can be used, so note this
 				event group was allocated statically in case the event group is
@@ -627,7 +627,7 @@ const List_t *pxTasksWaitingForBits = &( pxEventBits->xTasksWaitingForBits );
 			vTaskRemoveFromUnorderedEventList( pxTasksWaitingForBits->xListEnd.pxNext, eventUNBLOCKED_DUE_TO_BIT_SET );
 		}
 
-		#if( ( configSUPPORT_DYNAMIC_ALLOCATION == 1 ) && ( configSUPPORT_STATIC_ALLOCATION == 0 ) )
+		#if ( ( configSUPPORT_DYNAMIC_ALLOCATION == 1 ) && ( configSUPPORT_STATIC_ALLOCATION == 0 ) )
 		{
 			/* The event group can only have been allocated dynamically - free
 			it again. */

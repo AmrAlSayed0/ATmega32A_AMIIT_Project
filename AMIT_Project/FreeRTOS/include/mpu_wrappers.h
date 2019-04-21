@@ -111,7 +111,7 @@ those files. */
         #define xQueueSelectFromSet						MPU_xQueueSelectFromSet
         #define xQueueGenericReset						MPU_xQueueGenericReset
 
-        #if( configQUEUE_REGISTRY_SIZE > 0 )
+        #if ( configQUEUE_REGISTRY_SIZE > 0 )
             #define vQueueAddToRegistry						MPU_vQueueAddToRegistry
             #define vQueueUnregisterQueue					MPU_vQueueUnregisterQueue
             #define pcQueueGetName							MPU_pcQueueGetName

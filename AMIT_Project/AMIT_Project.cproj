@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="14.0">
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build" ToolsVersion="14.0">
   <PropertyGroup>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectVersion>7.0</ProjectVersion>
@@ -60,242 +60,252 @@
     <avrdeviceexpectedsignature>0x1E9502</avrdeviceexpectedsignature>
     <com_atmel_avrdbg_tool_simulator>
       <ToolOptions xmlns="">
-        <InterfaceProperties>
-        </InterfaceProperties>
+        <InterfaceProperties />
       </ToolOptions>
       <ToolType xmlns="">com.atmel.avrdbg.tool.simulator</ToolType>
-      <ToolNumber xmlns="">
-      </ToolNumber>
+      <ToolNumber xmlns="" />
       <ToolName xmlns="">Simulator</ToolName>
     </com_atmel_avrdbg_tool_simulator>
+    <UseGdb>False</UseGdb>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
     <ToolchainSettings>
       <AvrGcc>
-  <avrgcc.common.Device>-mmcu=atmega32a -B "%24(PackRepoDir)\Atmel\ATmega_DFP\1.3.300\gcc\dev\atmega32a"</avrgcc.common.Device>
-  <avrgcc.common.outputfiles.hex>True</avrgcc.common.outputfiles.hex>
-  <avrgcc.common.outputfiles.lss>True</avrgcc.common.outputfiles.lss>
-  <avrgcc.common.outputfiles.eep>True</avrgcc.common.outputfiles.eep>
-  <avrgcc.common.outputfiles.srec>True</avrgcc.common.outputfiles.srec>
-  <avrgcc.common.outputfiles.usersignatures>True</avrgcc.common.outputfiles.usersignatures>
-  <avrgcc.compiler.general.ChangeDefaultCharTypeUnsigned>True</avrgcc.compiler.general.ChangeDefaultCharTypeUnsigned>
-  <avrgcc.compiler.general.ChangeDefaultBitFieldUnsigned>True</avrgcc.compiler.general.ChangeDefaultBitFieldUnsigned>
-  <avrgcc.compiler.symbols.DefSymbols>
-    <ListValues>
-      <Value>F_CPU=16000000ULL</Value>
-      <Value>NDEBUG</Value>
-    </ListValues>
-  </avrgcc.compiler.symbols.DefSymbols>
-  <avrgcc.compiler.directories.IncludePaths>
-    <ListValues>
-      <Value>%24(PackRepoDir)\Atmel\ATmega_DFP\1.3.300\include</Value>
-      <Value>../FreeRTOS</Value>
-      <Value>../FreeRTOS/include</Value>
-      <Value>../FreeRTOS/portable/GCC</Value>
-      <Value>../FreeRTOS/portable/GCC/ATMega323</Value>
-      <Value>../FreeRTOS/portable/MemMang</Value>
-      <Value>../HAL</Value>
-      <Value>../HAL/KEYPAD</Value>
-      <Value>../HAL/LCD</Value>
-      <Value>../HAL/LED</Value>
-      <Value>../MCAL</Value>
-      <Value>../MCAL/CTRL</Value>
-      <Value>../MCAL/DIO</Value>
-      <Value>../MCAL/EEPROM</Value>
-      <Value>../MCAL/EXT_INT</Value>
-      <Value>../MCAL/I2C</Value>
-      <Value>../MCAL/SLEEP</Value>
-      <Value>../MCAL/SPI</Value>
-      <Value>../MCAL/TIMER</Value>
-      <Value>../MCAL/UART</Value>
-      <Value>../MCAL/WTCHDG</Value>
-      <Value>../include</Value>
-    </ListValues>
-  </avrgcc.compiler.directories.IncludePaths>
-  <avrgcc.compiler.optimization.level>Optimize for size (-Os)</avrgcc.compiler.optimization.level>
-  <avrgcc.compiler.optimization.PackStructureMembers>True</avrgcc.compiler.optimization.PackStructureMembers>
-  <avrgcc.compiler.optimization.AllocateBytesNeededForEnum>True</avrgcc.compiler.optimization.AllocateBytesNeededForEnum>
-  <avrgcc.compiler.optimization.UseShortCalls>True</avrgcc.compiler.optimization.UseShortCalls>
-  <avrgcc.compiler.warnings.AllWarnings>True</avrgcc.compiler.warnings.AllWarnings>
-  <avrgcc.compiler.warnings.ExtraWarnings>True</avrgcc.compiler.warnings.ExtraWarnings>
-  <avrgcc.compiler.warnings.Undefined>True</avrgcc.compiler.warnings.Undefined>
-  <avrgcc.compiler.warnings.WarningsAsErrors>True</avrgcc.compiler.warnings.WarningsAsErrors>
-  <avrgcc.compiler.warnings.Pedantic>True</avrgcc.compiler.warnings.Pedantic>
-  <avrgcc.compiler.warnings.PedanticWarningsAsErrors>True</avrgcc.compiler.warnings.PedanticWarningsAsErrors>
-  <avrgcc.linker.general.NoSharedLibraries>True</avrgcc.linker.general.NoSharedLibraries>
-  <avrgcc.linker.libraries.Libraries>
-    <ListValues>
-      <Value>libm</Value>
-    </ListValues>
-  </avrgcc.linker.libraries.Libraries>
-  <avrgcc.linker.libraries.LibrarySearchPaths>
-    <ListValues>
-      <Value>../FreeRTOS</Value>
-      <Value>../FreeRTOS/include</Value>
-      <Value>../FreeRTOS/portable/GCC</Value>
-      <Value>../FreeRTOS/portable/GCC/ATMega323</Value>
-      <Value>../FreeRTOS/portable/MemMang</Value>
-      <Value>../include</Value>
-      <Value>../HAL</Value>
-      <Value>../HAL/KEYPAD</Value>
-      <Value>../HAL/LCD</Value>
-      <Value>../HAL/LED</Value>
-      <Value>../MCAL</Value>
-      <Value>../MCAL/CTRL</Value>
-      <Value>../MCAL/DIO</Value>
-      <Value>../MCAL/EEPROM</Value>
-      <Value>../MCAL/EXT_INT</Value>
-      <Value>../MCAL/I2C</Value>
-      <Value>../MCAL/SLEEP</Value>
-      <Value>../MCAL/SPI</Value>
-      <Value>../MCAL/TIMER</Value>
-      <Value>../MCAL/UART</Value>
-      <Value>../MCAL/WTCHDG</Value>
-    </ListValues>
-  </avrgcc.linker.libraries.LibrarySearchPaths>
-  <avrgcc.assembler.general.IncludePaths>
-    <ListValues>
-      <Value>%24(PackRepoDir)\Atmel\ATmega_DFP\1.3.300\include</Value>
-      <Value>../FreeRTOS</Value>
-      <Value>../FreeRTOS/include</Value>
-      <Value>../FreeRTOS/portable/GCC</Value>
-      <Value>../FreeRTOS/portable/GCC/ATMega323</Value>
-      <Value>../FreeRTOS/portable/MemMang</Value>
-      <Value>../include</Value>
-      <Value>../HAL</Value>
-      <Value>../HAL/KEYPAD</Value>
-      <Value>../HAL/LCD</Value>
-      <Value>../HAL/LED</Value>
-      <Value>../MCAL</Value>
-      <Value>../MCAL/CTRL</Value>
-      <Value>../MCAL/DIO</Value>
-      <Value>../MCAL/EEPROM</Value>
-      <Value>../MCAL/EXT_INT</Value>
-      <Value>../MCAL/I2C</Value>
-      <Value>../MCAL/SLEEP</Value>
-      <Value>../MCAL/SPI</Value>
-      <Value>../MCAL/TIMER</Value>
-      <Value>../MCAL/UART</Value>
-      <Value>../MCAL/WTCHDG</Value>
-    </ListValues>
-  </avrgcc.assembler.general.IncludePaths>
-</AvrGcc>
+        <avrgcc.common.Device>-mmcu=atmega32a -B "%24(PackRepoDir)\Atmel\ATmega_DFP\1.3.300\gcc\dev\atmega32a"</avrgcc.common.Device>
+        <avrgcc.common.optimization.RelaxBranches>True</avrgcc.common.optimization.RelaxBranches>
+        <avrgcc.common.ExternalRamMemOvflw>True</avrgcc.common.ExternalRamMemOvflw>
+        <avrgcc.common.outputfiles.hex>True</avrgcc.common.outputfiles.hex>
+        <avrgcc.common.outputfiles.lss>True</avrgcc.common.outputfiles.lss>
+        <avrgcc.common.outputfiles.eep>True</avrgcc.common.outputfiles.eep>
+        <avrgcc.common.outputfiles.srec>True</avrgcc.common.outputfiles.srec>
+        <avrgcc.common.outputfiles.usersignatures>True</avrgcc.common.outputfiles.usersignatures>
+        <avrgcc.compiler.general.SubroutinesFunctionPrologues>True</avrgcc.compiler.general.SubroutinesFunctionPrologues>
+        <avrgcc.compiler.general.ChangeDefaultCharTypeUnsigned>True</avrgcc.compiler.general.ChangeDefaultCharTypeUnsigned>
+        <avrgcc.compiler.general.ChangeDefaultBitFieldUnsigned>True</avrgcc.compiler.general.ChangeDefaultBitFieldUnsigned>
+        <avrgcc.compiler.symbols.DefSymbols>
+          <ListValues>
+            <Value>F_CPU=16000000ULL</Value>
+            <Value>NDEBUG</Value>
+          </ListValues>
+        </avrgcc.compiler.symbols.DefSymbols>
+        <avrgcc.compiler.directories.IncludePaths>
+          <ListValues>
+            <Value>%24(PackRepoDir)\Atmel\ATmega_DFP\1.3.300\include</Value>
+            <Value>../include</Value>
+            <Value>../FreeRTOS</Value>
+            <Value>../FreeRTOS/include</Value>
+            <Value>../FreeRTOS/portable/GCC</Value>
+            <Value>../FreeRTOS/portable/GCC/ATMega323</Value>
+            <Value>../FreeRTOS/portable/MemMang</Value>
+            <Value>../HAL</Value>
+            <Value>../HAL/KEYPAD</Value>
+            <Value>../HAL/LCD</Value>
+            <Value>../HAL/LED</Value>
+            <Value>../HAL/EXT_EEPROM</Value>
+            <Value>../MCAL</Value>
+            <Value>../MCAL/CTRL</Value>
+            <Value>../MCAL/DIO</Value>
+            <Value>../MCAL/EEPROM</Value>
+            <Value>../MCAL/EXT_INT</Value>
+            <Value>../MCAL/I2C</Value>
+            <Value>../MCAL/SLEEP</Value>
+            <Value>../MCAL/SPI</Value>
+            <Value>../MCAL/TIMER</Value>
+            <Value>../MCAL/UART</Value>
+            <Value>../MCAL/WTCHDG</Value>
+          </ListValues>
+        </avrgcc.compiler.directories.IncludePaths>
+        <avrgcc.compiler.optimization.level>Optimize for size (-Os)</avrgcc.compiler.optimization.level>
+        <avrgcc.compiler.optimization.PackStructureMembers>True</avrgcc.compiler.optimization.PackStructureMembers>
+        <avrgcc.compiler.optimization.AllocateBytesNeededForEnum>True</avrgcc.compiler.optimization.AllocateBytesNeededForEnum>
+        <avrgcc.compiler.optimization.UseShortCalls>True</avrgcc.compiler.optimization.UseShortCalls>
+        <avrgcc.compiler.warnings.AllWarnings>True</avrgcc.compiler.warnings.AllWarnings>
+        <avrgcc.compiler.warnings.ExtraWarnings>True</avrgcc.compiler.warnings.ExtraWarnings>
+        <avrgcc.compiler.warnings.Undefined>True</avrgcc.compiler.warnings.Undefined>
+        <avrgcc.compiler.warnings.WarningsAsErrors>True</avrgcc.compiler.warnings.WarningsAsErrors>
+        <avrgcc.compiler.warnings.Pedantic>True</avrgcc.compiler.warnings.Pedantic>
+        <avrgcc.compiler.warnings.PedanticWarningsAsErrors>True</avrgcc.compiler.warnings.PedanticWarningsAsErrors>
+        <avrgcc.compiler.miscellaneous.Verbose>True</avrgcc.compiler.miscellaneous.Verbose>
+        <avrgcc.linker.general.OmitAllSymbolInformation>True</avrgcc.linker.general.OmitAllSymbolInformation>
+        <avrgcc.linker.general.NoSharedLibraries>True</avrgcc.linker.general.NoSharedLibraries>
+        <avrgcc.linker.libraries.Libraries>
+          <ListValues>
+            <Value>libm</Value>
+          </ListValues>
+        </avrgcc.linker.libraries.Libraries>
+        <avrgcc.linker.libraries.LibrarySearchPaths>
+          <ListValues>
+            <Value>../include</Value>
+            <Value>../FreeRTOS</Value>
+            <Value>../FreeRTOS/include</Value>
+            <Value>../FreeRTOS/portable/GCC</Value>
+            <Value>../FreeRTOS/portable/GCC/ATMega323</Value>
+            <Value>../FreeRTOS/portable/MemMang</Value>
+            <Value>../HAL</Value>
+            <Value>../HAL/KEYPAD</Value>
+            <Value>../HAL/LCD</Value>
+            <Value>../HAL/LED</Value>
+            <Value>../HAL/EXT_EEPROM</Value>
+            <Value>../MCAL</Value>
+            <Value>../MCAL/CTRL</Value>
+            <Value>../MCAL/DIO</Value>
+            <Value>../MCAL/EEPROM</Value>
+            <Value>../MCAL/EXT_INT</Value>
+            <Value>../MCAL/I2C</Value>
+            <Value>../MCAL/SLEEP</Value>
+            <Value>../MCAL/SPI</Value>
+            <Value>../MCAL/TIMER</Value>
+            <Value>../MCAL/UART</Value>
+            <Value>../MCAL/WTCHDG</Value>
+          </ListValues>
+        </avrgcc.linker.libraries.LibrarySearchPaths>
+        <avrgcc.assembler.general.IncludePaths>
+          <ListValues>
+            <Value>%24(PackRepoDir)\Atmel\ATmega_DFP\1.3.300\include</Value>
+            <Value>../include</Value>
+            <Value>../FreeRTOS</Value>
+            <Value>../FreeRTOS/include</Value>
+            <Value>../FreeRTOS/portable/GCC</Value>
+            <Value>../FreeRTOS/portable/GCC/ATMega323</Value>
+            <Value>../FreeRTOS/portable/MemMang</Value>
+            <Value>../HAL</Value>
+            <Value>../HAL/KEYPAD</Value>
+            <Value>../HAL/LCD</Value>
+            <Value>../HAL/LED</Value>
+            <Value>../HAL/EXT_EEPROM</Value>
+            <Value>../MCAL</Value>
+            <Value>../MCAL/CTRL</Value>
+            <Value>../MCAL/DIO</Value>
+            <Value>../MCAL/EEPROM</Value>
+            <Value>../MCAL/EXT_INT</Value>
+            <Value>../MCAL/I2C</Value>
+            <Value>../MCAL/SLEEP</Value>
+            <Value>../MCAL/SPI</Value>
+            <Value>../MCAL/TIMER</Value>
+            <Value>../MCAL/UART</Value>
+            <Value>../MCAL/WTCHDG</Value>
+          </ListValues>
+        </avrgcc.assembler.general.IncludePaths>
+        <avrgcc.assembler.general.AnounceVersion>True</avrgcc.assembler.general.AnounceVersion>
+      </AvrGcc>
     </ToolchainSettings>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <ToolchainSettings>
       <AvrGcc>
-  <avrgcc.common.Device>-mmcu=atmega32a -B "%24(PackRepoDir)\Atmel\ATmega_DFP\1.3.300\gcc\dev\atmega32a"</avrgcc.common.Device>
-  <avrgcc.common.outputfiles.hex>True</avrgcc.common.outputfiles.hex>
-  <avrgcc.common.outputfiles.lss>True</avrgcc.common.outputfiles.lss>
-  <avrgcc.common.outputfiles.eep>True</avrgcc.common.outputfiles.eep>
-  <avrgcc.common.outputfiles.srec>True</avrgcc.common.outputfiles.srec>
-  <avrgcc.common.outputfiles.usersignatures>True</avrgcc.common.outputfiles.usersignatures>
-  <avrgcc.compiler.general.ChangeDefaultCharTypeUnsigned>True</avrgcc.compiler.general.ChangeDefaultCharTypeUnsigned>
-  <avrgcc.compiler.general.ChangeDefaultBitFieldUnsigned>True</avrgcc.compiler.general.ChangeDefaultBitFieldUnsigned>
-  <avrgcc.compiler.symbols.DefSymbols>
-    <ListValues>
-      <Value>F_CPU=16000000ULL</Value>
-      <Value>DEBUG</Value>
-    </ListValues>
-  </avrgcc.compiler.symbols.DefSymbols>
-  <avrgcc.compiler.directories.IncludePaths>
-    <ListValues>
-      <Value>%24(PackRepoDir)\Atmel\ATmega_DFP\1.3.300\include</Value>
-      <Value>../FreeRTOS</Value>
-      <Value>../FreeRTOS/include</Value>
-      <Value>../FreeRTOS/portable/GCC</Value>
-      <Value>../FreeRTOS/portable/GCC/ATMega323</Value>
-      <Value>../FreeRTOS/portable/MemMang</Value>
-      <Value>../HAL</Value>
-      <Value>../HAL/KEYPAD</Value>
-      <Value>../HAL/LCD</Value>
-      <Value>../HAL/LED</Value>
-      <Value>../MCAL</Value>
-      <Value>../MCAL/CTRL</Value>
-      <Value>../MCAL/DIO</Value>
-      <Value>../MCAL/EEPROM</Value>
-      <Value>../MCAL/EXT_INT</Value>
-      <Value>../MCAL/I2C</Value>
-      <Value>../MCAL/SLEEP</Value>
-      <Value>../MCAL/SPI</Value>
-      <Value>../MCAL/TIMER</Value>
-      <Value>../MCAL/UART</Value>
-      <Value>../MCAL/WTCHDG</Value>
-      <Value>../include</Value>
-    </ListValues>
-  </avrgcc.compiler.directories.IncludePaths>
-  <avrgcc.compiler.optimization.level>Optimize debugging experience (-Og)</avrgcc.compiler.optimization.level>
-  <avrgcc.compiler.optimization.PackStructureMembers>True</avrgcc.compiler.optimization.PackStructureMembers>
-  <avrgcc.compiler.optimization.AllocateBytesNeededForEnum>True</avrgcc.compiler.optimization.AllocateBytesNeededForEnum>
-  <avrgcc.compiler.optimization.UseShortCalls>True</avrgcc.compiler.optimization.UseShortCalls>
-  <avrgcc.compiler.optimization.DebugLevel>Maximum (-g3)</avrgcc.compiler.optimization.DebugLevel>
-  <avrgcc.compiler.warnings.AllWarnings>True</avrgcc.compiler.warnings.AllWarnings>
-  <avrgcc.compiler.warnings.ExtraWarnings>True</avrgcc.compiler.warnings.ExtraWarnings>
-  <avrgcc.compiler.warnings.Undefined>True</avrgcc.compiler.warnings.Undefined>
-  <avrgcc.compiler.warnings.Pedantic>True</avrgcc.compiler.warnings.Pedantic>
-  <avrgcc.compiler.warnings.PedanticWarningsAsErrors>True</avrgcc.compiler.warnings.PedanticWarningsAsErrors>
-  <avrgcc.compiler.miscellaneous.Verbose>True</avrgcc.compiler.miscellaneous.Verbose>
-  <avrgcc.linker.general.NoSharedLibraries>True</avrgcc.linker.general.NoSharedLibraries>
-  <avrgcc.linker.libraries.Libraries>
-    <ListValues>
-      <Value>libm</Value>
-    </ListValues>
-  </avrgcc.linker.libraries.Libraries>
-  <avrgcc.linker.libraries.LibrarySearchPaths>
-    <ListValues>
-      <Value>../FreeRTOS</Value>
-      <Value>../FreeRTOS/include</Value>
-      <Value>../FreeRTOS/portable/GCC</Value>
-      <Value>../FreeRTOS/portable/GCC/ATMega323</Value>
-      <Value>../FreeRTOS/portable/MemMang</Value>
-      <Value>../HAL</Value>
-      <Value>../HAL/KEYPAD</Value>
-      <Value>../HAL/LCD</Value>
-      <Value>../HAL/LED</Value>
-      <Value>../MCAL</Value>
-      <Value>../MCAL/CTRL</Value>
-      <Value>../MCAL/DIO</Value>
-      <Value>../MCAL/EEPROM</Value>
-      <Value>../MCAL/EXT_INT</Value>
-      <Value>../MCAL/I2C</Value>
-      <Value>../MCAL/SLEEP</Value>
-      <Value>../MCAL/SPI</Value>
-      <Value>../MCAL/TIMER</Value>
-      <Value>../MCAL/UART</Value>
-      <Value>../MCAL/WTCHDG</Value>
-      <Value>../include</Value>
-    </ListValues>
-  </avrgcc.linker.libraries.LibrarySearchPaths>
-  <avrgcc.assembler.general.IncludePaths>
-    <ListValues>
-      <Value>%24(PackRepoDir)\Atmel\ATmega_DFP\1.3.300\include</Value>
-      <Value>../FreeRTOS</Value>
-      <Value>../FreeRTOS/include</Value>
-      <Value>../FreeRTOS/portable/GCC</Value>
-      <Value>../FreeRTOS/portable/GCC/ATMega323</Value>
-      <Value>../FreeRTOS/portable/MemMang</Value>
-      <Value>../HAL</Value>
-      <Value>../HAL/KEYPAD</Value>
-      <Value>../HAL/LCD</Value>
-      <Value>../HAL/LED</Value>
-      <Value>../MCAL</Value>
-      <Value>../MCAL/CTRL</Value>
-      <Value>../MCAL/DIO</Value>
-      <Value>../MCAL/EEPROM</Value>
-      <Value>../MCAL/EXT_INT</Value>
-      <Value>../MCAL/I2C</Value>
-      <Value>../MCAL/SLEEP</Value>
-      <Value>../MCAL/SPI</Value>
-      <Value>../MCAL/TIMER</Value>
-      <Value>../MCAL/UART</Value>
-      <Value>../MCAL/WTCHDG</Value>
-      <Value>../include</Value>
-    </ListValues>
-  </avrgcc.assembler.general.IncludePaths>
-  <avrgcc.assembler.general.AnounceVersion>True</avrgcc.assembler.general.AnounceVersion>
-  <avrgcc.assembler.debugging.DebugLevel>Default (-Wa,-g)</avrgcc.assembler.debugging.DebugLevel>
-</AvrGcc>
+        <avrgcc.common.Device>-mmcu=atmega32a -B "%24(PackRepoDir)\Atmel\ATmega_DFP\1.3.300\gcc\dev\atmega32a"</avrgcc.common.Device>
+        <avrgcc.common.outputfiles.hex>True</avrgcc.common.outputfiles.hex>
+        <avrgcc.common.outputfiles.lss>True</avrgcc.common.outputfiles.lss>
+        <avrgcc.common.outputfiles.eep>True</avrgcc.common.outputfiles.eep>
+        <avrgcc.common.outputfiles.srec>True</avrgcc.common.outputfiles.srec>
+        <avrgcc.common.outputfiles.usersignatures>True</avrgcc.common.outputfiles.usersignatures>
+        <avrgcc.compiler.general.ChangeDefaultCharTypeUnsigned>True</avrgcc.compiler.general.ChangeDefaultCharTypeUnsigned>
+        <avrgcc.compiler.general.ChangeDefaultBitFieldUnsigned>True</avrgcc.compiler.general.ChangeDefaultBitFieldUnsigned>
+        <avrgcc.compiler.symbols.DefSymbols>
+          <ListValues>
+            <Value>F_CPU=16000000ULL</Value>
+            <Value>DEBUG</Value>
+          </ListValues>
+        </avrgcc.compiler.symbols.DefSymbols>
+        <avrgcc.compiler.directories.IncludePaths>
+          <ListValues>
+            <Value>%24(PackRepoDir)\Atmel\ATmega_DFP\1.3.300\include</Value>
+            <Value>../include</Value>
+            <Value>../FreeRTOS</Value>
+            <Value>../FreeRTOS/include</Value>
+            <Value>../FreeRTOS/portable/GCC</Value>
+            <Value>../FreeRTOS/portable/GCC/ATMega323</Value>
+            <Value>../FreeRTOS/portable/MemMang</Value>
+            <Value>../HAL</Value>
+            <Value>../HAL/KEYPAD</Value>
+            <Value>../HAL/LCD</Value>
+            <Value>../HAL/LED</Value>
+            <Value>../HAL/EXT_EEPROM</Value>
+            <Value>../MCAL</Value>
+            <Value>../MCAL/CTRL</Value>
+            <Value>../MCAL/DIO</Value>
+            <Value>../MCAL/EEPROM</Value>
+            <Value>../MCAL/EXT_INT</Value>
+            <Value>../MCAL/I2C</Value>
+            <Value>../MCAL/SLEEP</Value>
+            <Value>../MCAL/SPI</Value>
+            <Value>../MCAL/TIMER</Value>
+            <Value>../MCAL/UART</Value>
+            <Value>../MCAL/WTCHDG</Value>
+          </ListValues>
+        </avrgcc.compiler.directories.IncludePaths>
+        <avrgcc.compiler.optimization.level>Optimize debugging experience (-Og)</avrgcc.compiler.optimization.level>
+        <avrgcc.compiler.optimization.PrepareDataForGarbageCollection>False</avrgcc.compiler.optimization.PrepareDataForGarbageCollection>
+        <avrgcc.compiler.optimization.UseShortCalls>True</avrgcc.compiler.optimization.UseShortCalls>
+        <avrgcc.compiler.optimization.DebugLevel>Maximum (-g3)</avrgcc.compiler.optimization.DebugLevel>
+        <avrgcc.compiler.warnings.AllWarnings>True</avrgcc.compiler.warnings.AllWarnings>
+        <avrgcc.compiler.warnings.ExtraWarnings>True</avrgcc.compiler.warnings.ExtraWarnings>
+        <avrgcc.compiler.warnings.Undefined>True</avrgcc.compiler.warnings.Undefined>
+        <avrgcc.compiler.warnings.Pedantic>True</avrgcc.compiler.warnings.Pedantic>
+        <avrgcc.compiler.warnings.PedanticWarningsAsErrors>True</avrgcc.compiler.warnings.PedanticWarningsAsErrors>
+        <avrgcc.compiler.miscellaneous.Verbose>True</avrgcc.compiler.miscellaneous.Verbose>
+        <avrgcc.linker.general.UseVprintfLibrary>True</avrgcc.linker.general.UseVprintfLibrary>
+        <avrgcc.linker.libraries.Libraries>
+          <ListValues>
+            <Value>libm</Value>
+          </ListValues>
+        </avrgcc.linker.libraries.Libraries>
+        <avrgcc.linker.libraries.LibrarySearchPaths>
+          <ListValues>
+            <Value>../include</Value>
+            <Value>../FreeRTOS</Value>
+            <Value>../FreeRTOS/include</Value>
+            <Value>../FreeRTOS/portable/GCC</Value>
+            <Value>../FreeRTOS/portable/GCC/ATMega323</Value>
+            <Value>../FreeRTOS/portable/MemMang</Value>
+            <Value>../HAL</Value>
+            <Value>../HAL/KEYPAD</Value>
+            <Value>../HAL/LCD</Value>
+            <Value>../HAL/LED</Value>
+            <Value>../HAL/EXT_EEPROM</Value>
+            <Value>../MCAL</Value>
+            <Value>../MCAL/CTRL</Value>
+            <Value>../MCAL/DIO</Value>
+            <Value>../MCAL/EEPROM</Value>
+            <Value>../MCAL/EXT_INT</Value>
+            <Value>../MCAL/I2C</Value>
+            <Value>../MCAL/SLEEP</Value>
+            <Value>../MCAL/SPI</Value>
+            <Value>../MCAL/TIMER</Value>
+            <Value>../MCAL/UART</Value>
+            <Value>../MCAL/WTCHDG</Value>
+          </ListValues>
+        </avrgcc.linker.libraries.LibrarySearchPaths>
+        <avrgcc.assembler.general.IncludePaths>
+          <ListValues>
+            <Value>%24(PackRepoDir)\Atmel\ATmega_DFP\1.3.300\include</Value>
+            <Value>../include</Value>
+            <Value>../FreeRTOS</Value>
+            <Value>../FreeRTOS/include</Value>
+            <Value>../FreeRTOS/portable/GCC</Value>
+            <Value>../FreeRTOS/portable/GCC/ATMega323</Value>
+            <Value>../FreeRTOS/portable/MemMang</Value>
+            <Value>../HAL</Value>
+            <Value>../HAL/KEYPAD</Value>
+            <Value>../HAL/LCD</Value>
+            <Value>../HAL/LED</Value>
+            <Value>../HAL/EXT_EEPROM</Value>
+            <Value>../MCAL</Value>
+            <Value>../MCAL/CTRL</Value>
+            <Value>../MCAL/DIO</Value>
+            <Value>../MCAL/EEPROM</Value>
+            <Value>../MCAL/EXT_INT</Value>
+            <Value>../MCAL/I2C</Value>
+            <Value>../MCAL/SLEEP</Value>
+            <Value>../MCAL/SPI</Value>
+            <Value>../MCAL/TIMER</Value>
+            <Value>../MCAL/UART</Value>
+            <Value>../MCAL/WTCHDG</Value>
+          </ListValues>
+        </avrgcc.assembler.general.IncludePaths>
+        <avrgcc.assembler.general.AnounceVersion>True</avrgcc.assembler.general.AnounceVersion>
+        <avrgcc.assembler.debugging.DebugLevel>Default (-Wa,-g)</avrgcc.assembler.debugging.DebugLevel>
+      </AvrGcc>
     </ToolchainSettings>
   </PropertyGroup>
   <ItemGroup>
@@ -383,6 +393,18 @@
     <Compile Include="FreeRTOS\timers.c">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="HAL\EXT_EEPROM\EXT_EEPROM.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="HAL\EXT_EEPROM\EXT_EEPROM.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="HAL\EXT_EEPROM\EXT_EEPROM_config.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="HAL\EXT_EEPROM\EXT_EEPROM_private.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="HAL\KEYPAD\KEYPAD.c">
       <SubType>compile</SubType>
     </Compile>
@@ -419,7 +441,7 @@
     <Compile Include="HAL\LED\LED_private.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="include\BitHelpers.h">
+    <Compile Include="include\bit_helpers.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="include\common.h">
@@ -428,7 +450,7 @@
     <Compile Include="include\io_extras.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="include\Std_Types.h">
+    <Compile Include="include\std_types.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="main.c">
@@ -559,15 +581,18 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="include" />
     <Folder Include="FreeRTOS\" />
     <Folder Include="FreeRTOS\include\" />
     <Folder Include="FreeRTOS\portable\" />
     <Folder Include="FreeRTOS\portable\GCC\" />
     <Folder Include="FreeRTOS\portable\GCC\ATMega323\" />
     <Folder Include="FreeRTOS\portable\MemMang\" />
+    <Folder Include="HAL" />
     <Folder Include="HAL\KEYPAD" />
     <Folder Include="HAL\LCD" />
     <Folder Include="HAL\LED" />
+    <Folder Include="HAL\EXT_EEPROM" />
     <Folder Include="MCAL" />
     <Folder Include="MCAL\CTRL" />
     <Folder Include="MCAL\DIO" />
@@ -579,8 +604,6 @@
     <Folder Include="MCAL\SPI" />
     <Folder Include="MCAL\TIMER" />
     <Folder Include="MCAL\SLEEP" />
-    <Folder Include="HAL" />
-    <Folder Include="include" />
   </ItemGroup>
   <Import Project="$(AVRSTUDIO_EXE_PATH)\\Vs\\Compiler.targets" />
 </Project>

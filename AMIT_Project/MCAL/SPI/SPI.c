@@ -1,6 +1,6 @@
 #include <avr/io.h>
 #include "io_extras.h"
-#include "BitHelpers.h"
+#include "bit_helpers.h"
 #include "common.h"
 #include "DIO.h"
 #include "SPI_private.h"
@@ -12,8 +12,8 @@
 #define MOSI_PIN    PIN_5
 #define MISO_PORT   PORT_B
 #define MISO_PIN    PIN_6
-#define SCK_PORT   PORT_B
-#define SCK_PIN    PIN_7
+#define SCK_PORT    PORT_B
+#define SCK_PIN     PIN_7
 void SPI_enable ( void )
 {
     SET_BIT ( SPCR , SPE );

@@ -1,7 +1,7 @@
+#include <math.h>
 #include <avr/io.h>
 #include "io_extras.h"
-#include <math.h>
-#include "BitHelpers.h"
+#include "bit_helpers.h"
 #include "common.h"
 #include "DIO.h"
 #include "UART_private.h"
@@ -571,6 +571,15 @@ void UART_flush ( void )
     while ( READ_BIT ( UCSRA , RXC ) == BIT_STATE_SET )
     {
         dummy = UDR;
+    }
+}
+void UART_transmitByteArray ( uint8_t* arr , uint32_t size )
+{
+    uint32_t i;
+    for ( i = 0; i < size; i++ )
+    {
+        UART_transmit ( *arr );
+        arr++;
     }
 }
 void UART_transmitChar ( char charToTransmit )

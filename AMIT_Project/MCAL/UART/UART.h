@@ -1,6 +1,6 @@
 #ifndef AMIT_PROJECT_UART_H_
 #define AMIT_PROJECT_UART_H_
-#include "Std_Types.h"
+#include "std_types.h"
 #include "common.h"
 typedef enum _UART_TRANS_SPEED_t
 {
@@ -105,10 +105,10 @@ UART_STD_ERR_t UART_setDataFrameSize ( UART_DATA_SIZE_t dataFrameSize );
 UART_STD_ERR_t UART_setParitySize ( UART_PARITY_t parity );
 UART_STD_ERR_t UART_setStopSize ( UART_STP_SIZE_t stopFrameSize );
 UART_STD_ERR_t UART_setProcessorMode ( UART_PROCESS_MODE_t multiProcessorMode );
-
 void UART_transmit ( uint16_t data );
 uint16_t UART_receive ( void );
 void UART_flush ( void );
+void UART_transmitByteArray ( uint8_t* arr , uint32_t size );
 void UART_transmitChar ( char charToTransmit );
 void UART_transmitString ( char* stringToTransmit );
 #endif

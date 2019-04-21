@@ -1,7 +1,7 @@
 #include <avr/io.h>
 #include "io_extras.h"
 #include <avr/wdt.h>
-#include "BitHelpers.h"
+#include "bit_helpers.h"
 #include "WTCHDG_private.h"
 #include "WTCHDG_config.h"
 #include "WTCHDG.h"

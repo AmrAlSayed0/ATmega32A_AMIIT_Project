@@ -47,7 +47,7 @@
 
 /*-----------------------------------------------------------*/
 
-#if( ( configCHECK_FOR_STACK_OVERFLOW == 1 ) && ( portSTACK_GROWTH < 0 ) )
+#if ( ( configCHECK_FOR_STACK_OVERFLOW == 1 ) && ( portSTACK_GROWTH < 0 ) )
 
 /* Only the current stack state is to be checked. */
     #define taskCHECK_FOR_STACK_OVERFLOW()																\
@@ -62,7 +62,7 @@
 #endif /* configCHECK_FOR_STACK_OVERFLOW == 1 */
 /*-----------------------------------------------------------*/
 
-#if( ( configCHECK_FOR_STACK_OVERFLOW == 1 ) && ( portSTACK_GROWTH > 0 ) )
+#if ( ( configCHECK_FOR_STACK_OVERFLOW == 1 ) && ( portSTACK_GROWTH > 0 ) )
 
 /* Only the current stack state is to be checked. */
     #define taskCHECK_FOR_STACK_OVERFLOW()																\
@@ -78,7 +78,7 @@
 #endif /* configCHECK_FOR_STACK_OVERFLOW == 1 */
 /*-----------------------------------------------------------*/
 
-#if( ( configCHECK_FOR_STACK_OVERFLOW > 1 ) && ( portSTACK_GROWTH < 0 ) )
+#if ( ( configCHECK_FOR_STACK_OVERFLOW > 1 ) && ( portSTACK_GROWTH < 0 ) )
 
     #define taskCHECK_FOR_STACK_OVERFLOW()																\
     {																									\
@@ -94,10 +94,10 @@
         }																								\
     }
 
-#endif /* #if( configCHECK_FOR_STACK_OVERFLOW > 1 ) */
+#endif /* #if ( configCHECK_FOR_STACK_OVERFLOW > 1 ) */
 /*-----------------------------------------------------------*/
 
-#if( ( configCHECK_FOR_STACK_OVERFLOW > 1 ) && ( portSTACK_GROWTH > 0 ) )
+#if ( ( configCHECK_FOR_STACK_OVERFLOW > 1 ) && ( portSTACK_GROWTH > 0 ) )
 
     #define taskCHECK_FOR_STACK_OVERFLOW()																								\
     {																																	\
@@ -118,7 +118,7 @@
         }																																\
     }
 
-#endif /* #if( configCHECK_FOR_STACK_OVERFLOW > 1 ) */
+#endif /* #if ( configCHECK_FOR_STACK_OVERFLOW > 1 ) */
 /*-----------------------------------------------------------*/
 
 /* Remove stack overflow macro if not being used. */

@@ -1,5 +1,5 @@
-#ifndef AMIT_PROJECT_STD_TYPES_H_
-#define AMIT_PROJECT_STD_TYPES_H_
+#ifndef AMIT_PROJECT_std_types_H_
+#define AMIT_PROJECT_std_types_H_
 #include <stdint.h>
 #include <stdbool.h>
 #ifndef NULL_PTR

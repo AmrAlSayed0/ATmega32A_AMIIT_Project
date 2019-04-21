@@ -1,7 +1,7 @@
 #include <avr/io.h>
 #include "io_extras.h"
-#include "BitHelpers.h"
-#include "Std_Types.h"
+#include "bit_helpers.h"
+#include "std_types.h"
 #include "DIO_private.h"
 #include "DIO.h"
 DIO_STD_ERR_t DIO_init ( void )

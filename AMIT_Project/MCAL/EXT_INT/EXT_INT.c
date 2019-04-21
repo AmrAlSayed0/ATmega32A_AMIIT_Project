@@ -1,6 +1,6 @@
 #include <avr/io.h>
 #include "io_extras.h"
-#include "BitHelpers.h"
+#include "bit_helpers.h"
 #include "EXT_INT_private.h"
 #include "EXT_INT_config.h"
 #include "EXT_INT.h"

@@ -81,7 +81,7 @@ zero. */
 #define queueSEMAPHORE_QUEUE_ITEM_LENGTH ( ( UBaseType_t ) 0 )
 #define queueMUTEX_GIVE_BLOCK_TIME		 ( ( TickType_t ) 0U )
 
-#if( configUSE_PREEMPTION == 0 )
+#if ( configUSE_PREEMPTION == 0 )
 	/* If the cooperative scheduler is being used then a yield should not be
 	performed just because a higher priority task has been woken. */
 	#define queueYIELD_IF_USING_PREEMPTION()
@@ -115,7 +115,7 @@ typedef struct QueueDefinition 		/* The old naming convention is used to prevent
 	volatile int8_t cRxLock;		/*< Stores the number of items received from the queue (removed from the queue) while the queue was locked.  Set to queueUNLOCKED when the queue is not locked. */
 	volatile int8_t cTxLock;		/*< Stores the number of items transmitted to the queue (added to the queue) while the queue was locked.  Set to queueUNLOCKED when the queue is not locked. */
 
-	#if( ( configSUPPORT_STATIC_ALLOCATION == 1 ) && ( configSUPPORT_DYNAMIC_ALLOCATION == 1 ) )
+	#if ( ( configSUPPORT_STATIC_ALLOCATION == 1 ) && ( configSUPPORT_DYNAMIC_ALLOCATION == 1 ) )
 		uint8_t ucStaticallyAllocated;	/*< Set to pdTRUE if the memory used by the queue was statically allocated to ensure no attempt is made to free the memory. */
 	#endif
 
@@ -217,11 +217,11 @@ static void prvInitialiseNewQueue( const UBaseType_t uxQueueLength, const UBaseT
  * queue is created, then prvInitialiseMutex() is called to configure the queue
  * as a mutex.
  */
-#if( configUSE_MUTEXES == 1 )
+#if ( configUSE_MUTEXES == 1 )
 	static void prvInitialiseMutex( Queue_t *pxNewQueue ) PRIVILEGED_FUNCTION;
 #endif
 
-#if( configUSE_MUTEXES == 1 )
+#if ( configUSE_MUTEXES == 1 )
 	/*
 	 * If a task waiting for a mutex causes the mutex holder to inherit a
 	 * priority, but the waiting task times out, then the holder should
@@ -305,7 +305,7 @@ Queue_t * const pxQueue = xQueue;
 }
 /*-----------------------------------------------------------*/
 
-#if( configSUPPORT_STATIC_ALLOCATION == 1 )
+#if ( configSUPPORT_STATIC_ALLOCATION == 1 )
 
 	QueueHandle_t xQueueGenericCreateStatic( const UBaseType_t uxQueueLength, const UBaseType_t uxItemSize, uint8_t *pucQueueStorage, StaticQueue_t *pxStaticQueue, const uint8_t ucQueueType )
 	{
@@ -322,7 +322,7 @@ Queue_t * const pxQueue = xQueue;
 		configASSERT( !( ( pucQueueStorage != NULL ) && ( uxItemSize == 0 ) ) );
 		configASSERT( !( ( pucQueueStorage == NULL ) && ( uxItemSize != 0 ) ) );
 
-		#if( configASSERT_DEFINED == 1 )
+		#if ( configASSERT_DEFINED == 1 )
 		{
 			/* Sanity check that the size of the structure used to declare a
 			variable of type StaticQueue_t or StaticSemaphore_t equals the size of
@@ -340,7 +340,7 @@ Queue_t * const pxQueue = xQueue;
 
 		if( pxNewQueue != NULL )
 		{
-			#if( configSUPPORT_DYNAMIC_ALLOCATION == 1 )
+			#if ( configSUPPORT_DYNAMIC_ALLOCATION == 1 )
 			{
 				/* Queues can be allocated wither statically or dynamically, so
 				note this queue was allocated statically in case the queue is
@@ -363,7 +363,7 @@ Queue_t * const pxQueue = xQueue;
 #endif /* configSUPPORT_STATIC_ALLOCATION */
 /*-----------------------------------------------------------*/
 
-#if( configSUPPORT_DYNAMIC_ALLOCATION == 1 )
+#if ( configSUPPORT_DYNAMIC_ALLOCATION == 1 )
 
 	QueueHandle_t xQueueGenericCreate( const UBaseType_t uxQueueLength, const UBaseType_t uxItemSize, const uint8_t ucQueueType )
 	{
@@ -403,7 +403,7 @@ Queue_t * const pxQueue = xQueue;
 			pucQueueStorage = ( uint8_t * ) pxNewQueue;
 			pucQueueStorage += sizeof( Queue_t ); /*lint !e9016 Pointer arithmetic allowed on char types, especially when it assists conveying intent. */
 
-			#if( configSUPPORT_STATIC_ALLOCATION == 1 )
+			#if ( configSUPPORT_STATIC_ALLOCATION == 1 )
 			{
 				/* Queues can be created either statically or dynamically, so
 				note this task was created dynamically in case it is later
@@ -458,7 +458,7 @@ static void prvInitialiseNewQueue( const UBaseType_t uxQueueLength, const UBaseT
 	}
 	#endif /* configUSE_TRACE_FACILITY */
 
-	#if( configUSE_QUEUE_SETS == 1 )
+	#if ( configUSE_QUEUE_SETS == 1 )
 	{
 		pxNewQueue->pxQueueSetContainer = NULL;
 	}
@@ -468,7 +468,7 @@ static void prvInitialiseNewQueue( const UBaseType_t uxQueueLength, const UBaseT
 }
 /*-----------------------------------------------------------*/
 
-#if( configUSE_MUTEXES == 1 )
+#if ( configUSE_MUTEXES == 1 )
 
 	static void prvInitialiseMutex( Queue_t *pxNewQueue )
 	{
@@ -498,7 +498,7 @@ static void prvInitialiseNewQueue( const UBaseType_t uxQueueLength, const UBaseT
 #endif /* configUSE_MUTEXES */
 /*-----------------------------------------------------------*/
 
-#if( ( configUSE_MUTEXES == 1 ) && ( configSUPPORT_DYNAMIC_ALLOCATION == 1 ) )
+#if ( ( configUSE_MUTEXES == 1 ) && ( configSUPPORT_DYNAMIC_ALLOCATION == 1 ) )
 
 	QueueHandle_t xQueueCreateMutex( const uint8_t ucQueueType )
 	{
@@ -514,7 +514,7 @@ static void prvInitialiseNewQueue( const UBaseType_t uxQueueLength, const UBaseT
 #endif /* configUSE_MUTEXES */
 /*-----------------------------------------------------------*/
 
-#if( ( configUSE_MUTEXES == 1 ) && ( configSUPPORT_STATIC_ALLOCATION == 1 ) )
+#if ( ( configUSE_MUTEXES == 1 ) && ( configSUPPORT_STATIC_ALLOCATION == 1 ) )
 
 	QueueHandle_t xQueueCreateMutexStatic( const uint8_t ucQueueType, StaticQueue_t *pxStaticQueue )
 	{
@@ -688,7 +688,7 @@ static void prvInitialiseNewQueue( const UBaseType_t uxQueueLength, const UBaseT
 #endif /* configUSE_RECURSIVE_MUTEXES */
 /*-----------------------------------------------------------*/
 
-#if( ( configUSE_COUNTING_SEMAPHORES == 1 ) && ( configSUPPORT_STATIC_ALLOCATION == 1 ) )
+#if ( ( configUSE_COUNTING_SEMAPHORES == 1 ) && ( configSUPPORT_STATIC_ALLOCATION == 1 ) )
 
 	QueueHandle_t xQueueCreateCountingSemaphoreStatic( const UBaseType_t uxMaxCount, const UBaseType_t uxInitialCount, StaticQueue_t *pxStaticQueue )
 	{
@@ -716,7 +716,7 @@ static void prvInitialiseNewQueue( const UBaseType_t uxQueueLength, const UBaseT
 #endif /* ( ( configUSE_COUNTING_SEMAPHORES == 1 ) && ( configSUPPORT_DYNAMIC_ALLOCATION == 1 ) ) */
 /*-----------------------------------------------------------*/
 
-#if( ( configUSE_COUNTING_SEMAPHORES == 1 ) && ( configSUPPORT_DYNAMIC_ALLOCATION == 1 ) )
+#if ( ( configUSE_COUNTING_SEMAPHORES == 1 ) && ( configSUPPORT_DYNAMIC_ALLOCATION == 1 ) )
 
 	QueueHandle_t xQueueCreateCountingSemaphore( const UBaseType_t uxMaxCount, const UBaseType_t uxInitialCount )
 	{
@@ -1417,7 +1417,7 @@ BaseType_t xEntryTimeSet = pdFALSE;
 TimeOut_t xTimeOut;
 Queue_t * const pxQueue = xQueue;
 
-#if( configUSE_MUTEXES == 1 )
+#if ( configUSE_MUTEXES == 1 )
 	BaseType_t xInheritanceOccurred = pdFALSE;
 #endif
 
@@ -1500,7 +1500,7 @@ Queue_t * const pxQueue = xQueue;
 					/* For inheritance to have occurred there must have been an
 					initial timeout, and an adjusted timeout cannot become 0, as
 					if it were 0 the function would have exited. */
-					#if( configUSE_MUTEXES == 1 )
+					#if ( configUSE_MUTEXES == 1 )
 					{
 						configASSERT( xInheritanceOccurred == pdFALSE );
 					}
@@ -1981,7 +1981,7 @@ Queue_t * const pxQueue = xQueue;
 	}
 	#endif
 
-	#if( ( configSUPPORT_DYNAMIC_ALLOCATION == 1 ) && ( configSUPPORT_STATIC_ALLOCATION == 0 ) )
+	#if ( ( configSUPPORT_DYNAMIC_ALLOCATION == 1 ) && ( configSUPPORT_STATIC_ALLOCATION == 0 ) )
 	{
 		/* The queue can only have been allocated dynamically - free it
 		again. */
@@ -2040,7 +2040,7 @@ Queue_t * const pxQueue = xQueue;
 #endif /* configUSE_TRACE_FACILITY */
 /*-----------------------------------------------------------*/
 
-#if( configUSE_MUTEXES == 1 )
+#if ( configUSE_MUTEXES == 1 )
 
 	static UBaseType_t prvGetDisinheritPriorityAfterTimeout( const Queue_t * const pxQueue )
 	{
@@ -2764,7 +2764,7 @@ Queue_t * const pxQueue = xQueue;
 #endif /* configUSE_TIMERS */
 /*-----------------------------------------------------------*/
 
-#if( ( configUSE_QUEUE_SETS == 1 ) && ( configSUPPORT_DYNAMIC_ALLOCATION == 1 ) )
+#if ( ( configUSE_QUEUE_SETS == 1 ) && ( configSUPPORT_DYNAMIC_ALLOCATION == 1 ) )
 
 	QueueSetHandle_t xQueueCreateSet( const UBaseType_t uxEventQueueLength )
 	{

@@ -59,71 +59,71 @@ DIO_CNF_t DIO_inital_cfg_arr[( uint8_t ) NUM_OF_PINS] = {
     {
         PORT_B ,
         PIN_0 ,
-        DIRECTION_OUTPUT ,
-        PIN_STATE_LOW ,
-        RESISTOR_NOT_CARE
+        DIRECTION_INPUT ,
+        PIN_STATE_NOT_CARE ,
+        RESISTOR_PULL_UP
     } ,
     {
         PORT_B ,
         PIN_1 ,
-        DIRECTION_OUTPUT ,
-        PIN_STATE_LOW ,
-        RESISTOR_NOT_CARE
+        DIRECTION_INPUT ,
+        PIN_STATE_NOT_CARE ,
+        RESISTOR_PULL_UP
     } ,
     {
         PORT_B ,
         PIN_2 ,
-        DIRECTION_OUTPUT ,
-        PIN_STATE_LOW ,
-        RESISTOR_NOT_CARE
+        DIRECTION_INPUT ,
+        PIN_STATE_NOT_CARE ,
+        RESISTOR_PULL_UP
     } ,
     {
         PORT_B ,
         PIN_3 ,
-        DIRECTION_OUTPUT ,
-        PIN_STATE_LOW ,
-        RESISTOR_NOT_CARE
+        DIRECTION_INPUT ,
+        PIN_STATE_NOT_CARE ,
+        RESISTOR_PULL_UP
     } ,
     {
         PORT_B ,
         PIN_4 ,
         DIRECTION_OUTPUT ,
-        PIN_STATE_LOW ,
+        PIN_STATE_HIGH ,
         RESISTOR_NOT_CARE
     } ,
     {
         PORT_B ,
         PIN_5 ,
         DIRECTION_OUTPUT ,
-        PIN_STATE_LOW ,
+        PIN_STATE_HIGH ,
         RESISTOR_NOT_CARE
     } ,
     {
         PORT_B ,
         PIN_6 ,
         DIRECTION_OUTPUT ,
-        PIN_STATE_LOW ,
+        PIN_STATE_HIGH ,
         RESISTOR_NOT_CARE
     } ,
     {
         PORT_B ,
         PIN_7 ,
         DIRECTION_OUTPUT ,
-        PIN_STATE_LOW ,
+        PIN_STATE_HIGH ,
         RESISTOR_NOT_CARE
     } ,
     {
         PORT_C ,
         PIN_0 ,
         DIRECTION_OUTPUT ,
-        PIN_STATE_LOW ,
+        PIN_STATE_HIGH ,
         RESISTOR_NOT_CARE
     } ,
     {
         PORT_C ,
         PIN_1 ,
         DIRECTION_OUTPUT ,
-        PIN_STATE_LOW ,
+        PIN_STATE_HIGH ,
         RESISTOR_NOT_CARE
     } ,
     {
@@ -164,7 +164,7 @@ DIO_CNF_t DIO_inital_cfg_arr[( uint8_t ) NUM_OF_PINS] = {
     {
         PORT_C ,
         PIN_7 ,
-        DIRECTION_INPUT ,
+        DIRECTION_OUTPUT ,
         PIN_STATE_LOW ,
         RESISTOR_NOT_CARE
     } ,

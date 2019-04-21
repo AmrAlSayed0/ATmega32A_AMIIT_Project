@@ -1,6 +1,6 @@
 #ifndef AMIT_PROJECT_EEPROM_H_
 #define AMIT_PROJECT_EEPROM_H_
-#include "Std_Types.h"
+#include "std_types.h"
 typedef enum _EEPROM_STD_ERR_t
 {
     EEPROM_OK = ( uint8_t ) 0 ,

@@ -1,4 +1,4 @@
-#include "BitHelpers.h"
+#include "bit_helpers.h"
 #include "common.h"
 #include "DIO.h"
 #include "KEYPAD_private.h"

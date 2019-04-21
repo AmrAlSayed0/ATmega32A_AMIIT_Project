@@ -1,6 +1,6 @@
 #include <avr/io.h>
-#include "io_extras.h"
 #include <util/delay.h>
+#include "io_extras.h"
 #include "FreeRTOS.h"
 #include "task.h"
 #include "EEPROM.h"
@@ -13,9 +13,9 @@
 #include "UART.h"
 #include "KEYPAD.h"
 #include "LED.h"
+#include "EXT_EEPROM.h"
 int main ( void )
 {
-    EEPROM_fill ( 0 , 1024 , 0xFF );
     WTCHDG_disable ();
     DIO_init ();
     UART_CNF_t uartCng = {
@@ -31,9 +31,11 @@ int main ( void )
         UART_CLCK_POLARITY_NOT_CARE
     };
     UART_init ( &uartCng );
+    I2C_masterInit ( 400000 );
     LED_init ();
     LCD_init ( INS_FUNCTION_8_BIT | INS_FUNCTION_2_LINES | INS_FUNCTION_5_7_DOTS , INS_ENTRY_MODE_DECREMENT | INS_ENTRY_MODE_NO_SHIFT , INS_DISPLAY_ON | INS_DISPLAY_CURSOR_OFF | INS_DISPLAY_CURSOR_BLINK_OFF );
     KEYPAD_init ();
+    EXT_EEPROM_move ( 0 , 1000 , 1000 );
     while ( 1 )
     {
         uint16_t pressedKeys = KEYPAD_getPressedKey ();

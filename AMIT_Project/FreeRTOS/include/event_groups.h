@@ -140,7 +140,7 @@ typedef TickType_t EventBits_t;
  * \defgroup xEventGroupCreate xEventGroupCreate
  * \ingroup EventGroup
  */
-#if( configSUPPORT_DYNAMIC_ALLOCATION == 1 )
+#if ( configSUPPORT_DYNAMIC_ALLOCATION == 1 )
 EventGroupHandle_t xEventGroupCreate ( void ) PRIVILEGED_FUNCTION;
 #endif
 
@@ -193,7 +193,7 @@ EventGroupHandle_t xEventGroupCreate ( void ) PRIVILEGED_FUNCTION;
     xEventGroup = xEventGroupCreateStatic( &xEventGroupBuffer );
    </pre>
  */
-#if( configSUPPORT_STATIC_ALLOCATION == 1 )
+#if ( configSUPPORT_STATIC_ALLOCATION == 1 )
 EventGroupHandle_t xEventGroupCreateStatic ( StaticEventGroup_t *pxEventGroupBuffer ) PRIVILEGED_FUNCTION;
 #endif
 /**
@@ -400,7 +400,7 @@ EventBits_t xEventGroupClearBits ( EventGroupHandle_t xEventGroup , const EventB
  * \defgroup xEventGroupClearBitsFromISR xEventGroupClearBitsFromISR
  * \ingroup EventGroup
  */
-#if( configUSE_TRACE_FACILITY == 1 )
+#if ( configUSE_TRACE_FACILITY == 1 )
 BaseType_t xEventGroupClearBitsFromISR ( EventGroupHandle_t xEventGroup, const EventBits_t uxBitsToClear ) PRIVILEGED_FUNCTION;
 #else
     #define xEventGroupClearBitsFromISR( xEventGroup , uxBitsToClear ) xTimerPendFunctionCallFromISR ( vEventGroupClearBitsCallback, ( void * ) xEventGroup, ( uint32_t ) uxBitsToClear, NULL )
@@ -551,7 +551,7 @@ EventBits_t xEventGroupSetBits ( EventGroupHandle_t xEventGroup , const EventBit
  * \defgroup xEventGroupSetBitsFromISR xEventGroupSetBitsFromISR
  * \ingroup EventGroup
  */
-#if( configUSE_TRACE_FACILITY == 1 )
+#if ( configUSE_TRACE_FACILITY == 1 )
     BaseType_t xEventGroupSetBitsFromISR ( EventGroupHandle_t xEventGroup, const EventBits_t uxBitsToSet, BaseType_t *pxHigherPriorityTaskWoken ) PRIVILEGED_FUNCTION;
 #else
     #define xEventGroupSetBitsFromISR( xEventGroup , uxBitsToSet , pxHigherPriorityTaskWoken ) xTimerPendFunctionCallFromISR ( vEventGroupSetBitsCallback, ( void * ) xEventGroup, ( uint32_t ) uxBitsToSet, pxHigherPriorityTaskWoken )

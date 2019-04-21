@@ -1,6 +1,6 @@
 #ifndef AMIT_PROJECT_LCD_H_
 #define AMIT_PROJECT_LCD_H_
-#include "Std_Types.h"
+#include "std_types.h"
 //*****************************************************************************
 //
 // The following are defines for the commands that can be given to the LCD

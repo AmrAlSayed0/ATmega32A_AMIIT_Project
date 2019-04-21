@@ -1,8 +1,8 @@
 #include <avr/io.h>
 #include <avr/interrupt.h>
 #include "io_extras.h"
-#include "BitHelpers.h"
-#include "Std_Types.h"
+#include "bit_helpers.h"
+#include "std_types.h"
 #include "common.h"
 #include "EEPROM_private.h"
 #include "EEPROM_config.h"

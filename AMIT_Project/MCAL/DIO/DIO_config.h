@@ -1,6 +1,6 @@
 #ifndef AMIT_PROJECT_DIO_CFG_H
 #define AMIT_PROJECT_DIO_CFG_H
-#include "Std_Types.h"
+#include "std_types.h"
 typedef enum _DIO_t
 {
     DIO_ADC_0 = ( uint8_t ) 0 ,

@@ -2,7 +2,7 @@
 #include <avr/io.h>
 #include "io_extras.h"
 #include <util/twi.h>
-#include "BitHelpers.h"
+#include "bit_helpers.h"
 #include "common.h"
 #include "I2C_private.h"
 #include "I2C_config.h"
@@ -21,7 +21,7 @@
 #define MIN_POSSIBLE_I2C_SPEED_PRESC_16     ( ( uint32_t ) ceil ( SCL_CALC ( 255 , 2 ) ) ) //TWBR = 255, TWPS = 2
 #define MIN_POSSIBLE_I2C_SPEED_PRESC_64     ( ( uint32_t ) ceil ( SCL_CALC ( 255 , 3 ) ) ) //TWBR = 255, TWPS = 3
 #define WAIT_OPERATION() \
-    while ( READ_BIT ( TWCR , TWINT ) != BIT_STATE_SET ) \
+    while ( READ_BIT ( TWCR , TWINT ) == BIT_STATE_CLEARED ) \
     { \
     }
 #define SEND_START() \
@@ -36,7 +36,11 @@
     TWCR = ( BIT_MASK ( TWINT ) | BIT_MASK ( TWSTA ) | BIT_MASK ( TWSTO ) | BIT_MASK ( TWEN ) );
 #define SEND_ACK() \
     TWCR = ( BIT_MASK ( TWINT ) | BIT_MASK ( TWEA ) | BIT_MASK ( TWEN ) );
+ #define SETUP_ACK() \
+    TWCR = ( BIT_MASK ( TWINT ) | BIT_MASK ( TWEA ) | BIT_MASK ( TWEN ) );
 #define SEND_NACK() \
+    TWCR = ( BIT_MASK ( TWINT ) | BIT_MASK ( TWEN ) );
+#define SETUP_NACK() \
     TWCR = ( BIT_MASK ( TWINT ) | BIT_MASK ( TWEN ) );
 #define SEND_SLA_R( Addr ) \
     TWDR = ( ( ( ( uint8_t ) ( Addr ) ) << 1 ) | TW_READ ); \
@@ -47,7 +51,7 @@
     TWCR = ( BIT_MASK ( TWINT ) | BIT_MASK ( TWEN ) ); \
     WAIT_OPERATION ();
 #define SEND_DATA( Data ) \
-    TWDR = ( Data ); \
+    TWDR = ( ( uint8_t ) ( Data ) ); \
     TWCR = ( BIT_MASK ( TWINT ) | BIT_MASK ( TWEN ) ); \
     WAIT_OPERATION ();
 #define ENABLE_ACK() \
@@ -141,9 +145,29 @@ void I2C_sendData ( uint8_t data )
 {
     SEND_DATA ( data );
 }
+uint8_t I2C_receiveDataWithAck ( void )
+{
+    SETUP_ACK ();
+    WAIT_OPERATION ();
+    return TWDR;
+}
+uint8_t I2C_receiveDataWithNack ( void )
+{
+    SETUP_NACK ();
+    WAIT_OPERATION ();
+    return TWDR;
+}
 void I2C_stop ( void )
 {
     SEND_STOP ();
+}
+void I2C_sendAck ( void )
+{
+    SEND_ACK ();
+}
+void I2C_sendNack ( void )
+{
+    SEND_NACK ();
 }
 I2C_STD_ERR_t I2C_slaveInit ( uint8_t addr , bool generalCallEnable )
 {

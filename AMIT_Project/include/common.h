@@ -1,6 +1,6 @@
 #ifndef AMIT_PROJECT_COMMON_H_
 #define AMIT_PROJECT_COMMON_H_
-#include "Std_Types.h"
+#include "std_types.h"
 typedef enum _BIT_STATE_t
 {
     BIT_STATE_CLEARED = ( uint8_t ) 0 ,

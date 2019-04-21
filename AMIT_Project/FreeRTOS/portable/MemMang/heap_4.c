@@ -45,7 +45,7 @@ task.h is included from an application file. */
 
 #undef MPU_WRAPPERS_INCLUDED_FROM_API_FILE
 
-#if( configSUPPORT_DYNAMIC_ALLOCATION == 0 )
+#if ( configSUPPORT_DYNAMIC_ALLOCATION == 0 )
 	#error This file must not be used if configSUPPORT_DYNAMIC_ALLOCATION is 0
 #endif
 
@@ -56,7 +56,7 @@ task.h is included from an application file. */
 #define heapBITS_PER_BYTE		( ( size_t ) 8 )
 
 /* Allocate the memory for the heap. */
-#if( configAPPLICATION_ALLOCATED_HEAP == 1 )
+#if ( configAPPLICATION_ALLOCATED_HEAP == 1 )
 	/* The application writer has already defined the array used for the RTOS
 	heap - probably so it can be placed in a special segment or address. */
 	extern uint8_t ucHeap[ configTOTAL_HEAP_SIZE ];
@@ -241,7 +241,7 @@ void *pvReturn = NULL;
 	}
 	( void ) xTaskResumeAll();
 
-	#if( configUSE_MALLOC_FAILED_HOOK == 1 )
+	#if ( configUSE_MALLOC_FAILED_HOOK == 1 )
 	{
 		if( pvReturn == NULL )
 		{

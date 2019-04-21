@@ -39,7 +39,7 @@ task.h is included from an application file. */
 #include "task.h"
 #include "stream_buffer.h"
 
-#if( configUSE_TASK_NOTIFICATIONS != 1 )
+#if ( configUSE_TASK_NOTIFICATIONS != 1 )
 	#error configUSE_TASK_NOTIFICATIONS must be set to 1 to build stream_buffer.c
 #endif
 
@@ -214,7 +214,7 @@ static void prvInitialiseNewStreamBuffer( StreamBuffer_t * const pxStreamBuffer,
 
 /*-----------------------------------------------------------*/
 
-#if( configSUPPORT_DYNAMIC_ALLOCATION == 1 )
+#if ( configSUPPORT_DYNAMIC_ALLOCATION == 1 )
 
 	StreamBufferHandle_t xStreamBufferGenericCreate( size_t xBufferSizeBytes, size_t xTriggerLevelBytes, BaseType_t xIsMessageBuffer )
 	{
@@ -278,7 +278,7 @@ static void prvInitialiseNewStreamBuffer( StreamBuffer_t * const pxStreamBuffer,
 #endif /* configSUPPORT_DYNAMIC_ALLOCATION */
 /*-----------------------------------------------------------*/
 
-#if( configSUPPORT_STATIC_ALLOCATION == 1 )
+#if ( configSUPPORT_STATIC_ALLOCATION == 1 )
 
 	StreamBufferHandle_t xStreamBufferGenericCreateStatic( size_t xBufferSizeBytes,
 														   size_t xTriggerLevelBytes,
@@ -318,7 +318,7 @@ static void prvInitialiseNewStreamBuffer( StreamBuffer_t * const pxStreamBuffer,
 		to hold at least one message. */
 		configASSERT( xBufferSizeBytes > sbBYTES_TO_STORE_MESSAGE_LENGTH );
 
-		#if( configASSERT_DEFINED == 1 )
+		#if ( configASSERT_DEFINED == 1 )
 		{
 			/* Sanity check that the size of the structure used to declare a
 			variable of type StaticStreamBuffer_t equals the size of the real
@@ -366,7 +366,7 @@ StreamBuffer_t * pxStreamBuffer = xStreamBuffer;
 
 	if( ( pxStreamBuffer->ucFlags & sbFLAGS_IS_STATICALLY_ALLOCATED ) == ( uint8_t ) pdFALSE )
 	{
-		#if( configSUPPORT_DYNAMIC_ALLOCATION == 1 )
+		#if ( configSUPPORT_DYNAMIC_ALLOCATION == 1 )
 		{
 			/* Both the structure and the buffer were allocated using a single call
 			to pvPortMalloc(), hence only one call to vPortFree() is required. */
@@ -394,13 +394,13 @@ BaseType_t xStreamBufferReset( StreamBufferHandle_t xStreamBuffer )
 StreamBuffer_t * const pxStreamBuffer = xStreamBuffer;
 BaseType_t xReturn = pdFAIL;
 
-#if( configUSE_TRACE_FACILITY == 1 )
+#if ( configUSE_TRACE_FACILITY == 1 )
 	UBaseType_t uxStreamBufferNumber;
 #endif
 
 	configASSERT( pxStreamBuffer );
 
-	#if( configUSE_TRACE_FACILITY == 1 )
+	#if ( configUSE_TRACE_FACILITY == 1 )
 	{
 		/* Store the stream buffer number so it can be restored after the
 		reset. */
@@ -422,7 +422,7 @@ BaseType_t xReturn = pdFAIL;
 											  pxStreamBuffer->ucFlags );
 				xReturn = pdPASS;
 
-				#if( configUSE_TRACE_FACILITY == 1 )
+				#if ( configUSE_TRACE_FACILITY == 1 )
 				{
 					pxStreamBuffer->uxStreamBufferNumber = uxStreamBufferNumber;
 				}
@@ -1215,7 +1215,7 @@ static void prvInitialiseNewStreamBuffer( StreamBuffer_t * const pxStreamBuffer,
 	/* Assert here is deliberately writing to the entire buffer to ensure it can
 	be written to without generating exceptions, and is setting the buffer to a
 	known value to assist in development/debugging. */
-	#if( configASSERT_DEFINED == 1 )
+	#if ( configASSERT_DEFINED == 1 )
 	{
 		/* The value written just has to be identifiable when looking at the
 		memory.  Don't use 0xA5 as that is the stack fill value and could

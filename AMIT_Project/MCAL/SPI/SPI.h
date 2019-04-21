@@ -1,6 +1,6 @@
 #ifndef AMIT_PROJECT_SPI_H_
 #define AMIT_PROJECT_SPI_H_
-#include "Std_Types.h"
+#include "std_types.h"
 #include "common.h"
 typedef enum _SPI_DATA_ORDER_t
 {

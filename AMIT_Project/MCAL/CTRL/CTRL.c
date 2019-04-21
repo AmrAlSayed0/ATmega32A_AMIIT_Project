@@ -1,7 +1,7 @@
 #include <avr/io.h>
 #include <avr/interrupt.h>
 #include "io_extras.h"
-#include "BitHelpers.h"
+#include "bit_helpers.h"
 #include "CTRL_private.h"
 #include "CTRL_config.h"
 #include "CTRL.h"

@@ -1,5 +1,5 @@
 #include <util/delay.h>
-#include "BitHelpers.h"
+#include "bit_helpers.h"
 #include "DIO.h"
 #include "LCD_private.h"
 #include "LCD_config.h"

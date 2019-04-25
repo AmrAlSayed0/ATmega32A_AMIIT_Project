@@ -53,7 +53,7 @@ SPI_STD_ERR_t SPI_masterInit ( SPI_CFG_t* config )
                 case SPI_MODE_1 :
                 case SPI_MODE_2 :
                 case SPI_MODE_3 :
-                    REPLACE_BITS ( spcrValue , ( ( uint8_t ) config->mode ) << CPHA , BIT_MASK ( CPOL ) | BIT_MASK ( CPHA ) );
+                    REPLACE_BITS ( spcrValue , ( ( uint8_t ) config->mode ) << CPHA , BIT_MASK2 ( CPOL , CPHA ) );
                     break;
                 default:
                     opResult = SPI_ERR_MODE;
@@ -67,13 +67,13 @@ SPI_STD_ERR_t SPI_masterInit ( SPI_CFG_t* config )
                     case SPI_FREQ_16 :
                     case SPI_FREQ_64 :
                     case SPI_FREQ_128 :
-                        REPLACE_BITS ( spcrValue , ( ( uint8_t ) config->freq ) << SPR0 , BIT_MASK ( SPR1 ) | BIT_MASK ( SPR0 ) );
+                        REPLACE_BITS ( spcrValue , ( ( uint8_t ) config->freq ) << SPR0 , BIT_MASK2 ( SPR1 , SPR0 ) );
                         break;
                     case SPI_FREQ_2X_2 :
                     case SPI_FREQ_2X_8 :
                     case SPI_FREQ_2X_32 :
                     case SPI_FREQ_2X_64 :
-                        REPLACE_BITS ( spcrValue , ( ( uint8_t ) config->freq ) << SPR0 , BIT_MASK ( SPR1 ) | BIT_MASK ( SPR0 ) );
+                        REPLACE_BITS ( spcrValue , ( ( uint8_t ) config->freq ) << SPR0 , BIT_MASK2 ( SPR1 , SPR0 ) );
                         SET_BIT ( spsrValue , SPI2X );
                         break;
                     default:
@@ -156,7 +156,7 @@ SPI_STD_ERR_t SPI_slaveInit ( SPI_CFG_t* config )
                 case SPI_MODE_1 :
                 case SPI_MODE_2 :
                 case SPI_MODE_3 :
-                    REPLACE_BITS ( spcrValue , ( ( uint8_t ) config->mode ) << CPHA , BIT_MASK ( CPOL ) | BIT_MASK ( CPHA ) );
+                    REPLACE_BITS ( spcrValue , ( ( uint8_t ) config->mode ) << CPHA , BIT_MASK2 ( CPOL , CPHA ) );
                     break;
                 default:
                     opResult = SPI_ERR_MODE;
@@ -170,13 +170,13 @@ SPI_STD_ERR_t SPI_slaveInit ( SPI_CFG_t* config )
                     case SPI_FREQ_16 :
                     case SPI_FREQ_64 :
                     case SPI_FREQ_128 :
-                        REPLACE_BITS ( spcrValue , ( ( uint8_t ) config->freq ) << SPR0 , BIT_MASK ( SPR1 ) | BIT_MASK ( SPR0 ) );
+                        REPLACE_BITS ( spcrValue , ( ( uint8_t ) config->freq ) << SPR0 , BIT_MASK2 ( SPR1 , SPR0 ) );
                         break;
                     case SPI_FREQ_2X_2 :
                     case SPI_FREQ_2X_8 :
                     case SPI_FREQ_2X_32 :
                     case SPI_FREQ_2X_64 :
-                        REPLACE_BITS ( spcrValue , ( ( uint8_t ) config->freq ) << SPR0 , BIT_MASK ( SPR1 ) | BIT_MASK ( SPR0 ) );
+                        REPLACE_BITS ( spcrValue , ( ( uint8_t ) config->freq ) << SPR0 , BIT_MASK2 ( SPR1 , SPR0 ) );
                         SET_BIT ( spsrValue , SPI2X );
                         break;
                     default:
@@ -253,7 +253,7 @@ SPI_STD_ERR_t SPI_setMode ( SPI_MODE_t mode )
         case SPI_MODE_1 :
         case SPI_MODE_2 :
         case SPI_MODE_3 :
-            REPLACE_BITS ( SPCR , ( ( uint8_t ) mode ) << CPHA , BIT_MASK ( CPOL ) | BIT_MASK ( CPHA ) );
+            REPLACE_BITS ( SPCR , ( ( uint8_t ) mode ) << CPHA , BIT_MASK2 ( CPOL , CPHA ) );
             break;
         default:
             opResult = SPI_ERR_MODE;
@@ -269,13 +269,13 @@ SPI_STD_ERR_t SPI_setFreq ( SPI_FREQ_t freq )
         case SPI_FREQ_16 :
         case SPI_FREQ_64 :
         case SPI_FREQ_128 :
-            REPLACE_BITS ( SPCR , ( ( uint8_t ) freq ) << SPR0 , BIT_MASK ( SPR1 ) | BIT_MASK ( SPR0 ) );
+            REPLACE_BITS ( SPCR , ( ( uint8_t ) freq ) << SPR0 , BIT_MASK2 ( SPR1 , SPR0 ) );
             break;
         case SPI_FREQ_2X_2 :
         case SPI_FREQ_2X_8 :
         case SPI_FREQ_2X_32 :
         case SPI_FREQ_2X_64 :
-            REPLACE_BITS ( SPCR , ( ( uint8_t ) freq ) << SPR0 , BIT_MASK ( SPR1 ) | BIT_MASK ( SPR0 ) );
+            REPLACE_BITS ( SPCR , ( ( uint8_t ) freq ) << SPR0 , BIT_MASK2 ( SPR1 , SPR0 ) );
             SET_BIT ( SPSR , SPI2X );
             break;
         default:

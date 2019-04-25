@@ -1,6 +1,8 @@
 #ifndef AMIT_PROJECT_DIO_CFG_H
 #define AMIT_PROJECT_DIO_CFG_H
 #include "std_types.h"
+#define NUM_OF_PINS ( ( uint8_t ) 32 )
+#define NUM_OF_PINS_PER_PORT ( ( uint8_t ) 8 )
 typedef enum _DIO_t
 {
     DIO_ADC_0 = ( uint8_t ) 0 ,
@@ -70,7 +72,6 @@ typedef enum _DIO_t
     DIO_PD_6 = ( uint8_t ) 30 ,
     DIO_OC_2 = ( uint8_t ) 31 ,
     DIO_PD_7 = ( uint8_t ) 31 ,
-    NUM_OF_PINS
 } DIO_t;
 typedef enum _PORT_t
 {
@@ -89,7 +90,6 @@ typedef enum _PIN_t
     PIN_5 = ( uint8_t ) 5 ,
     PIN_6 = ( uint8_t ) 6 ,
     PIN_7 = ( uint8_t ) 7 ,
-    NUM_OF_PINS_PER_PORT
 } PIN_t;
 typedef enum _DIRECTION_t
 {
@@ -112,9 +112,9 @@ typedef struct _DIO_CNF_t
 {
     PORT_t port;
     PIN_t pin;
-    DIRECTION_t dir;
+    DIRECTION_t direction;
     PIN_STATE_t pinState;
-    RESISTOR_t res;
+    RESISTOR_t resistorState;
 } DIO_CNF_t;
-extern DIO_CNF_t DIO_inital_cfg_arr[( uint8_t ) NUM_OF_PINS];
+extern DIO_CNF_t DIO_initalCfgArr[NUM_OF_PINS];
 #endif

@@ -1,5 +1,6 @@
 #include <avr/io.h>
 #include <util/delay.h>
+#include "bit_helpers.h"
 #include "io_extras.h"
 #include "FreeRTOS.h"
 #include "task.h"
@@ -14,6 +15,7 @@
 #include "KEYPAD.h"
 #include "LED.h"
 #include "EXT_EEPROM.h"
+#include "RTC.h"
 int main ( void )
 {
     WTCHDG_disable ();
@@ -35,7 +37,9 @@ int main ( void )
     LED_init ();
     LCD_init ( INS_FUNCTION_8_BIT | INS_FUNCTION_2_LINES | INS_FUNCTION_5_7_DOTS , INS_ENTRY_MODE_DECREMENT | INS_ENTRY_MODE_NO_SHIFT , INS_DISPLAY_ON | INS_DISPLAY_CURSOR_OFF | INS_DISPLAY_CURSOR_BLINK_OFF );
     KEYPAD_init ();
-    EXT_EEPROM_move ( 0 , 1000 , 1000 );
+    //EXT_EEPROM_move ( 0 , 1000 , 1000 );
+    uint8_t readValue;
+    uint8_t seconds;
     while ( 1 )
     {
         uint16_t pressedKeys = KEYPAD_getPressedKey ();
@@ -103,7 +107,10 @@ int main ( void )
         {
             UART_transmitString ( "/" );
         }
-        LCD_clearAndWriteString ( "ABC" );
+        RTC_readReg ( 0x03 , &readValue );
+        seconds = ( READ_BITS_AND_SHIFT ( readValue , BIT_MASK ( 6 ) | BIT_MASK ( 5 ) | BIT_MASK ( 4 ) , 4 ) * 10 ) + READ_BITS_AND_SHIFT ( readValue , BIT_MASK ( 3 ) | BIT_MASK ( 2 ) | BIT_MASK ( 1 ) | BIT_MASK ( 0 ) , 0 );
+        LCD_clear ();
+        LCD_writeNumber ( seconds );
         _delay_ms ( 50 );
     }
 }

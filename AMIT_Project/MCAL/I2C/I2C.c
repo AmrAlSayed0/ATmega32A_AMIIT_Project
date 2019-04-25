@@ -10,7 +10,7 @@
 #define MAX_SLAVE_ADDR          ( ( uint8_t ) 0x7F )
 #define RESERVED_ADDR_1         ( 0x03 ) //00000011
 #define RESERVED_ADDR_2_MASK    ( 0x7C ) //01111100
-#define MAX_I2C_SPEED           ( ( uint32_t ) 400000 )
+#define MAX_I2C_SPEED           ( ( uint32_t ) 1000000 )
 // SCL = CPU_CLCK / ( 16 + 2 * TWBR * ( 4 ^ TWPS ) )
 #define SCL_CALC( twbrValue , twpsValue )   ( ( ( double ) F_CPU ) / ( ( double ) ( ( ( double ) 16 ) + ( ( ( double ) 2 ) * ( ( double ) ( twbrValue ) ) * pow ( 4 , ( twpsValue ) ) ) ) ) )
 // TWBR = ( CPU_CLCK - ( 16 * SCL ) ) / ( 2 * TWBR * ( 4 ^ TWPS ) )

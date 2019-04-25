@@ -1,5 +1,6 @@
 #include <avr/io.h>
 #include <avr/interrupt.h>
+#include "std_types.h"
 #include "io_extras.h"
 #include "bit_helpers.h"
 #include "CTRL_private.h"

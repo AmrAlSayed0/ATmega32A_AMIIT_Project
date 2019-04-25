@@ -1,5 +1,5 @@
 #include "DIO_config.h"
-DIO_CNF_t DIO_inital_cfg_arr[( uint8_t ) NUM_OF_PINS] = {
+DIO_CNF_t DIO_initalCfgArr[NUM_OF_PINS] = {
     {
         PORT_A ,
         PIN_0 ,

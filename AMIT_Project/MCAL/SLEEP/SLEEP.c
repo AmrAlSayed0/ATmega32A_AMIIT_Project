@@ -26,7 +26,7 @@ SLEEP_STD_ERR_t SLEEP_setMode ( SLEEP_MODE_t mode )
         case SLEEP_MOD_PWR_SAVE :
         case SLEEP_MOD_STANDBY :
         case SLEEP_MOD_EXT_STANDBY :
-            REPLACE_BITS ( MCUCR , ( ( uint8_t ) mode ) << SM0 , BIT_MASK ( SM2 ) | BIT_MASK ( SM1 ) | BIT_MASK ( SM0 ) );
+            REPLACE_BITS ( MCUCR , ( ( uint8_t ) mode ) << SM0 , BIT_MASK3 ( SM2 , SM1 , SM0 ) );
             break;
         default:
             opResult = SLEEP_ERR_MODE;
@@ -35,5 +35,5 @@ SLEEP_STD_ERR_t SLEEP_setMode ( SLEEP_MODE_t mode )
 }
 SLEEP_MODE_t SLEEP_getMode ( void )
 {
-    return ( SLEEP_MODE_t ) READ_BITS_AND_SHIFT ( MCUCR , BIT_MASK ( SM2 ) | BIT_MASK ( SM1 ) | BIT_MASK ( SM0 ) , SM0 );
+    return ( SLEEP_MODE_t ) READ_BITS_AND_SHIFT ( MCUCR , BIT_MASK3 ( SM2 , SM1 , SM0 ) , SM0 );
 }

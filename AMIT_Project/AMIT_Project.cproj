@@ -102,6 +102,7 @@
             <Value>../HAL/LCD</Value>
             <Value>../HAL/LED</Value>
             <Value>../HAL/EXT_EEPROM</Value>
+            <Value>../HAL/RTC</Value>
             <Value>../MCAL</Value>
             <Value>../MCAL/CTRL</Value>
             <Value>../MCAL/DIO</Value>
@@ -146,6 +147,7 @@
             <Value>../HAL/LCD</Value>
             <Value>../HAL/LED</Value>
             <Value>../HAL/EXT_EEPROM</Value>
+            <Value>../HAL/RTC</Value>
             <Value>../MCAL</Value>
             <Value>../MCAL/CTRL</Value>
             <Value>../MCAL/DIO</Value>
@@ -173,6 +175,7 @@
             <Value>../HAL/LCD</Value>
             <Value>../HAL/LED</Value>
             <Value>../HAL/EXT_EEPROM</Value>
+            <Value>../HAL/RTC</Value>
             <Value>../MCAL</Value>
             <Value>../MCAL/CTRL</Value>
             <Value>../MCAL/DIO</Value>
@@ -221,6 +224,7 @@
             <Value>../HAL/LCD</Value>
             <Value>../HAL/LED</Value>
             <Value>../HAL/EXT_EEPROM</Value>
+            <Value>../HAL/RTC</Value>
             <Value>../MCAL</Value>
             <Value>../MCAL/CTRL</Value>
             <Value>../MCAL/DIO</Value>
@@ -263,6 +267,7 @@
             <Value>../HAL/LCD</Value>
             <Value>../HAL/LED</Value>
             <Value>../HAL/EXT_EEPROM</Value>
+            <Value>../HAL/RTC</Value>
             <Value>../MCAL</Value>
             <Value>../MCAL/CTRL</Value>
             <Value>../MCAL/DIO</Value>
@@ -290,6 +295,7 @@
             <Value>../HAL/LCD</Value>
             <Value>../HAL/LED</Value>
             <Value>../HAL/EXT_EEPROM</Value>
+            <Value>../HAL/RTC</Value>
             <Value>../MCAL</Value>
             <Value>../MCAL/CTRL</Value>
             <Value>../MCAL/DIO</Value>
@@ -441,6 +447,18 @@
     <Compile Include="HAL\LED\LED_private.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="HAL\RTC\RTC.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="HAL\RTC\RTC.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="HAL\RTC\RTC_config.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="HAL\RTC\RTC_private.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="include\bit_helpers.h">
       <SubType>compile</SubType>
     </Compile>
@@ -448,6 +466,9 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="include\io_extras.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="include\macro_helpers.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="include\std_types.h">
@@ -593,6 +614,7 @@
     <Folder Include="HAL\LCD" />
     <Folder Include="HAL\LED" />
     <Folder Include="HAL\EXT_EEPROM" />
+    <Folder Include="HAL\RTC" />
     <Folder Include="MCAL" />
     <Folder Include="MCAL\CTRL" />
     <Folder Include="MCAL\DIO" />

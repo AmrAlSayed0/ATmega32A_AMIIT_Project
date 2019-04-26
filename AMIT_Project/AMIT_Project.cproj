@@ -103,6 +103,7 @@
             <Value>../HAL/LED</Value>
             <Value>../HAL/EXT_EEPROM</Value>
             <Value>../HAL/RTC</Value>
+            <Value>../HAL/MOTOR</Value>
             <Value>../MCAL</Value>
             <Value>../MCAL/CTRL</Value>
             <Value>../MCAL/DIO</Value>
@@ -137,6 +138,7 @@
         <avrgcc.linker.libraries.LibrarySearchPaths>
           <ListValues>
             <Value>../include</Value>
+            <Value>../include</Value>
             <Value>../FreeRTOS</Value>
             <Value>../FreeRTOS/include</Value>
             <Value>../FreeRTOS/portable/GCC</Value>
@@ -148,6 +150,7 @@
             <Value>../HAL/LED</Value>
             <Value>../HAL/EXT_EEPROM</Value>
             <Value>../HAL/RTC</Value>
+            <Value>../HAL/MOTOR</Value>
             <Value>../MCAL</Value>
             <Value>../MCAL/CTRL</Value>
             <Value>../MCAL/DIO</Value>
@@ -176,6 +179,7 @@
             <Value>../HAL/LED</Value>
             <Value>../HAL/EXT_EEPROM</Value>
             <Value>../HAL/RTC</Value>
+            <Value>../HAL/MOTOR</Value>
             <Value>../MCAL</Value>
             <Value>../MCAL/CTRL</Value>
             <Value>../MCAL/DIO</Value>
@@ -225,6 +229,7 @@
             <Value>../HAL/LED</Value>
             <Value>../HAL/EXT_EEPROM</Value>
             <Value>../HAL/RTC</Value>
+            <Value>../HAL/MOTOR</Value>
             <Value>../MCAL</Value>
             <Value>../MCAL/CTRL</Value>
             <Value>../MCAL/DIO</Value>
@@ -268,6 +273,7 @@
             <Value>../HAL/LED</Value>
             <Value>../HAL/EXT_EEPROM</Value>
             <Value>../HAL/RTC</Value>
+            <Value>../HAL/MOTOR</Value>
             <Value>../MCAL</Value>
             <Value>../MCAL/CTRL</Value>
             <Value>../MCAL/DIO</Value>
@@ -296,6 +302,7 @@
             <Value>../HAL/LED</Value>
             <Value>../HAL/EXT_EEPROM</Value>
             <Value>../HAL/RTC</Value>
+            <Value>../HAL/MOTOR</Value>
             <Value>../MCAL</Value>
             <Value>../MCAL/CTRL</Value>
             <Value>../MCAL/DIO</Value>
@@ -445,6 +452,18 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="HAL\LED\LED_private.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="HAL\MOTOR\MOTOR.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="HAL\MOTOR\MOTOR.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="HAL\MOTOR\MOTOR_config.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="HAL\MOTOR\MOTOR_private.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="HAL\RTC\RTC.c">
@@ -602,6 +621,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="HAL\MOTOR" />
     <Folder Include="include" />
     <Folder Include="FreeRTOS\" />
     <Folder Include="FreeRTOS\include\" />

@@ -16,6 +16,7 @@
 #include "LED.h"
 #include "EXT_EEPROM.h"
 #include "RTC.h"
+#include "MOTOR.h"
 int main ( void )
 {
     WTCHDG_disable ();
@@ -38,8 +39,10 @@ int main ( void )
     LCD_init ( INS_FUNCTION_8_BIT | INS_FUNCTION_2_LINES | INS_FUNCTION_5_7_DOTS , INS_ENTRY_MODE_DECREMENT | INS_ENTRY_MODE_NO_SHIFT , INS_DISPLAY_ON | INS_DISPLAY_CURSOR_OFF | INS_DISPLAY_CURSOR_BLINK_OFF );
     KEYPAD_init ();
     //EXT_EEPROM_move ( 0 , 1000 , 1000 );
-    uint8_t readValue;
-    uint8_t seconds;
+    MOTOR_init ();
+    MOTOR_setDirection ( MOTOR_CLOCKWISE );
+    MOTOR_setSpeed ( 1 );
+    //TIME_t time;
     while ( 1 )
     {
         uint16_t pressedKeys = KEYPAD_getPressedKey ();
@@ -107,11 +110,19 @@ int main ( void )
         {
             UART_transmitString ( "/" );
         }
-        RTC_readReg ( 0x03 , &readValue );
-        seconds = ( READ_BITS_AND_SHIFT ( readValue , BIT_MASK ( 6 ) | BIT_MASK ( 5 ) | BIT_MASK ( 4 ) , 4 ) * 10 ) + READ_BITS_AND_SHIFT ( readValue , BIT_MASK ( 3 ) | BIT_MASK ( 2 ) | BIT_MASK ( 1 ) | BIT_MASK ( 0 ) , 0 );
-        LCD_clear ();
-        LCD_writeNumber ( seconds );
-        _delay_ms ( 50 );
+        //RTC_getTime ( &time );
+        //LCD_clear ();
+        //LCD_writeNumber ( time.seconds );
+        MOTOR_setDirection ( MOTOR_CLOCKWISE );
+        MOTOR_start ();
+        LCD_clearAndWriteString ( "MOTOR Started C" );
+        _delay_ms ( 1500 );
+        MOTOR_setDirection ( MOTOR_ANTICLOCKWISE );
+        LCD_clearAndWriteString ( "MOTOR Started A" );
+        _delay_ms ( 1500 );
+        MOTOR_stop ();
+        LCD_clearAndWriteString ( "MOTOR Stopped" );
+        _delay_ms ( 1500 );
     }
 }
 

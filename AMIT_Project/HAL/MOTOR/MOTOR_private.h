@@ -1,0 +1,5 @@
+#ifndef AMIT_PROJECT_MOTOR_PRIVATE_H_
+#define AMIT_PROJECT_MOTOR_PRIVATE_H_
+#define PULSE_PORT  PORT_D
+#define PULSE_PIN   PIN_7
+#endif

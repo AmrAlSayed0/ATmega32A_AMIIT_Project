@@ -1,5 +1,8 @@
 #include <util/delay.h>
 #include "bit_helpers.h"
+#include "time_helpers.h"
+#include "FreeRTOS.h"
+#include "task.h"
 #include "DIO.h"
 #include "LCD_private.h"
 #include "LCD_config.h"
@@ -78,6 +81,7 @@ void LCD_init ( uint8_t ui8FunctionSetOptions , uint8_t ui8EntryModeSetOptions ,
     LCD_writeCommand ( INS_ENTRY_MODE_BASE | ui8EntryModeSetOptions );
     LCD_writeCommand ( INS_DISPLAY_BASE | ui8DisplayOptions );
     LCD_clear ();
+    isInitDone = true;
 }
 #pragma GCC diagnostic ignored "-Wunused-function"
 static void waitBusy ( void )
@@ -124,9 +128,31 @@ static void waitBusy ( void )
 static void enable ( void )
 {
     DIO_write ( LCD_E_PORT , LCD_E_PIN , PIN_STATE_HIGH );
+#if ( USE_FREE_RTOS_TASK_DELAY == 1 )
+    if ( isInitDone )
+    {
+        vTaskDelay ( calcTicksFromTimeMs ( ( ( double ) ENABLE_DELAY_IN_US ) / ( ( double ) 1000 ) ) );
+    }
+    else
+    {
+        _delay_us ( ENABLE_DELAY_IN_US );
+    }        
+#elif
     _delay_us ( ENABLE_DELAY_IN_US );
+#endif
     DIO_write ( LCD_E_PORT , LCD_E_PIN , PIN_STATE_LOW );
+#if ( USE_FREE_RTOS_TASK_DELAY == 1 )
+    if ( isInitDone )
+    {
+        vTaskDelay ( calcTicksFromTimeMs ( ( ( double ) ENABLE_DELAY_IN_US ) / ( ( double ) 1000 ) ) );
+    }
+    else
+    {
+        _delay_us ( ENABLE_DELAY_IN_US );
+    }
+#elif
     _delay_us ( ENABLE_DELAY_IN_US );
+#endif
 }
 /*
  * Write data to Data pins. Written data might be 4-bit or 8-bit
@@ -257,7 +283,18 @@ void LCD_writeCommand ( uint8_t ui8Com )
     DIO_write ( LCD_E_PORT , LCD_E_PIN , PIN_STATE_LOW );
     DIO_write ( LCD_RS_PORT , LCD_RS_PIN , RS_INS );
     LCD_writeData ( ui8Com );
+#if ( USE_FREE_RTOS_TASK_DELAY == 1 )
+    if ( isInitDone )
+    {
+        vTaskDelay ( calcTicksFromTimeMs ( COMMAND_DELAY_IN_MS ) );
+    }
+    else
+    {
+        _delay_ms ( COMMAND_DELAY_IN_MS );
+    }
+#elif
     _delay_ms ( COMMAND_DELAY_IN_MS );
+#endif
 }
 /*
  * Write a char to the LCD at the cursor
@@ -267,7 +304,18 @@ void LCD_writeChar ( char cChar )
     DIO_write ( LCD_E_PORT , LCD_E_PIN , PIN_STATE_LOW );
     DIO_write ( LCD_RS_PORT , LCD_RS_PIN , RS_DATA );
     LCD_writeData ( cChar );
+#if ( USE_FREE_RTOS_TASK_DELAY == 1 )
+    if ( isInitDone )
+    {
+        vTaskDelay ( calcTicksFromTimeMs ( DATA_DELAY_IN_MS ) );
+    }
+    else
+    {
+        _delay_ms ( DATA_DELAY_IN_MS );
+    }
+#elif
     _delay_ms ( DATA_DELAY_IN_MS );
+#endif
 }
 /*
  * Write a string to the LCD

@@ -2,6 +2,7 @@
 #define AMIT_PROJECT_LCD_PRIVATE_H_
 #define NUMERIC_STRING_LENGTH    6
 static bool data8Bit = false;
+bool isInitDone = false;
 static char numericString[NUMERIC_STRING_LENGTH];
 static void enable ( void );
 static void waitBusy ( void );

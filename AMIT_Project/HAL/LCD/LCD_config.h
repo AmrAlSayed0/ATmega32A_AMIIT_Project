@@ -22,4 +22,5 @@
 #define LCD_RW_PIN  PIN_4
 #define LCD_RS_PORT PORT_C
 #define LCD_RS_PIN  PIN_5
+#define USE_FREE_RTOS_TASK_DELAY 1
 #endif

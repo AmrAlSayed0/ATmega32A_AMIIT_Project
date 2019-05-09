@@ -1,6 +1,7 @@
 #ifndef AMIT_PROJECT_EEPROM_H_
 #define AMIT_PROJECT_EEPROM_H_
 #include "std_types.h"
+#define EEPROM_SIZE_IN_BYTES   ( ( uint16_t ) 0x400 ) /* 1024 */
 typedef enum _EEPROM_STD_ERR_t
 {
     EEPROM_OK = ( uint8_t ) 0 ,

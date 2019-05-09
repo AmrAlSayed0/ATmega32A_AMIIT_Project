@@ -27,4 +27,6 @@ EXT_INT_STD_ERR_t EXT_INT_clearState ( EXT_INT_t intToSet );
 EXT_INT_STD_ERR_t EXT_INT_getState ( EXT_INT_t intToSet , INT_STATE_t* outputState );
 EXT_INT_STD_ERR_t EXT_INT_clearFlag ( EXT_INT_t intToSet );
 EXT_INT_STD_ERR_t EXT_INT_getFlag ( EXT_INT_t intToSet , FLAG_STATE_t* outputFlagState );
+EXT_INT_STD_ERR_t EXT_INT_getInterruptFunction ( EXT_INT_t intToSet , interuptFunc* functionToExcute );
+EXT_INT_STD_ERR_t EXT_INT_setInterruptFunction ( EXT_INT_t intToSet , interuptFunc functionToExcute );
 #endif

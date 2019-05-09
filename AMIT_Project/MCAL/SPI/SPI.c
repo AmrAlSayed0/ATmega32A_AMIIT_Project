@@ -3,9 +3,9 @@
 #include "bit_helpers.h"
 #include "common.h"
 #include "DIO.h"
-#include "SPI_private.h"
-#include "SPI_config.h"
 #include "SPI.h"
+#include "SPI_config.h"
+#include "SPI_private.h"
 #define SS_PORT     PORT_B
 #define SS_PIN      PIN_4
 #define MOSI_PORT   PORT_B
@@ -101,7 +101,7 @@ void SPI_masterTransmit ( uint8_t data )
     /* Start transmission */
     SPDR = data;
     /* Wait for transmission complete */
-    while ( READ_BIT( SPSR , SPIF ) == BIT_STATE_CLEARED )
+    while ( READ_BIT( SPSR , SPIF ) == ( uint8_t ) BIT_STATE_CLEARED )
     {
     }
     SPI_clearInterruptFlag ();
@@ -116,7 +116,7 @@ void SPI_masterTransmitData ( void* data , uint32_t size )
     {
         SPDR = *tempDataPtr;
         /* Wait for transmission complete */
-        while ( READ_BIT( SPSR , SPIF ) == BIT_STATE_CLEARED )
+        while ( READ_BIT( SPSR , SPIF ) == ( uint8_t ) BIT_STATE_CLEARED )
         {
         }
         SPI_clearInterruptFlag ();
@@ -201,7 +201,7 @@ SPI_STD_ERR_t SPI_slaveInit ( SPI_CFG_t* config )
 uint8_t SPI_slaveReceive ( void )
 {
     /* Wait for reception complete */
-    while ( READ_BIT( SPSR , SPIF ) == BIT_STATE_CLEARED )
+    while ( READ_BIT( SPSR , SPIF ) == ( uint8_t ) BIT_STATE_CLEARED )
     {
     }
     /* Return data register */

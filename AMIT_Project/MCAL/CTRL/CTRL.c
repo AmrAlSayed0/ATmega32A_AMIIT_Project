@@ -3,9 +3,9 @@
 #include "std_types.h"
 #include "io_extras.h"
 #include "bit_helpers.h"
-#include "CTRL_private.h"
-#include "CTRL_config.h"
 #include "CTRL.h"
+#include "CTRL_config.h"
+#include "CTRL_private.h"
 #define MAX_STACK_POINTER_VALUE ( ( uint16_t ) 0x7FF )
 INT_STATE_t CTRL_getGlobalInterruptState ( void )
 {

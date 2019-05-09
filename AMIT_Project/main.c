@@ -4,6 +4,7 @@
 #include "io_extras.h"
 #include "FreeRTOS.h"
 #include "task.h"
+#include "semphr.h"
 #include "EEPROM.h"
 #include "WTCHDG.h"
 #include "DIO.h"
@@ -17,112 +18,74 @@
 #include "EXT_EEPROM.h"
 #include "RTC.h"
 #include "MOTOR.h"
+void App_init ( void );
+void vTask1 ( void* vParameters );
 int main ( void )
+{
+    App_init ();
+    xTaskCreate ( vTask1 , "Task1" , configMINIMAL_STACK_SIZE , ( void* ) 0 , 1 , NULL_PTR );
+    vTaskStartScheduler ();
+    while ( 1 )
+    {
+    }
+}
+void App_init ( void )
 {
     WTCHDG_disable ();
     DIO_init ();
-    UART_CNF_t uartCng = {
-        9600 ,
-        UART_NORMAL_SPEED ,
-        UART_PROC_MODE_SINGLE ,
-        UART_TRANS_ASYNC ,
-        UART_COM_ENABLED ,
-        UART_COM_ENABLED ,
-        UART_DATA_SIZE_8_BIT ,
-        UART_PARITY_ODD ,
-        UART_STP_SIZE_1_BIT ,
-        UART_CLCK_POLARITY_NOT_CARE
-    };
-    UART_init ( &uartCng );
+    {
+        UART_CNF_t uartCng = {
+            57600 ,
+            UART_NORMAL_SPEED ,
+            UART_PROC_MODE_SINGLE ,
+            UART_TRANS_ASYNC ,
+            UART_COM_ENABLED ,
+            UART_COM_ENABLED ,
+            UART_DATA_SIZE_8_BIT ,
+            UART_PARITY_ODD ,
+            UART_STP_SIZE_1_BIT ,
+            UART_CLCK_POLARITY_NOT_CARE
+        };
+        UART_init ( &uartCng );
+    }
     I2C_masterInit ( 400000 );
     LED_init ();
     LCD_init ( INS_FUNCTION_8_BIT | INS_FUNCTION_2_LINES | INS_FUNCTION_5_7_DOTS , INS_ENTRY_MODE_DECREMENT | INS_ENTRY_MODE_NO_SHIFT , INS_DISPLAY_ON | INS_DISPLAY_CURSOR_OFF | INS_DISPLAY_CURSOR_BLINK_OFF );
     KEYPAD_init ();
-    //EXT_EEPROM_move ( 0 , 1000 , 1000 );
     MOTOR_init ();
-    MOTOR_setDirection ( MOTOR_CLOCKWISE );
-    MOTOR_setSpeed ( 1 );
-    //TIME_t time;
+}
+void vTask1 ( void* vParameters )
+{
+    TickType_t xLastWakeTime = xTaskGetTickCount ();
+    ( void ) vParameters;
+    uint16_t pressedKeys = KEY_NONE;
+    MOTOR_setSpeed ( 0.5 );
+    uint8_t i = 0;
     while ( 1 )
     {
-        uint16_t pressedKeys = KEYPAD_getPressedKey ();
-        if ( ( pressedKeys & KEY_0 ) == KEY_0 )
+        i = 0xFF;
+        pressedKeys |= KEYPAD_getPressedKey ();
+        if ( pressedKeys != KEY_NONE )
         {
-            UART_transmitString ( "0" );
+            MOTOR_start ();
+            while ( i-- > 0 )
+            {
+                UART_transmitChar ( '\b' );
+            }
+            UART_transmitString ( "Started" );
+            UART_transmitChar ( '\r' );
         }
-        if ( ( pressedKeys & KEY_1 ) == KEY_1 )
+        else
         {
-            UART_transmitString ( "1" );
+            MOTOR_stop ();
+            while ( i-- > 0 )
+            {
+                UART_transmitChar ( '\b' );
+            }
+            UART_transmitString ( "Stopped" );
+            UART_transmitChar ( '\r' );
         }
-        if ( ( pressedKeys & KEY_2 ) == KEY_2 )
-        {
-            UART_transmitString ( "2" );
-        }
-        if ( ( pressedKeys & KEY_3 ) == KEY_3 )
-        {
-            UART_transmitString ( "3" );
-        }
-        if ( ( pressedKeys & KEY_4 ) == KEY_4 )
-        {
-            UART_transmitString ( "4" );
-        }
-        if ( ( pressedKeys & KEY_5 ) == KEY_5 )
-        {
-            UART_transmitString ( "5" );
-        }
-        if ( ( pressedKeys & KEY_6 ) == KEY_6 )
-        {
-            UART_transmitString ( "6" );
-        }
-        if ( ( pressedKeys & KEY_7 ) == KEY_7 )
-        {
-            UART_transmitString ( "7" );
-        }
-        if ( ( pressedKeys & KEY_8 ) == KEY_8 )
-        {
-            UART_transmitString ( "8" );
-        }
-        if ( ( pressedKeys & KEY_9 ) == KEY_9 )
-        {
-            UART_transmitString ( "9" );
-        }
-        if ( ( pressedKeys & KEY_C ) == KEY_C )
-        {
-            UART_transmitString ( "C" );
-        }
-        if ( ( pressedKeys & KEY_EQ ) == KEY_EQ )
-        {
-            UART_transmitString ( "=" );
-        }
-        if ( ( pressedKeys & KEY_PLUS ) == KEY_PLUS )
-        {
-            UART_transmitString ( "+" );
-        }
-        if ( ( pressedKeys & KEY_NEG ) == KEY_NEG )
-        {
-            UART_transmitString ( "-" );
-        }
-        if ( ( pressedKeys & KEY_MULT ) == KEY_MULT )
-        {
-            UART_transmitString ( "x" );
-        }
-        if ( ( pressedKeys & KEY_DIV ) == KEY_DIV )
-        {
-            UART_transmitString ( "/" );
-        }
-        //RTC_getTime ( &time );
-        //LCD_clear ();
-        //LCD_writeNumber ( time.seconds );
-        MOTOR_setDirection ( MOTOR_CLOCKWISE );
-        MOTOR_start ();
-        LCD_clearAndWriteString ( "MOTOR Started C" );
-        _delay_ms ( 1500 );
-        MOTOR_setDirection ( MOTOR_ANTICLOCKWISE );
-        LCD_clearAndWriteString ( "MOTOR Started A" );
-        _delay_ms ( 1500 );
-        MOTOR_stop ();
-        LCD_clearAndWriteString ( "MOTOR Stopped" );
-        _delay_ms ( 1500 );
+        pressedKeys = KEY_NONE;
+        vTaskDelayUntil ( &xLastWakeTime , 1000 );
     }
 }
-

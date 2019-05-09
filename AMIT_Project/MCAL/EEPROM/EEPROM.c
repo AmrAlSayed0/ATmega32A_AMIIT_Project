@@ -1,19 +1,24 @@
 #include <avr/io.h>
 #include <avr/interrupt.h>
+#include "FreeRTOS.h"
+#include "task.h"
 #include "io_extras.h"
 #include "bit_helpers.h"
 #include "std_types.h"
 #include "common.h"
-#include "EEPROM_private.h"
-#include "EEPROM_config.h"
 #include "EEPROM.h"
-#define MAX_INTERNAL_EEPROM_ADDR ( ( uint16_t ) 0x3FF ) /* 1023 */
-#define EMPTY_EEPROM_VALUE ( ( uint8_t ) 0xFF )
+#include "EEPROM_config.h"
+#include "EEPROM_private.h"
+#define MAX_INTERNAL_EEPROM_ADDR    ( ( uint16_t ) 0x3FF ) /* 1023 */
+#define EMPTY_EEPROM_VALUE          ( ( uint8_t ) 0xFF )
 static inline uint8_t read ( uint16_t addr )
 {
     /* Wait for completion of previous write */
-    while ( READ_BIT ( EECR , EEWE ) == BIT_STATE_SET )
+    while ( READ_BIT ( EECR , EEWE ) == ( uint8_t ) BIT_STATE_SET )
     {
+#if ( USE_FREE_RTOS_TASK_DELAY == 1 )
+        vTaskDelay ( 1 );
+#endif
     }
     /* Set up address register */
     EEAR = addr;
@@ -24,11 +29,17 @@ static inline uint8_t read ( uint16_t addr )
 static inline void write ( uint16_t addr , uint8_t valueToWrite )
 {
     /* Wait for completion of previous write */
-    while ( READ_BIT ( EECR , EEWE ) == BIT_STATE_SET )
+    while ( READ_BIT ( EECR , EEWE ) == ( uint8_t ) BIT_STATE_SET )
     {
+#if ( USE_FREE_RTOS_TASK_DELAY == 1 )
+        vTaskDelay ( 9 );
+#endif
     }
-    while ( READ_BIT ( SPMCR , SPMEN ) == BIT_STATE_SET )
+    while ( READ_BIT ( SPMCR , SPMEN ) == ( uint8_t ) BIT_STATE_SET )
     {
+#if ( USE_FREE_RTOS_TASK_DELAY == 1 )
+        vTaskDelay ( 9 );
+#endif
     }
     /* Set up address and data registers */
     EEAR = addr;
@@ -43,14 +54,7 @@ EEPROM_STD_ERR_t EEPROM_read ( uint16_t addr , uint8_t* readValue )
     EEPROM_STD_ERR_t readResult = EEPROM_OK;
     if ( addr <= MAX_INTERNAL_EEPROM_ADDR )
     {
-#if USE_PROTECTED_SECTIONS == 1
-        uint8_t intBit = ( uint8_t ) READ_BIT ( SREG , SREG_I );
-        cli ();
-#endif
         *readValue = read ( addr );
-#if USE_PROTECTED_SECTIONS == 1
-        REPLACE_BIT ( SREG , SREG_I , intBit );
-#endif
     }
     else
     {
@@ -78,14 +82,7 @@ EEPROM_STD_ERR_t EEPROM_readSection ( uint16_t addr , uint16_t readSize , uint8_
         uint16_t i;
         for ( i = ( uint16_t ) 0; i < readSize; i++ )
         {
-#if USE_PROTECTED_SECTIONS == 1
-            uint8_t intBit = ( uint8_t ) READ_BIT ( SREG , SREG_I );
-            cli ();
-#endif
             *readValues = read ( addr + i );
-#if USE_PROTECTED_SECTIONS == 1
-            REPLACE_BIT ( SREG , SREG_I , intBit );
-#endif
             readValues++;
         }
     }
@@ -96,14 +93,7 @@ EEPROM_STD_ERR_t EEPROM_write ( uint16_t addr , uint8_t valueToWrite )
     EEPROM_STD_ERR_t writeResult = EEPROM_OK;
     if ( addr <= MAX_INTERNAL_EEPROM_ADDR )
     {
-#if USE_PROTECTED_SECTIONS == 1
-        uint8_t intBit = ( uint8_t ) READ_BIT ( SREG , SREG_I );
-        cli ();
-#endif
         write ( addr , valueToWrite );
-#if USE_PROTECTED_SECTIONS == 1
-        REPLACE_BIT ( SREG , SREG_I , intBit );
-#endif
     }
     else
     {
@@ -131,14 +121,7 @@ EEPROM_STD_ERR_t EEPROM_writeSection ( uint16_t addr , uint16_t writeSize , uint
         uint16_t i;
         for ( i = ( uint16_t ) 0; i < writeSize; i++ )
         {
-#if USE_PROTECTED_SECTIONS == 1
-            uint8_t intBit = ( uint8_t ) READ_BIT ( SREG , SREG_I );
-            cli ();
-#endif
             write ( addr + i , *valuesToWrite );
-#if USE_PROTECTED_SECTIONS == 1
-            REPLACE_BIT ( SREG , SREG_I , intBit );
-#endif
             valuesToWrite++;
         }
     }
@@ -164,14 +147,7 @@ EEPROM_STD_ERR_t EEPROM_fill ( uint16_t addr , uint16_t writeSize , uint8_t fill
         uint16_t i;
         for ( i = ( uint16_t ) 0; i < writeSize; i++ )
         {
-#if USE_PROTECTED_SECTIONS == 1
-            uint8_t intBit = ( uint8_t ) READ_BIT ( SREG , SREG_I );
-            cli ();
-#endif
             write ( addr + i , fillValue );
-#if USE_PROTECTED_SECTIONS == 1
-            REPLACE_BIT ( SREG , SREG_I , intBit );
-#endif
         }
     }
     return writeResult;
@@ -210,14 +186,7 @@ EEPROM_STD_ERR_t EEPROM_copy ( uint16_t destAddr , uint16_t sourceAddr , uint16_
             uint16_t i;
             for ( i = sizeToCopy - ( uint8_t ) 1;; i-- )
             {
-#if USE_PROTECTED_SECTIONS == 1
-                uint8_t intBit = ( uint8_t ) READ_BIT ( SREG , SREG_I );
-                cli ();
-#endif
                 write ( destAddr + i , read ( sourceAddr + i ) );
-#if USE_PROTECTED_SECTIONS == 1
-                REPLACE_BIT ( SREG , SREG_I , intBit );
-#endif
                 if ( i == 0 )
                 {
                     break;
@@ -229,14 +198,7 @@ EEPROM_STD_ERR_t EEPROM_copy ( uint16_t destAddr , uint16_t sourceAddr , uint16_
             uint16_t i;
             for ( i = ( uint16_t ) 0; i < sizeToCopy; i++ )
             {
-#if USE_PROTECTED_SECTIONS == 1
-                uint8_t intBit = ( uint8_t ) READ_BIT ( SREG , SREG_I );
-                cli ();
-#endif
                 write ( destAddr + i , read ( sourceAddr + i ) );
-#if USE_PROTECTED_SECTIONS == 1
-                REPLACE_BIT ( SREG , SREG_I , intBit );
-#endif
             }
         }
     }
@@ -276,14 +238,7 @@ EEPROM_STD_ERR_t EEPROM_move ( uint16_t destAddr , uint16_t sourceAddr , uint16_
             uint16_t i;
             for ( i = sizeToMove - ( uint16_t ) 1;; i-- )
             {
-#if USE_PROTECTED_SECTIONS == 1
-                uint8_t intBit = ( uint8_t ) READ_BIT ( SREG , SREG_I );
-                cli ();
-#endif
                 write ( destAddr + i , read ( sourceAddr + i ) );
-#if USE_PROTECTED_SECTIONS == 1
-                REPLACE_BIT ( SREG , SREG_I , intBit );
-#endif
                 if ( i == 0 )
                 {
                     break;
@@ -291,14 +246,7 @@ EEPROM_STD_ERR_t EEPROM_move ( uint16_t destAddr , uint16_t sourceAddr , uint16_
             }
             for ( i = 0; i < destAddr - sourceAddr; i++ )
             {
-#if USE_PROTECTED_SECTIONS == 1
-                uint8_t intBit = ( uint8_t ) READ_BIT ( SREG , SREG_I );
-                cli ();
-#endif
                 write ( sourceAddr + i , EMPTY_EEPROM_VALUE );
-#if USE_PROTECTED_SECTIONS == 1
-                REPLACE_BIT ( SREG , SREG_I , intBit );
-#endif
             }
         }
         else
@@ -306,25 +254,11 @@ EEPROM_STD_ERR_t EEPROM_move ( uint16_t destAddr , uint16_t sourceAddr , uint16_
             uint16_t i;
             for ( i = ( uint16_t ) 0; i < sizeToMove; i++ )
             {
-#if USE_PROTECTED_SECTIONS == 1
-                uint8_t intBit = ( uint8_t ) READ_BIT ( SREG , SREG_I );
-                cli ();
-#endif
                 write ( destAddr + i , read ( sourceAddr + i ) );
-#if USE_PROTECTED_SECTIONS == 1
-                REPLACE_BIT ( SREG , SREG_I , intBit );
-#endif
             }
             for ( i = 0; i < sourceAddr - destAddr; i++ )
             {
-#if USE_PROTECTED_SECTIONS == 1
-                uint8_t intBit = ( uint8_t ) READ_BIT ( SREG , SREG_I );
-                cli ();
-#endif
                 write ( destAddr + sizeToMove + i , EMPTY_EEPROM_VALUE );
-#if USE_PROTECTED_SECTIONS == 1
-                REPLACE_BIT ( SREG , SREG_I , intBit );
-#endif
             }
         }
     }

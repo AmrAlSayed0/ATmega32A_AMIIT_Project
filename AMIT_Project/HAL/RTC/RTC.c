@@ -7,6 +7,7 @@
 #define MAX_REG_ADDR ( ( uint8_t ) 0x13 )
 #define RTC_I2C_ADDR ( 0x68 ) //01101000
 #define TIME_REGS_COUNT 7
+#define RESET_REG_VALUE ( ( uint8_t ) 0x58 )
 //
 #define SECONDS_TENS_MASK   BIT_MASK3 ( SECONDS_TENS_2 , SECONDS_TENS_1 , SECONDS_TENS_0 )
 #define SECONDS_UNITS_MASK  BIT_MASK4 ( SECONDS_UNITS_3, SECONDS_UNITS_2 , SECONDS_UNITS_1 , SECONDS_UNITS_0 )
@@ -27,12 +28,127 @@
 //
 #define YEARS_TENS          BIT_MASK4 ( YEARS_TENS_3 , YEARS_TENS_2 , YEARS_TENS_1 , YEARS_TENS_0 )
 #define YEARS_UNITS         BIT_MASK4 ( YEARS_UNITS_3 , YEARS_UNITS_2 , YEARS_UNITS_1 , YEARS_UNITS_0 )
+RTC_STD_ERR_t RTC_reset ()
+{
+    RTC_STD_ERR_t opResult = RTC_OK;
+    opResult = RTC_writeReg ( CONTROL_1 , RESET_REG_VALUE );
+    return opResult;
+}
+RTC_STD_ERR_t RTC_getInterruptState ( RTC_INT_t interruptType , INT_STATE_t* interruptState )
+{
+    RTC_STD_ERR_t opResult = RTC_OK;
+    uint8_t regAddrToRead;
+    uint8_t bitNumToRead;
+    switch ( interruptType )
+    {
+        case RTC_INT_ALARM :
+            regAddrToRead = CONTROL_1;
+            bitNumToRead = CONTROL_1_AIE;
+            break;
+        case RTC_INT_FIRST :
+        case RTC_INT_SECOND :
+            regAddrToRead = CONTROL_1;
+            bitNumToRead = CONTROL_1_SIE;
+            break;
+        case RTC_INT_CORRECTION :
+            regAddrToRead = CONTROL_1;
+            bitNumToRead = CONTROL_1_CIE;
+            break;
+        case RTC_INT_WTCHDG :
+            regAddrToRead = CONTROL_2;
+            bitNumToRead = CONTROL_2_WTAIE;
+            break;
+        case RTC_INT_TIMER_A :
+            regAddrToRead = CONTROL_2;
+            bitNumToRead = CONTROL_2_CTAIE;
+            break;
+        case RTC_INT_TIMER_B :
+            regAddrToRead = CONTROL_2;
+            bitNumToRead = CONTROL_2_CTBIE;
+            break;
+        case RTC_INT_BAT_SWITCH :
+            regAddrToRead = CONTROL_3;
+            bitNumToRead = CONTROL_3_BSIE;
+            break;
+        case RTC_INT_BAT_LOW :
+            regAddrToRead = CONTROL_3;
+            bitNumToRead = CONTROL_3_BLIE;
+            break;
+        default:
+            opResult = RTC_ERR_INT;
+    }
+    if ( opResult == RTC_OK )
+    {
+        uint8_t readValue;
+        opResult = RTC_readReg ( regAddrToRead , &readValue );
+        if ( opResult == RTC_OK )
+        {
+            *interruptState = ( INT_STATE_t ) READ_BIT ( readValue , bitNumToRead );
+        }
+    }
+    return opResult;
+}
+RTC_STD_ERR_t RTC_setInterruptState ( RTC_INT_t interruptType , INT_STATE_t interruptState )
+{
+    RTC_STD_ERR_t opResult = RTC_OK;
+    uint8_t regAddrToChange;
+    uint8_t bitNumToChange;
+    switch ( interruptType )
+    {
+        case RTC_INT_ALARM :
+            regAddrToChange = CONTROL_1;
+            bitNumToChange = CONTROL_1_AIE;
+            break;
+        case RTC_INT_FIRST :
+        case RTC_INT_SECOND :
+            regAddrToChange = CONTROL_1;
+            bitNumToChange = CONTROL_1_SIE;
+            break;
+        case RTC_INT_CORRECTION :
+            regAddrToChange = CONTROL_1;
+            bitNumToChange = CONTROL_1_CIE;
+            break;
+        case RTC_INT_WTCHDG :
+            regAddrToChange = CONTROL_2;
+            bitNumToChange = CONTROL_2_WTAIE;
+            break;
+        case RTC_INT_TIMER_A :
+            regAddrToChange = CONTROL_2;
+            bitNumToChange = CONTROL_2_CTAIE;
+            break;
+        case RTC_INT_TIMER_B :
+            regAddrToChange = CONTROL_2;
+            bitNumToChange = CONTROL_2_CTBIE;
+            break;
+        case RTC_INT_BAT_SWITCH :
+            regAddrToChange = CONTROL_3;
+            bitNumToChange = CONTROL_3_BSIE;
+            break;
+        case RTC_INT_BAT_LOW :
+            regAddrToChange = CONTROL_3;
+            bitNumToChange = CONTROL_3_BLIE;
+            break;
+        default:
+            opResult = RTC_ERR_INT;
+    }
+    if ( opResult == RTC_OK )
+    {
+        uint8_t regValue;
+        opResult = RTC_readReg ( regAddrToChange , &regValue );
+        if ( opResult == RTC_OK )
+        {
+            REPLACE_BIT ( regValue , bitNumToChange , ( uint8_t ) interruptState );
+            opResult = RTC_writeReg ( regAddrToChange , regValue );
+        }
+    }
+    return opResult;
+}
 RTC_STD_ERR_t RTC_readReg ( uint8_t addr , uint8_t* readValue )
 {
     RTC_STD_ERR_t opResult = RTC_OK;
     if ( addr <= MAX_REG_ADDR )
     {
-        I2C_STATUS_t currentStatus = I2C_STATUS_NONE;
+        I2C_STATUS_t currentStatus = I2C_STATUS_NO_INFO;
         uint8_t currentNumOfRetries;
 START:
         currentNumOfRetries = 0;
@@ -143,7 +259,7 @@ RTC_STD_ERR_t RTC_readRegs ( uint8_t addr , uint8_t readSize , uint8_t readValue
     }
     else
     {
-        I2C_STATUS_t currentStatus = I2C_STATUS_NONE;
+        I2C_STATUS_t currentStatus = I2C_STATUS_NO_INFO;
         uint8_t i = 0;
         uint8_t currentNumOfRetries;
 START:
@@ -252,7 +368,7 @@ RTC_STD_ERR_t RTC_writeReg ( uint8_t addr , uint8_t writeValue )
     if ( addr <= MAX_REG_ADDR )
     {
         uint8_t currentNumOfRetries;
-        I2C_STATUS_t currentStatus = I2C_STATUS_NONE;
+        I2C_STATUS_t currentStatus = I2C_STATUS_NO_INFO;
 START:
         currentNumOfRetries = 0;
         I2C_start ();
@@ -352,7 +468,7 @@ RTC_STD_ERR_t RTC_writeRegs ( uint8_t addr , uint8_t writeSize , uint8_t writeVa
     {
         uint8_t i = 0;
         uint8_t currentNumOfRetries;
-        I2C_STATUS_t currentStatus = I2C_STATUS_NONE;
+        I2C_STATUS_t currentStatus = I2C_STATUS_NO_INFO;
 START:
         currentNumOfRetries = 0;
         I2C_start ();

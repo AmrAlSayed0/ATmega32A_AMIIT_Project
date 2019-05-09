@@ -14,7 +14,7 @@ typedef enum _I2C_TRANS_MODE_t
 } I2C_TRANS_MODE_t;
 typedef enum _I2C_STATUS_t
 {
-    I2C_STATUS_NONE = ( uint8_t ) 0 ,
+    I2C_STATUS_BUS_ERROR = ( uint8_t ) 0 ,
     I2C_STATUS_START_TRANS = ( uint8_t ) 0x08 ,
     I2C_STATUS_REP_START_TRANS = ( uint8_t ) 0x10 ,
     I2C_STATUS_M_SLW_W_TRANS_ACK_REC = ( uint8_t ) 0x18 ,
@@ -26,20 +26,21 @@ typedef enum _I2C_STATUS_t
     I2C_STATUS_M_SLW_R_TRANS_NACK_REC = ( uint8_t ) 0x48 ,
     I2C_STATUS_M_DATA_REC_ACK_TRANS = ( uint8_t ) 0x50 ,
     I2C_STATUS_M_DATA_REC_NACK_TRANS = ( uint8_t ) 0x58 ,
-    I2C_STATUS_S_SLA_W_REC_ACK_TRANS_0 = ( uint8_t ) 0x60 ,
-    I2C_STATUS_S_SLA_W_REC_ACK_TRANS_1 = ( uint8_t ) 0x68 ,
-    I2C_STATUS_S_GEN_CALL_REC_ACK_TRANS_0 = ( uint8_t ) 0x70 ,
-    I2C_STATUS_S_GEN_CALL_REC_ACK_TRANS_1 = ( uint8_t ) 0x78 ,
+    I2C_STATUS_S_SLA_W_REC_ACK_TRANS = ( uint8_t ) 0x60 ,
+    I2C_STATUS_S_SLA_W_REC_ACK_TRANS_ARB_LOST = ( uint8_t ) 0x68 ,
+    I2C_STATUS_S_GEN_CALL_REC_ACK_TRANS = ( uint8_t ) 0x70 ,
+    I2C_STATUS_S_GEN_CALL_REC_ACK_TRANS_ARB_LOST = ( uint8_t ) 0x78 ,
     I2C_STATUS_S_SLA_DATA_REC_ACK_TRANS = ( uint8_t ) 0x80 ,
     I2C_STATUS_S_SLA_DATA_REC_NACK_TRANS = ( uint8_t ) 0x88 ,
     I2C_STATUS_S_GEN_DATA_REC_ACK_TRANS = ( uint8_t ) 0x90 ,
     I2C_STATUS_S_GEN_DATA_REC_NACK_TRANS = ( uint8_t ) 0x98 ,
     I2C_STATUS_S_STOP_REP_START_REC = ( uint8_t ) 0xA0 ,
-    I2C_STATUS_S_SLA_R_REC_ACK_TRANS_0 = ( uint8_t ) 0xA8 ,
-    I2C_STATUS_S_SLA_R_REC_ACK_TRANS_1 = ( uint8_t ) 0xB0 ,
+    I2C_STATUS_S_SLA_R_REC_ACK_TRANS = ( uint8_t ) 0xA8 ,
+    I2C_STATUS_S_SLA_R_REC_ACK_TRANS_ARB_LOST = ( uint8_t ) 0xB0 ,
     I2C_STATUS_S_DATA_TRANS_ACK_REC = ( uint8_t ) 0xB8 ,
     I2C_STATUS_S_DATA_TRANS_NACK_REC = ( uint8_t ) 0xC0 ,
-    I2C_STATUS_S_LAST_DATA_TRANS_ACK_REC = ( uint8_t ) 0xC8
+    I2C_STATUS_S_LAST_DATA_TRANS_ACK_REC = ( uint8_t ) 0xC8 ,
+    I2C_STATUS_NO_INFO = ( uint8_t ) 0xF8
 } I2C_STATUS_t;
 typedef enum _I2C_STD_ERR_t
 {

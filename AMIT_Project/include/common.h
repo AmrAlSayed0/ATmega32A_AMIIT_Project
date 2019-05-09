@@ -21,4 +21,5 @@ typedef enum _FLAG_STATE_t
     FLAG_STATE_CLEARED = ( uint8_t ) 0 ,
     FLAG_STATE_SET = ( uint8_t ) 1
 } FLAG_STATE_t;
+typedef void ( * interuptFunc ) ( void );
 #endif

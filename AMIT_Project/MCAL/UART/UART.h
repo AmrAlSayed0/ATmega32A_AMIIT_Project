@@ -4,78 +4,79 @@
 #include "common.h"
 typedef enum _UART_TRANS_SPEED_t
 {
-    UART_NORMAL_SPEED = (uint8_t) 0 ,
-    UART_DOUBLE_SPEED  = (uint8_t) 1 ,
-    UART_NOT_CARE_SPEED = (uint8_t) 2 
+    UART_NORMAL_SPEED = ( uint8_t ) 0 ,
+    UART_DOUBLE_SPEED = ( uint8_t ) 1 ,
+    UART_NOT_CARE_SPEED = ( uint8_t ) 2
 } UART_TRANS_SPEED_t;
 typedef enum _UART_PROCESS_MODE_t
 {
-    UART_PROC_MODE_SINGLE = (uint8_t) 0 ,
-    UART_PROC_MODE_MULTI = (uint8_t) 1
+    UART_PROC_MODE_SINGLE = ( uint8_t ) 0 ,
+    UART_PROC_MODE_MULTI = ( uint8_t ) 1
 } UART_PROCESS_MODE_t;
 typedef enum _UART_TRANS_MODE_t
 {
-    UART_TRANS_ASYNC = (uint8_t) 0 ,
-    UART_TRANS_SYNC = (uint8_t) 1
+    UART_TRANS_ASYNC = ( uint8_t ) 0 ,
+    UART_TRANS_SYNC = ( uint8_t ) 1
 } UART_TRANS_MODE_t;
 typedef enum _UART_INT_FLAG_t
 {
-    UART_FLAG_REC_COMP = (uint8_t) 0 ,
-    UART_FLAG_TRANS_COMP  = (uint8_t) 1,
-    UART_FLAG_EMPTY = (uint8_t) 2
+    UART_FLAG_REC_COMP = ( uint8_t ) 0 ,
+    UART_FLAG_TRANS_COMP = ( uint8_t ) 1 ,
+    UART_FLAG_EMPTY = ( uint8_t ) 2
 } UART_INT_FLAG_t;
 typedef enum _UART_ERR_FLAG_t
 {
-    UART_ERR_FLAG_FRAME = (uint8_t) 0 ,
-    UART_ERR_FLAG_OVERRUN = (uint8_t) 1 ,
-    UART_ERR_FLAG_PARITY = (uint8_t) 2
+    UART_ERR_FLAG_FRAME = ( uint8_t ) 0 ,
+    UART_ERR_FLAG_OVERRUN = ( uint8_t ) 1 ,
+    UART_ERR_FLAG_PARITY = ( uint8_t ) 2
 } UART_ERR_FLAG_t;
 typedef enum _UART_STD_ERR_t
 {
-    UART_OK ,
-    UART_ERR_BAUD_RATE ,
-    UART_ERR_UBBR ,
-    UART_ERR_TRANS ,
-    UART_ERR_RECV ,
-    UART_ERR_DATA_FRAME_SIZE ,
-    UART_ERR_PARITY ,
-    UART_ERR_STP ,
-    UART_ERR_TRANS_SPEED ,
-    UART_ERR_POLARITY ,
-    UART_ERR_TRANS_MODE ,
-    UART_ERR_MULTI ,
-    UART_ERR_INT_TYPE ,
-    UART_ERR_ERR_TYPE
+    UART_OK = ( uint8_t ) 0 ,
+    UART_ERR_BAUD_RATE = ( uint8_t ) 1 ,
+    UART_ERR_UBBR = ( uint8_t ) 2 ,
+    UART_ERR_TRANS = ( uint8_t ) 3 ,
+    UART_ERR_RECV = ( uint8_t ) 4 ,
+    UART_ERR_DATA_FRAME_SIZE = ( uint8_t ) 5 ,
+    UART_ERR_PARITY = ( uint8_t ) 6 ,
+    UART_ERR_STP = ( uint8_t ) 7 ,
+    UART_ERR_TRANS_SPEED = ( uint8_t ) 8 ,
+    UART_ERR_POLARITY = ( uint8_t ) 9 ,
+    UART_ERR_TRANS_MODE = ( uint8_t ) 10 ,
+    UART_ERR_MULTI = ( uint8_t ) 11 ,
+    UART_ERR_INT_TYPE = ( uint8_t ) 12 ,
+    UART_ERR_ERR_TYPE = ( uint8_t ) 13 ,
+    UART_ERR_CONFIG = ( uint8_t ) 14
 } UART_STD_ERR_t;
 typedef enum _COM_STATE_t
 {
-    UART_COM_DISABLED = (uint8_t) 0 ,
-    UART_COM_ENABLED = (uint8_t) 1
+    UART_COM_DISABLED = ( uint8_t ) 0 ,
+    UART_COM_ENABLED = ( uint8_t ) 1
 } COM_STATE_t;
 typedef enum _UART_DATA_SIZE_t
 {
-    UART_DATA_SIZE_5_BIT = (uint8_t) 0 ,
-    UART_DATA_SIZE_6_BIT = (uint8_t) 1 ,
-    UART_DATA_SIZE_7_BIT = (uint8_t) 2 ,
-    UART_DATA_SIZE_8_BIT = (uint8_t) 3 ,
-    UART_DATA_SIZE_9_BIT = (uint8_t) 4
+    UART_DATA_SIZE_5_BIT = ( uint8_t ) 0 ,
+    UART_DATA_SIZE_6_BIT = ( uint8_t ) 1 ,
+    UART_DATA_SIZE_7_BIT = ( uint8_t ) 2 ,
+    UART_DATA_SIZE_8_BIT = ( uint8_t ) 3 ,
+    UART_DATA_SIZE_9_BIT = ( uint8_t ) 4
 } UART_DATA_SIZE_t;
 typedef enum _UART_PARITY_t
 {
-    UART_PARITY_NO = (uint8_t) 0 ,
-    UART_PARITY_EVEN = (uint8_t) 1 ,
-    UART_PARITY_ODD = (uint8_t) 2
+    UART_PARITY_NO = ( uint8_t ) 0 ,
+    UART_PARITY_EVEN = ( uint8_t ) 1 ,
+    UART_PARITY_ODD = ( uint8_t ) 2
 } UART_PARITY_t;
 typedef enum _UART_STP_SIZE_t
 {
-    UART_STP_SIZE_1_BIT = (uint8_t) 0 ,
-    UART_STP_SIZE_2_BIT = (uint8_t) 1 ,
+    UART_STP_SIZE_1_BIT = ( uint8_t ) 0 ,
+    UART_STP_SIZE_2_BIT = ( uint8_t ) 1 ,
 } UART_STP_SIZE_t;
 typedef enum _UART_CLCK_POLARITY_t
 {
-    UART_CLCK_POLARITY_RISING_FALLING = (uint8_t) 0 ,
-    UART_CLCK_POLARITY_FALLING_RISING  = (uint8_t) 1,
-    UART_CLCK_POLARITY_NOT_CARE = (uint8_t) 2
+    UART_CLCK_POLARITY_RISING_FALLING = ( uint8_t ) 0 ,
+    UART_CLCK_POLARITY_FALLING_RISING = ( uint8_t ) 1 ,
+    UART_CLCK_POLARITY_NOT_CARE = ( uint8_t ) 2
 } UART_CLCK_POLARITY_t;
 typedef struct _UART_CNF_t
 {

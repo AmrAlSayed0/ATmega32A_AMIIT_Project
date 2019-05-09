@@ -14,14 +14,14 @@
 // SCL = CPU_CLCK / ( 16 + 2 * TWBR * ( 4 ^ TWPS ) )
 #define SCL_CALC( twbrValue , twpsValue )   ( ( ( double ) F_CPU ) / ( ( double ) ( ( ( double ) 16 ) + ( ( ( double ) 2 ) * ( ( double ) ( twbrValue ) ) * pow ( 4 , ( twpsValue ) ) ) ) ) )
 // TWBR = ( CPU_CLCK - ( 16 * SCL ) ) / ( 2 * TWBR * ( 4 ^ TWPS ) )
-#define TWBR_CALC( sclValue , twpsValue )   ( ( ( ( double ) F_CPU ) - ( ( ( double ) 16 ) * ( ( double ) ( sclValue ) ) ) ) / ( ( ( double ) 2 ) * ( ( double ) ( sclValue ) ) * ( pow ( 4 , twpsValue ) ) ) )
+#define TWBR_CALC( sclValue , twpsValue )   ( ( ( ( double ) F_CPU ) - ( ( ( double ) 16 ) * ( ( double ) ( sclValue ) ) ) ) / ( ( ( double ) 2 ) * ( ( double ) ( sclValue ) ) * pow ( 4 , ( twpsValue ) ) ) )
 #define MAX_POSSIBLE_I2C_SPEED              ( ( uint32_t ) floor ( SCL_CALC ( 0 , 0 ) ) ) //TWBR = 0, TWPS = 0
 #define MIN_POSSIBLE_I2C_SPEED_PRESC_1      ( ( uint32_t ) ceil ( SCL_CALC ( 255 , 0 ) ) ) //TWBR = 255, TWPS = 0
 #define MIN_POSSIBLE_I2C_SPEED_PRESC_4      ( ( uint32_t ) ceil ( SCL_CALC ( 255 , 1 ) ) ) //TWBR = 255, TWPS = 1
 #define MIN_POSSIBLE_I2C_SPEED_PRESC_16     ( ( uint32_t ) ceil ( SCL_CALC ( 255 , 2 ) ) ) //TWBR = 255, TWPS = 2
 #define MIN_POSSIBLE_I2C_SPEED_PRESC_64     ( ( uint32_t ) ceil ( SCL_CALC ( 255 , 3 ) ) ) //TWBR = 255, TWPS = 3
 #define WAIT_OPERATION() \
-    while ( READ_BIT ( TWCR , TWINT ) == BIT_STATE_CLEARED ) \
+    while ( READ_BIT ( TWCR , TWINT ) == ( uint8_t ) BIT_STATE_CLEARED ) \
     { \
     }
 #define SEND_START() \
@@ -67,34 +67,27 @@ I2C_STATUS_t I2C_readStatus ( void )
 I2C_STD_ERR_t I2C_masterInit ( uint32_t speed )
 {
     I2C_STD_ERR_t opResult = I2C_OK;
-    if ( speed > ( uint8_t ) 0 && speed <= MAX_I2C_SPEED )
+    if ( speed > ( uint8_t ) 0 && speed <= MAX_I2C_SPEED && speed <= MAX_POSSIBLE_I2C_SPEED )
     {
-        if ( speed <= MAX_POSSIBLE_I2C_SPEED )
+        if ( speed >= MIN_POSSIBLE_I2C_SPEED_PRESC_64 && speed < MIN_POSSIBLE_I2C_SPEED_PRESC_16 )
         {
-            if ( speed >= MIN_POSSIBLE_I2C_SPEED_PRESC_64 && speed < MIN_POSSIBLE_I2C_SPEED_PRESC_16 )
-            {
-                TWBR = ( uint8_t ) round ( TWBR_CALC ( speed , 3 ) );
-                REPLACE_BITS ( TWSR , ( 0x01 << TWPS1 ) | ( 1 < TWPS0 ) , BIT_MASK ( TWPS1 ) | BIT_MASK ( TWPS0 ) );
-            }
-            else if ( speed >= MIN_POSSIBLE_I2C_SPEED_PRESC_16 && speed < MIN_POSSIBLE_I2C_SPEED_PRESC_4 )
-            {
-                TWBR = ( uint8_t ) round ( TWBR_CALC ( speed , 2 ) );
-                REPLACE_BITS ( TWSR , ( 0x01 << TWPS1 ) | ( 0 < TWPS0 ) , BIT_MASK ( TWPS1 ) | BIT_MASK ( TWPS0 ) );
-            }
-            else if ( speed >= MIN_POSSIBLE_I2C_SPEED_PRESC_4 && speed < MIN_POSSIBLE_I2C_SPEED_PRESC_1 )
-            {
-                TWBR = ( uint8_t ) round ( TWBR_CALC ( speed , 1 ) );
-                REPLACE_BITS ( TWSR , ( 0x00 << TWPS1 ) | ( 1 < TWPS0 ) , BIT_MASK ( TWPS1 ) | BIT_MASK ( TWPS0 ) );
-            }
-            else if ( speed >= MIN_POSSIBLE_I2C_SPEED_PRESC_1 )
-            {
-                TWBR = ( uint8_t ) round ( TWBR_CALC ( speed , 0 ) );
-                REPLACE_BITS ( TWSR , ( 0x00 << TWPS1 ) | ( 0 < TWPS0 ) , BIT_MASK ( TWPS1 ) | BIT_MASK ( TWPS0 ) );
-            }
-            else
-            {
-                opResult = I2C_ERR_SPEED;
-            }
+            TWBR = ( uint8_t ) round ( TWBR_CALC ( speed , 3 ) );
+            REPLACE_BITS ( TWSR , ( 0x01 << TWPS1 ) | ( 1 < TWPS0 ) , BIT_MASK ( TWPS1 ) | BIT_MASK ( TWPS0 ) );
+        }
+        else if ( speed >= MIN_POSSIBLE_I2C_SPEED_PRESC_16 && speed < MIN_POSSIBLE_I2C_SPEED_PRESC_4 )
+        {
+            TWBR = ( uint8_t ) round ( TWBR_CALC ( speed , 2 ) );
+            REPLACE_BITS ( TWSR , ( 0x01 << TWPS1 ) | ( 0 < TWPS0 ) , BIT_MASK ( TWPS1 ) | BIT_MASK ( TWPS0 ) );
+        }
+        else if ( speed >= MIN_POSSIBLE_I2C_SPEED_PRESC_4 && speed < MIN_POSSIBLE_I2C_SPEED_PRESC_1 )
+        {
+            TWBR = ( uint8_t ) round ( TWBR_CALC ( speed , 1 ) );
+            REPLACE_BITS ( TWSR , ( 0x00 << TWPS1 ) | ( 1 < TWPS0 ) , BIT_MASK ( TWPS1 ) | BIT_MASK ( TWPS0 ) );
+        }
+        else if ( speed >= MIN_POSSIBLE_I2C_SPEED_PRESC_1 )
+        {
+            TWBR = ( uint8_t ) round ( TWBR_CALC ( speed , 0 ) );
+            REPLACE_BITS ( TWSR , ( 0x00 << TWPS1 ) | ( 0 < TWPS0 ) , BIT_MASK ( TWPS1 ) | BIT_MASK ( TWPS0 ) );
         }
         else
         {
@@ -113,7 +106,7 @@ void I2C_start ( void )
 }
 void I2C_repStart ( void )
 {
-    SEND_START ();
+    SEND_REPEATED_START ();
 }
 I2C_STD_ERR_t I2C_sendAddrAndRead ( uint8_t addr )
 {

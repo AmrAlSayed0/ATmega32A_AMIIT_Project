@@ -102,24 +102,25 @@ typedef enum _RTC_STD_ERR_t
     RTC_ERR_ADDR_COM ,
     RTC_ERR_DATA_COM ,
     RTC_ERR_ADDR ,
-    RTC_ERR_SIZE
+    RTC_ERR_SIZE ,
+    RTC_ERR_INT
 } RTC_STD_ERR_t;
 //RTC_STD_ERR_t RTC_stop ();
-//RTC_STD_ERR_t RTC_reset ();
+RTC_STD_ERR_t RTC_reset ();
 //RTC_STD_ERR_t RTC_getTimeMode ( RTC_TIME_MODE_t* timeMode );
-//RTC_STD_ERR_t RTC_setTimeMode ( RTC_TIME_MODE_t* timeMode );
-//RTC_STD_ERR_t RTC_getInterruptState ( RTC_INT_t interruptType , INT_STATE_t* interruptState );
-//RTC_STD_ERR_t RTC_setInterruptState ( RTC_INT_t interruptType , INT_STATE_t interruptState );
+//RTC_STD_ERR_t RTC_setTimeMode ( RTC_TIME_MODE_t timeMode );
+RTC_STD_ERR_t RTC_getInterruptState ( RTC_INT_t interruptType , INT_STATE_t* interruptState );
+RTC_STD_ERR_t RTC_setInterruptState ( RTC_INT_t interruptType , INT_STATE_t interruptState );
 //RTC_STD_ERR_t RTC_getBatteryState ( RTC_BATTERY_STATUS_t* batteryStatus );
 RTC_STD_ERR_t RTC_getTime ( TIME_t* time );
 //RTC_STD_ERR_t RTC_setTime ( TIME_t* time );
 //RTC_STD_ERR_t RTC_setAlarmState ( RTC_ALARM_t alarmType , RTC_ALARM_STATUS_t alarmStatus );
 //RTC_STD_ERR_t RTC_getAlarmState ( RTC_ALARM_t alarmType , RTC_ALARM_STATUS_t* alarmStatus );
 //RTC_STD_ERR_t RTC_setAlarmValue ( RTC_ALARM_t alarmType , void* alarmValue );
-//RTC_STD_ERR_t RTC_setOffsetMode ( RTC_OFFSET_MODE_t offsetMode );
 //RTC_STD_ERR_t RTC_getOffsetMode ( RTC_OFFSET_MODE_t* offsetMode );
-//RTC_STD_ERR_t RTC_setOffsetValue ( uint8_t offsetValue );
+//RTC_STD_ERR_t RTC_setOffsetMode ( RTC_OFFSET_MODE_t offsetMode );
 //RTC_STD_ERR_t RTC_getOffsetValue ( uint8_t* offsetValue );
+//RTC_STD_ERR_t RTC_setOffsetValue ( uint8_t offsetValue );
 RTC_STD_ERR_t RTC_readReg ( uint8_t addr , uint8_t* readValue );
 RTC_STD_ERR_t RTC_readRegs ( uint8_t addr , uint8_t readSize , uint8_t readValues[readSize] );
 RTC_STD_ERR_t RTC_writeReg ( uint8_t addr , uint8_t writeValue );

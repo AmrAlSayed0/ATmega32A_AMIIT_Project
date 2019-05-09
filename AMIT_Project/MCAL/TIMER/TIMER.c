@@ -461,7 +461,7 @@ TIMER_STD_ERR_t TIMER_setOcr ( TIMER_t timer , uint16_t ocrValue )
 #endif
             break;
         case TIMER_2 :
-            if ( ocrValue <= ( uint8_t ) MAX_SMALL_OCR_VALUE )
+            if ( ocrValue <= MAX_SMALL_OCR_VALUE )
             {
                 OCR2 = ( uint8_t ) ocrValue;
             }
@@ -521,7 +521,7 @@ TIMER_STD_ERR_t TIMER_setPrescaller ( TIMER_t timer , TIMER_CLCK_t clockSetting 
                 case TIMER_CLCK_PRESC_1024 :
                 case TIMER_CLCK_EXTERNAL_FALLING :
                 case TIMER_CLCK_EXTERNAL_RISING :
-                    REPLACE_BITS ( TCCR0 , ( ( uint8_t ) clockSetting ) << CS00 , BIT_MASK ( CS02 ) | BIT_MASK ( CS01 ) | BIT_MASK ( CS00 ) );
+                    REPLACE_BITS ( TCCR0 , ( ( uint8_t ) clockSetting ) << CS00 , BIT_MASK3 ( CS02 , CS01 , CS00 ) );
                     break;
                 default:
                     opResult = TIMER_ERR_PRESCALER;
@@ -540,7 +540,7 @@ TIMER_STD_ERR_t TIMER_setPrescaller ( TIMER_t timer , TIMER_CLCK_t clockSetting 
                 case TIMER_CLCK_PRESC_1024 :
                 case TIMER_CLCK_EXTERNAL_FALLING :
                 case TIMER_CLCK_EXTERNAL_RISING :
-                    REPLACE_BITS ( TCCR1B , ( ( uint8_t ) clockSetting ) << CS10 , BIT_MASK ( CS12 ) | BIT_MASK ( CS11 ) | BIT_MASK ( CS10 ) );
+                    REPLACE_BITS ( TCCR1B , ( ( uint8_t ) clockSetting ) << CS10 , BIT_MASK3 ( CS12 , CS11 , CS10 ) );
                     break;
                 default:
                     opResult = TIMER_ERR_PRESCALER;
@@ -557,7 +557,7 @@ TIMER_STD_ERR_t TIMER_setPrescaller ( TIMER_t timer , TIMER_CLCK_t clockSetting 
                 case TIMER_CLCK_PRESC_1024 :
                 case TIMER_CLCK_EXTERNAL_FALLING :
                 case TIMER_CLCK_EXTERNAL_RISING :
-                    REPLACE_BITS ( TCCR2 , ( ( uint8_t ) clockSetting ) << CS20 , BIT_MASK ( CS22 ) | BIT_MASK ( CS21 ) | BIT_MASK ( CS20 ) );
+                    REPLACE_BITS ( TCCR2 , ( ( uint8_t ) clockSetting ) << CS20 , BIT_MASK3 ( CS22 , CS21 , CS20 ) );
                     break;
                 default:
                     opResult = TIMER_ERR_PRESCALER;
@@ -574,15 +574,15 @@ TIMER_STD_ERR_t TIMER_getPrescaller ( TIMER_t timer , TIMER_CLCK_t* outputClockS
     switch ( timer )
     {
         case TIMER_0 :
-            *outputClockSetting = ( TIMER_CLCK_t ) READ_BITS_AND_SHIFT ( TCCR0 , BIT_MASK ( CS02 ) | BIT_MASK ( CS01 ) | BIT_MASK ( CS00 ) , CS00 );
+            *outputClockSetting = ( TIMER_CLCK_t ) READ_BITS_AND_SHIFT ( TCCR0 , BIT_MASK3 ( CS02 , CS01 , CS00 ), CS00 );
             break;
         case TIMER_1A :
         case TIMER_1B :
         case TIMER_1 :
-            *outputClockSetting = ( TIMER_CLCK_t ) READ_BITS_AND_SHIFT ( TCCR0 , BIT_MASK ( CS12 ) | BIT_MASK ( CS11 ) | BIT_MASK ( CS10 ) , CS10 );
+            *outputClockSetting = ( TIMER_CLCK_t ) READ_BITS_AND_SHIFT ( TCCR0 , BIT_MASK3 ( CS12 , CS11 , CS10 ) , CS10 );
             break;
         case TIMER_2 :
-            *outputClockSetting = ( TIMER_CLCK_t ) READ_BITS_AND_SHIFT ( TCCR0 , BIT_MASK ( CS22 ) | BIT_MASK ( CS21 ) | BIT_MASK ( CS20 ) , CS20 );
+            *outputClockSetting = ( TIMER_CLCK_t ) READ_BITS_AND_SHIFT ( TCCR0 , BIT_MASK3 ( CS22 , CS21 , CS20 ) , CS20 );
             break;
         default:
             opResult = TIMER_ERR_TIMER_NUM;
@@ -598,16 +598,16 @@ TIMER_STD_ERR_t TIMER_setMode ( TIMER_t timer , TIMER_MODE_t modeToSet )
             switch ( modeToSet )
             {
                 case TIMER_MODE_NORMAL :
-                    REPLACE_BITS ( TCCR0 , ( 0x00 << WGM01 ) | ( 0x00 << WGM00 ) , BIT_MASK ( WGM01 ) | BIT_MASK ( WGM00 ) );
+                    REPLACE_BITS ( TCCR0 , ( 0x00 << WGM01 ) | ( 0x00 << WGM00 ) , BIT_MASK2 ( WGM01 , WGM00 ) );
                     break;
                 case TIMER_MODE_CTC_OCR_TOP :
-                    REPLACE_BITS ( TCCR0 , ( 0x01 << WGM01 ) | ( 0x00 << WGM00 ) , BIT_MASK ( WGM01 ) | BIT_MASK ( WGM00 ) );
+                    REPLACE_BITS ( TCCR0 , ( 0x01 << WGM01 ) | ( 0x00 << WGM00 ) , BIT_MASK2 ( WGM01 , WGM00 ) );
                     break;
                 case TIMER_MODE_FAST_PWM_MAX_TOP :
-                    REPLACE_BITS ( TCCR0 , ( 0x01 << WGM01 ) | ( 0x01 << WGM00 ) , BIT_MASK ( WGM01 ) | BIT_MASK ( WGM00 ) );
+                    REPLACE_BITS ( TCCR0 , ( 0x01 << WGM01 ) | ( 0x01 << WGM00 ) , BIT_MASK2 ( WGM01 , WGM00 ) );
                     break;
                 case TIMER_MODE_PHASE_PWM_MAX_TOP :
-                    REPLACE_BITS ( TCCR0 , ( 0x00 << WGM01 ) | ( 0x01 << WGM00 ) , BIT_MASK ( WGM01 ) | BIT_MASK ( WGM00 ) );
+                    REPLACE_BITS ( TCCR0 , ( 0x00 << WGM01 ) | ( 0x01 << WGM00 ) , BIT_MASK2 ( WGM01 , WGM00 ) );
                     break;
                 case TIMER_MODE_CTC_ICR_TOP :
                 case TIMER_MODE_FAST_PWM_0xFF_TOP :
@@ -632,64 +632,64 @@ TIMER_STD_ERR_t TIMER_setMode ( TIMER_t timer , TIMER_MODE_t modeToSet )
             switch ( modeToSet )
             {
                 case TIMER_MODE_NORMAL :
-                    REPLACE_BITS ( TCCR1A , ( 0x00 << WGM11 ) | ( 0x00 << WGM10 ) , BIT_MASK ( WGM11 ) | BIT_MASK ( WGM10 ) );
-                    REPLACE_BITS ( TCCR1B , ( 0x00 << WGM13 ) | ( 0x00 << WGM12 ) , BIT_MASK ( WGM13 ) | BIT_MASK ( WGM12 ) );
+                    REPLACE_BITS ( TCCR1A , ( 0x00 << WGM11 ) | ( 0x00 << WGM10 ) , BIT_MASK2 ( WGM11 , WGM10 ) );
+                    REPLACE_BITS ( TCCR1B , ( 0x00 << WGM13 ) | ( 0x00 << WGM12 ) , BIT_MASK2 ( WGM13 , WGM12 ) );
                     break;
                 case TIMER_MODE_CTC_OCR_TOP :
-                    REPLACE_BITS ( TCCR1A , ( 0x00 << WGM11 ) | ( 0x00 << WGM10 ) , BIT_MASK ( WGM11 ) | BIT_MASK ( WGM10 ) );
-                    REPLACE_BITS ( TCCR1B , ( 0x00 << WGM13 ) | ( 0x01 << WGM12 ) , BIT_MASK ( WGM13 ) | BIT_MASK ( WGM12 ) );
+                    REPLACE_BITS ( TCCR1A , ( 0x00 << WGM11 ) | ( 0x00 << WGM10 ) , BIT_MASK2 ( WGM11 , WGM10 ) );
+                    REPLACE_BITS ( TCCR1B , ( 0x00 << WGM13 ) | ( 0x01 << WGM12 ) , BIT_MASK2 ( WGM13 , WGM12 ) );
                     break;
                 case TIMER_MODE_CTC_ICR_TOP :
-                    REPLACE_BITS ( TCCR1A , ( 0x00 << WGM11 ) | ( 0x00 << WGM10 ) , BIT_MASK ( WGM11 ) | BIT_MASK ( WGM10 ) );
-                    REPLACE_BITS ( TCCR1B , ( 0x01 << WGM13 ) | ( 0x00 << WGM12 ) , BIT_MASK ( WGM13 ) | BIT_MASK ( WGM12 ) );
+                    REPLACE_BITS ( TCCR1A , ( 0x00 << WGM11 ) | ( 0x00 << WGM10 ) , BIT_MASK2 ( WGM11 , WGM10 ) );
+                    REPLACE_BITS ( TCCR1B , ( 0x01 << WGM13 ) | ( 0x00 << WGM12 ) , BIT_MASK2 ( WGM13 , WGM12 ) );
                     break;
                 case TIMER_MODE_FAST_PWM_0xFF_TOP :
-                    REPLACE_BITS ( TCCR1A , ( 0x00 << WGM11 ) | ( 0x01 << WGM10 ) , BIT_MASK ( WGM11 ) | BIT_MASK ( WGM10 ) );
-                    REPLACE_BITS ( TCCR1B , ( 0x00 << WGM13 ) | ( 0x01 << WGM12 ) , BIT_MASK ( WGM13 ) | BIT_MASK ( WGM12 ) );
+                    REPLACE_BITS ( TCCR1A , ( 0x00 << WGM11 ) | ( 0x01 << WGM10 ) , BIT_MASK2 ( WGM11 , WGM10 ) );
+                    REPLACE_BITS ( TCCR1B , ( 0x00 << WGM13 ) | ( 0x01 << WGM12 ) , BIT_MASK2 ( WGM13 , WGM12 ) );
                     break;
                 case TIMER_MODE_FAST_PWM_0x1FF_TOP :
-                    REPLACE_BITS ( TCCR1A , ( 0x01 << WGM11 ) | ( 0x00 << WGM10 ) , BIT_MASK ( WGM11 ) | BIT_MASK ( WGM10 ) );
-                    REPLACE_BITS ( TCCR1B , ( 0x00 << WGM13 ) | ( 0x01 << WGM12 ) , BIT_MASK ( WGM13 ) | BIT_MASK ( WGM12 ) );
+                    REPLACE_BITS ( TCCR1A , ( 0x01 << WGM11 ) | ( 0x00 << WGM10 ) , BIT_MASK2 ( WGM11 , WGM10 ) );
+                    REPLACE_BITS ( TCCR1B , ( 0x00 << WGM13 ) | ( 0x01 << WGM12 ) , BIT_MASK2 ( WGM13 , WGM12 ) );
                     break;
                 case TIMER_MODE_FAST_PWM_0x3FF_TOP :
-                    REPLACE_BITS ( TCCR1A , ( 0x01 << WGM11 ) | ( 0x01 << WGM10 ) , BIT_MASK ( WGM11 ) | BIT_MASK ( WGM10 ) );
-                    REPLACE_BITS ( TCCR1B , ( 0x00 << WGM13 ) | ( 0x01 << WGM12 ) , BIT_MASK ( WGM13 ) | BIT_MASK ( WGM12 ) );
+                    REPLACE_BITS ( TCCR1A , ( 0x01 << WGM11 ) | ( 0x01 << WGM10 ) , BIT_MASK2 ( WGM11 , WGM10 ) );
+                    REPLACE_BITS ( TCCR1B , ( 0x00 << WGM13 ) | ( 0x01 << WGM12 ) , BIT_MASK2 ( WGM13 , WGM12 ) );
                     break;
                 case TIMER_MODE_FAST_PWM_OCR_TOP :
-                    REPLACE_BITS ( TCCR1A , ( 0x01 << WGM11 ) | ( 0x01 << WGM10 ) , BIT_MASK ( WGM11 ) | BIT_MASK ( WGM10 ) );
-                    REPLACE_BITS ( TCCR1B , ( 0x01 << WGM13 ) | ( 0x01 << WGM12 ) , BIT_MASK ( WGM13 ) | BIT_MASK ( WGM12 ) );
+                    REPLACE_BITS ( TCCR1A , ( 0x01 << WGM11 ) | ( 0x01 << WGM10 ) , BIT_MASK2 ( WGM11 , WGM10 ) );
+                    REPLACE_BITS ( TCCR1B , ( 0x01 << WGM13 ) | ( 0x01 << WGM12 ) , BIT_MASK2 ( WGM13 , WGM12 ) );
                     break;
                 case TIMER_MODE_FAST_PWM_ICR_TOP :
-                    REPLACE_BITS ( TCCR1A , ( 0x01 << WGM11 ) | ( 0x00 << WGM10 ) , BIT_MASK ( WGM11 ) | BIT_MASK ( WGM10 ) );
-                    REPLACE_BITS ( TCCR1B , ( 0x01 << WGM13 ) | ( 0x01 << WGM12 ) , BIT_MASK ( WGM13 ) | BIT_MASK ( WGM12 ) );
+                    REPLACE_BITS ( TCCR1A , ( 0x01 << WGM11 ) | ( 0x00 << WGM10 ) , BIT_MASK2 ( WGM11 , WGM10 ) );
+                    REPLACE_BITS ( TCCR1B , ( 0x01 << WGM13 ) | ( 0x01 << WGM12 ) , BIT_MASK2 ( WGM13 , WGM12 ) );
                     break;
                 case TIMER_MODE_PHASE_PWM_0xFF_TOP :
-                    REPLACE_BITS ( TCCR1A , ( 0x00 << WGM11 ) | ( 0x01 << WGM10 ) , BIT_MASK ( WGM11 ) | BIT_MASK ( WGM10 ) );
-                    REPLACE_BITS ( TCCR1B , ( 0x00 << WGM13 ) | ( 0x00 << WGM12 ) , BIT_MASK ( WGM13 ) | BIT_MASK ( WGM12 ) );
+                    REPLACE_BITS ( TCCR1A , ( 0x00 << WGM11 ) | ( 0x01 << WGM10 ) , BIT_MASK2 ( WGM11 , WGM10 ) );
+                    REPLACE_BITS ( TCCR1B , ( 0x00 << WGM13 ) | ( 0x00 << WGM12 ) , BIT_MASK2 ( WGM13 , WGM12 ) );
                     break;
                 case TIMER_MODE_PHASE_PWM_0x1FF_TOP :
-                    REPLACE_BITS ( TCCR1A , ( 0x01 << WGM11 ) | ( 0x00 << WGM10 ) , BIT_MASK ( WGM11 ) | BIT_MASK ( WGM10 ) );
-                    REPLACE_BITS ( TCCR1B , ( 0x00 << WGM13 ) | ( 0x00 << WGM12 ) , BIT_MASK ( WGM13 ) | BIT_MASK ( WGM12 ) );
+                    REPLACE_BITS ( TCCR1A , ( 0x01 << WGM11 ) | ( 0x00 << WGM10 ) , BIT_MASK2 ( WGM11 , WGM10 ) );
+                    REPLACE_BITS ( TCCR1B , ( 0x00 << WGM13 ) | ( 0x00 << WGM12 ) , BIT_MASK2 ( WGM13 , WGM12 ) );
                     break;
                 case TIMER_MODE_PHASE_PWM_0x3FF_TOP :
-                    REPLACE_BITS ( TCCR1A , ( 0x01 << WGM11 ) | ( 0x01 << WGM10 ) , BIT_MASK ( WGM11 ) | BIT_MASK ( WGM10 ) );
-                    REPLACE_BITS ( TCCR1B , ( 0x00 << WGM13 ) | ( 0x00 << WGM12 ) , BIT_MASK ( WGM13 ) | BIT_MASK ( WGM12 ) );
+                    REPLACE_BITS ( TCCR1A , ( 0x01 << WGM11 ) | ( 0x01 << WGM10 ) , BIT_MASK2 ( WGM11 , WGM10 ) );
+                    REPLACE_BITS ( TCCR1B , ( 0x00 << WGM13 ) | ( 0x00 << WGM12 ) , BIT_MASK2 ( WGM13 , WGM12 ) );
                     break;
                 case TIMER_MODE_PHASE_PWM_OCR_TOP :
-                    REPLACE_BITS ( TCCR1A , ( 0x01 << WGM11 ) | ( 0x01 << WGM10 ) , BIT_MASK ( WGM11 ) | BIT_MASK ( WGM10 ) );
-                    REPLACE_BITS ( TCCR1B , ( 0x01 << WGM13 ) | ( 0x00 << WGM12 ) , BIT_MASK ( WGM13 ) | BIT_MASK ( WGM12 ) );
+                    REPLACE_BITS ( TCCR1A , ( 0x01 << WGM11 ) | ( 0x01 << WGM10 ) , BIT_MASK2 ( WGM11 , WGM10 ) );
+                    REPLACE_BITS ( TCCR1B , ( 0x01 << WGM13 ) | ( 0x00 << WGM12 ) , BIT_MASK2 ( WGM13 , WGM12 ) );
                     break;
                 case TIMER_MODE_PHASE_PWM_ICR_TOP :
-                    REPLACE_BITS ( TCCR1A , ( 0x01 << WGM11 ) | ( 0x00 << WGM10 ) , BIT_MASK ( WGM11 ) | BIT_MASK ( WGM10 ) );
-                    REPLACE_BITS ( TCCR1B , ( 0x01 << WGM13 ) | ( 0x00 << WGM12 ) , BIT_MASK ( WGM13 ) | BIT_MASK ( WGM12 ) );
+                    REPLACE_BITS ( TCCR1A , ( 0x01 << WGM11 ) | ( 0x00 << WGM10 ) , BIT_MASK2 ( WGM11 , WGM10 ) );
+                    REPLACE_BITS ( TCCR1B , ( 0x01 << WGM13 ) | ( 0x00 << WGM12 ) , BIT_MASK2 ( WGM13 , WGM12 ) );
                     break;
                 case TIMER_MODE_PHASE_FREQ_PWM_OCR_TOP :
-                    REPLACE_BITS ( TCCR1A , ( 0x00 << WGM11 ) | ( 0x01 << WGM10 ) , BIT_MASK ( WGM11 ) | BIT_MASK ( WGM10 ) );
-                    REPLACE_BITS ( TCCR1B , ( 0x01 << WGM13 ) | ( 0x00 << WGM12 ) , BIT_MASK ( WGM13 ) | BIT_MASK ( WGM12 ) );
+                    REPLACE_BITS ( TCCR1A , ( 0x00 << WGM11 ) | ( 0x01 << WGM10 ) , BIT_MASK2 ( WGM11 , WGM10 ) );
+                    REPLACE_BITS ( TCCR1B , ( 0x01 << WGM13 ) | ( 0x00 << WGM12 ) , BIT_MASK2 ( WGM13 , WGM12 ) );
                     break;
                 case TIMER_MODE_PHASE_FREQ_PWM_ICR_TOP :
-                    REPLACE_BITS ( TCCR1A , ( 0x00 << WGM11 ) | ( 0x00 << WGM10 ) , BIT_MASK ( WGM11 ) | BIT_MASK ( WGM10 ) );
-                    REPLACE_BITS ( TCCR1B , ( 0x01 << WGM13 ) | ( 0x00 << WGM12 ) , BIT_MASK ( WGM13 ) | BIT_MASK ( WGM12 ) );
+                    REPLACE_BITS ( TCCR1A , ( 0x00 << WGM11 ) | ( 0x00 << WGM10 ) , BIT_MASK2 ( WGM11 , WGM10 ) );
+                    REPLACE_BITS ( TCCR1B , ( 0x01 << WGM13 ) | ( 0x00 << WGM12 ) , BIT_MASK2 ( WGM13 , WGM12 ) );
                     break;
                 case TIMER_MODE_PHASE_PWM_MAX_TOP :
                 case TIMER_MODE_FAST_PWM_MAX_TOP :
@@ -701,16 +701,16 @@ TIMER_STD_ERR_t TIMER_setMode ( TIMER_t timer , TIMER_MODE_t modeToSet )
             switch ( modeToSet )
             {
                 case TIMER_MODE_NORMAL :
-                    REPLACE_BITS ( TCCR2 , ( 0x00 << WGM21 ) | ( 0x00 << WGM20 ) , BIT_MASK ( WGM21 ) | BIT_MASK ( WGM20 ) );
+                    REPLACE_BITS ( TCCR2 , ( 0x00 << WGM21 ) | ( 0x00 << WGM20 ) , BIT_MASK2 ( WGM21 , WGM20 ) );
                     break;
                 case TIMER_MODE_CTC_OCR_TOP :
-                    REPLACE_BITS ( TCCR2 , ( 0x01 << WGM21 ) | ( 0x00 << WGM20 ) , BIT_MASK ( WGM21 ) | BIT_MASK ( WGM20 ) );
+                    REPLACE_BITS ( TCCR2 , ( 0x01 << WGM21 ) | ( 0x00 << WGM20 ) , BIT_MASK2 ( WGM21 , WGM20 ) );
                     break;
                 case TIMER_MODE_FAST_PWM_MAX_TOP :
-                    REPLACE_BITS ( TCCR2 , ( 0x01 << WGM21 ) | ( 0x01 << WGM20 ) , BIT_MASK ( WGM21 ) | BIT_MASK ( WGM20 ) );
+                    REPLACE_BITS ( TCCR2 , ( 0x01 << WGM21 ) | ( 0x01 << WGM20 ) , BIT_MASK2 ( WGM21 , WGM20 ) );
                     break;
                 case TIMER_MODE_PHASE_PWM_MAX_TOP :
-                    REPLACE_BITS ( TCCR2 , ( 0x00 << WGM21 ) | ( 0x01 << WGM20 ) , BIT_MASK ( WGM21 ) | BIT_MASK ( WGM20 ) );
+                    REPLACE_BITS ( TCCR2 , ( 0x00 << WGM21 ) | ( 0x01 << WGM20 ) , BIT_MASK2 ( WGM21 , WGM20 ) );
                     break;
                 case TIMER_MODE_CTC_ICR_TOP :
                 case TIMER_MODE_FAST_PWM_0xFF_TOP :
@@ -743,16 +743,16 @@ TIMER_STD_ERR_t TIMER_setCtcSetting ( TIMER_t timer , TIMER_CTC_SETTING_t settin
             switch ( settingToSet )
             {
                 case CTC_NORMAL :
-                    REPLACE_BITS ( TCCR0 , ( 0x00 << COM01 ) | ( 0x00 << COM00 ) , BIT_MASK ( COM01 ) | BIT_MASK ( COM00 ) );
+                    REPLACE_BITS ( TCCR0 , ( 0x00 << COM01 ) | ( 0x00 << COM00 ) , BIT_MASK2 ( COM01 , COM00 ) );
                     break;
                 case CTC_TOGGLE :
-                    REPLACE_BITS ( TCCR0 , ( 0x00 << COM01 ) | ( 0x01 << COM00 ) , BIT_MASK ( COM01 ) | BIT_MASK ( COM00 ) );
+                    REPLACE_BITS ( TCCR0 , ( 0x00 << COM01 ) | ( 0x01 << COM00 ) , BIT_MASK2 ( COM01 , COM00 ) );
                     break;
                 case CTC_CLEAR :
-                    REPLACE_BITS ( TCCR0 , ( 0x01 << COM01 ) | ( 0x00 << COM00 ) , BIT_MASK ( COM01 ) | BIT_MASK ( COM00 ) );
+                    REPLACE_BITS ( TCCR0 , ( 0x01 << COM01 ) | ( 0x00 << COM00 ) , BIT_MASK2 ( COM01 , COM00 ) );
                     break;
                 case CTC_SET :
-                    REPLACE_BITS ( TCCR0 , ( 0x01 << COM01 ) | ( 0x01 << COM00 ) , BIT_MASK ( COM01 ) | BIT_MASK ( COM00 ) );
+                    REPLACE_BITS ( TCCR0 , ( 0x01 << COM01 ) | ( 0x01 << COM00 ) , BIT_MASK2 ( COM01 , COM00 ) );
                     break;
                 default:
                     opResult = TIMER_ERR_CTC;
@@ -763,16 +763,16 @@ TIMER_STD_ERR_t TIMER_setCtcSetting ( TIMER_t timer , TIMER_CTC_SETTING_t settin
             switch ( settingToSet )
             {
                 case CTC_NORMAL :
-                    REPLACE_BITS ( TCCR1A , ( 0x00 << COM1A1 ) | ( 0x00 << COM1A0 ) , BIT_MASK ( COM1A1 ) | BIT_MASK ( COM1A0 ) );
+                    REPLACE_BITS ( TCCR1A , ( 0x00 << COM1A1 ) | ( 0x00 << COM1A0 ) , BIT_MASK2 ( COM1A1 , COM1A0 ) );
                     break;
                 case CTC_TOGGLE :
-                    REPLACE_BITS ( TCCR1A , ( 0x00 << COM1A1 ) | ( 0x01 << COM1A0 ) , BIT_MASK ( COM1A1 ) | BIT_MASK ( COM1A0 ) );
+                    REPLACE_BITS ( TCCR1A , ( 0x00 << COM1A1 ) | ( 0x01 << COM1A0 ) , BIT_MASK2 ( COM1A1 , COM1A0 ) );
                     break;
                 case CTC_CLEAR :
-                    REPLACE_BITS ( TCCR1A , ( 0x01 << COM1A1 ) | ( 0x00 << COM1A0 ) , BIT_MASK ( COM1A1 ) | BIT_MASK ( COM1A0 ) );
+                    REPLACE_BITS ( TCCR1A , ( 0x01 << COM1A1 ) | ( 0x00 << COM1A0 ) , BIT_MASK2 ( COM1A1 , COM1A0 ) );
                     break;
                 case CTC_SET :
-                    REPLACE_BITS ( TCCR1A , ( 0x01 << COM1A1 ) | ( 0x01 << COM1A0 ) , BIT_MASK ( COM1A1 ) | BIT_MASK ( COM1A0 ) );
+                    REPLACE_BITS ( TCCR1A , ( 0x01 << COM1A1 ) | ( 0x01 << COM1A0 ) , BIT_MASK2 ( COM1A1 , COM1A0 ) );
                     break;
                 default:
                     opResult = TIMER_ERR_CTC;
@@ -782,16 +782,16 @@ TIMER_STD_ERR_t TIMER_setCtcSetting ( TIMER_t timer , TIMER_CTC_SETTING_t settin
             switch ( settingToSet )
             {
                 case CTC_NORMAL :
-                    REPLACE_BITS ( TCCR1B , ( 0x00 << COM1B1 ) | ( 0x00 << COM1B0 ) , BIT_MASK ( COM1B1 ) | BIT_MASK ( COM1B0 ) );
+                    REPLACE_BITS ( TCCR1B , ( 0x00 << COM1B1 ) | ( 0x00 << COM1B0 ) , BIT_MASK2 ( COM1B1 , COM1B0 ) );
                     break;
                 case CTC_TOGGLE :
-                    REPLACE_BITS ( TCCR1B , ( 0x00 << COM1B1 ) | ( 0x01 << COM1B0 ) , BIT_MASK ( COM1B1 ) | BIT_MASK ( COM1B0 ) );
+                    REPLACE_BITS ( TCCR1B , ( 0x00 << COM1B1 ) | ( 0x01 << COM1B0 ) , BIT_MASK2 ( COM1B1 , COM1B0 ) );
                     break;
                 case CTC_CLEAR :
-                    REPLACE_BITS ( TCCR1B , ( 0x01 << COM1B1 ) | ( 0x00 << COM1B0 ) , BIT_MASK ( COM1B1 ) | BIT_MASK ( COM1B0 ) );
+                    REPLACE_BITS ( TCCR1B , ( 0x01 << COM1B1 ) | ( 0x00 << COM1B0 ) , BIT_MASK2 ( COM1B1 , COM1B0 ) );
                     break;
                 case CTC_SET :
-                    REPLACE_BITS ( TCCR1B , ( 0x01 << COM1B1 ) | ( 0x01 << COM1B0 ) , BIT_MASK ( COM1B1 ) | BIT_MASK ( COM1B0 ) );
+                    REPLACE_BITS ( TCCR1B , ( 0x01 << COM1B1 ) | ( 0x01 << COM1B0 ) , BIT_MASK2 ( COM1B1 , COM1B0 ) );
                     break;
                 default:
                     opResult = TIMER_ERR_CTC;
@@ -801,16 +801,16 @@ TIMER_STD_ERR_t TIMER_setCtcSetting ( TIMER_t timer , TIMER_CTC_SETTING_t settin
             switch ( settingToSet )
             {
                 case CTC_NORMAL :
-                    REPLACE_BITS ( TCCR2 , ( 0x00 << COM21 ) | ( 0x00 << COM20 ) , BIT_MASK ( COM21 ) | BIT_MASK ( COM20 ) );
+                    REPLACE_BITS ( TCCR2 , ( 0x00 << COM21 ) | ( 0x00 << COM20 ) , BIT_MASK2 ( COM21 , COM20 ) );
                     break;
                 case CTC_TOGGLE :
-                    REPLACE_BITS ( TCCR2 , ( 0x00 << COM21 ) | ( 0x01 << COM20 ) , BIT_MASK ( COM21 ) | BIT_MASK ( COM20 ) );
+                    REPLACE_BITS ( TCCR2 , ( 0x00 << COM21 ) | ( 0x01 << COM20 ) , BIT_MASK2 ( COM21 , COM20 ) );
                     break;
                 case CTC_CLEAR :
-                    REPLACE_BITS ( TCCR2 , ( 0x01 << COM21 ) | ( 0x00 << COM20 ) , BIT_MASK ( COM21 ) | BIT_MASK ( COM20 ) );
+                    REPLACE_BITS ( TCCR2 , ( 0x01 << COM21 ) | ( 0x00 << COM20 ) , BIT_MASK2 ( COM21 , COM20 ) );
                     break;
                 case CTC_SET :
-                    REPLACE_BITS ( TCCR2 , ( 0x01 << COM21 ) | ( 0x01 << COM20 ) , BIT_MASK ( COM21 ) | BIT_MASK ( COM20 ) );
+                    REPLACE_BITS ( TCCR2 , ( 0x01 << COM21 ) | ( 0x01 << COM20 ) , BIT_MASK2 ( COM21 , COM20 ) );
                     break;
                 default:
                     opResult = TIMER_ERR_CTC;
@@ -830,13 +830,13 @@ TIMER_STD_ERR_t TIMER_setFastPwmSetting ( TIMER_t timer , TIMER_FAST_PWM_SETTING
             switch ( settingToSet )
             {
                 case FAST_PWM_NORMAL :
-                    REPLACE_BITS ( TCCR0 , ( 0x00 << COM01 ) | ( 0x00 << COM00 ) , BIT_MASK ( COM01 ) | BIT_MASK ( COM00 ) );
+                    REPLACE_BITS ( TCCR0 , ( 0x00 << COM01 ) | ( 0x00 << COM00 ) , BIT_MASK2 ( COM01 , COM00 ) );
                     break;
                 case FAST_PWM_CLEAR_MATCH_SET_BOTTOM :
-                    REPLACE_BITS ( TCCR0 , ( 0x01 << COM01 ) | ( 0x00 << COM00 ) , BIT_MASK ( COM01 ) | BIT_MASK ( COM00 ) );
+                    REPLACE_BITS ( TCCR0 , ( 0x01 << COM01 ) | ( 0x00 << COM00 ) , BIT_MASK2 ( COM01 , COM00 ) );
                     break;
                 case FAST_PWM_SET_MATCH_CLEAR_BOTTOM :
-                    REPLACE_BITS ( TCCR0 , ( 0x01 << COM01 ) | ( 0x01 << COM00 ) , BIT_MASK ( COM01 ) | BIT_MASK ( COM00 ) );
+                    REPLACE_BITS ( TCCR0 , ( 0x01 << COM01 ) | ( 0x01 << COM00 ) , BIT_MASK2 ( COM01 , COM00 ) );
                     break;
                 case FAST_PWM_TOGGLE :
                 default:
@@ -848,16 +848,16 @@ TIMER_STD_ERR_t TIMER_setFastPwmSetting ( TIMER_t timer , TIMER_FAST_PWM_SETTING
             switch ( settingToSet )
             {
                 case FAST_PWM_NORMAL :
-                    REPLACE_BITS ( TCCR1A , ( 0x00 << COM1A1 ) | ( 0x00 << COM1A0 ) , BIT_MASK ( COM1A1 ) | BIT_MASK ( COM1A0 ) );
+                    REPLACE_BITS ( TCCR1A , ( 0x00 << COM1A1 ) | ( 0x00 << COM1A0 ) , BIT_MASK2 ( COM1A1 , COM1A0 ) );
                     break;
                 case FAST_PWM_TOGGLE :
-                    REPLACE_BITS ( TCCR1A , ( 0x00 << COM1A1 ) | ( 0x01 << COM1A0 ) , BIT_MASK ( COM1A1 ) | BIT_MASK ( COM1A0 ) );
+                    REPLACE_BITS ( TCCR1A , ( 0x00 << COM1A1 ) | ( 0x01 << COM1A0 ) , BIT_MASK2 ( COM1A1 , COM1A0 ) );
                     break;
                 case FAST_PWM_CLEAR_MATCH_SET_BOTTOM :
-                    REPLACE_BITS ( TCCR1A , ( 0x01 << COM1A1 ) | ( 0x00 << COM1A0 ) , BIT_MASK ( COM1A1 ) | BIT_MASK ( COM1A0 ) );
+                    REPLACE_BITS ( TCCR1A , ( 0x01 << COM1A1 ) | ( 0x00 << COM1A0 ) , BIT_MASK2 ( COM1A1 , COM1A0 ) );
                     break;
                 case FAST_PWM_SET_MATCH_CLEAR_BOTTOM :
-                    REPLACE_BITS ( TCCR1A , ( 0x01 << COM1A1 ) | ( 0x01 << COM1A0 ) , BIT_MASK ( COM1A1 ) | BIT_MASK ( COM1A0 ) );
+                    REPLACE_BITS ( TCCR1A , ( 0x01 << COM1A1 ) | ( 0x01 << COM1A0 ) , BIT_MASK2 ( COM1A1 , COM1A0 ) );
                     break;
                 default:
                     opResult = TIMER_ERR_FAST_PWM_SETTING;
@@ -867,16 +867,16 @@ TIMER_STD_ERR_t TIMER_setFastPwmSetting ( TIMER_t timer , TIMER_FAST_PWM_SETTING
             switch ( settingToSet )
             {
                 case FAST_PWM_NORMAL :
-                    REPLACE_BITS ( TCCR1B , ( 0x00 << COM1B1 ) | ( 0x00 << COM1B0 ) , BIT_MASK ( COM1B1 ) | BIT_MASK ( COM1B0 ) );
+                    REPLACE_BITS ( TCCR1B , ( 0x00 << COM1B1 ) | ( 0x00 << COM1B0 ) , BIT_MASK2 ( COM1B1 , COM1B0 ) );
                     break;
                 case FAST_PWM_TOGGLE :
-                    REPLACE_BITS ( TCCR1B , ( 0x00 << COM1B1 ) | ( 0x01 << COM1B0 ) , BIT_MASK ( COM1B1 ) | BIT_MASK ( COM1B0 ) );
+                    REPLACE_BITS ( TCCR1B , ( 0x00 << COM1B1 ) | ( 0x01 << COM1B0 ) , BIT_MASK2 ( COM1B1 , COM1B0 ) );
                     break;
                 case FAST_PWM_CLEAR_MATCH_SET_BOTTOM :
-                    REPLACE_BITS ( TCCR1B , ( 0x01 << COM1B1 ) | ( 0x00 << COM1B0 ) , BIT_MASK ( COM1B1 ) | BIT_MASK ( COM1B0 ) );
+                    REPLACE_BITS ( TCCR1B , ( 0x01 << COM1B1 ) | ( 0x00 << COM1B0 ) , BIT_MASK2 ( COM1B1 , COM1B0 ) );
                     break;
                 case FAST_PWM_SET_MATCH_CLEAR_BOTTOM :
-                    REPLACE_BITS ( TCCR1B , ( 0x01 << COM1B1 ) | ( 0x01 << COM1B0 ) , BIT_MASK ( COM1B1 ) | BIT_MASK ( COM1B0 ) );
+                    REPLACE_BITS ( TCCR1B , ( 0x01 << COM1B1 ) | ( 0x01 << COM1B0 ) , BIT_MASK2 ( COM1B1 , COM1B0 ) );
                     break;
                 default:
                     opResult = TIMER_ERR_FAST_PWM_SETTING;
@@ -886,13 +886,13 @@ TIMER_STD_ERR_t TIMER_setFastPwmSetting ( TIMER_t timer , TIMER_FAST_PWM_SETTING
             switch ( settingToSet )
             {
                 case FAST_PWM_NORMAL :
-                    REPLACE_BITS ( TCCR2 , ( 0x00 << COM21 ) | ( 0x00 << COM20 ) , BIT_MASK ( COM21 ) | BIT_MASK ( COM20 ) );
+                    REPLACE_BITS ( TCCR2 , ( 0x00 << COM21 ) | ( 0x00 << COM20 ) , BIT_MASK2 ( COM21 , COM20 ) );
                     break;
                 case FAST_PWM_CLEAR_MATCH_SET_BOTTOM :
-                    REPLACE_BITS ( TCCR2 , ( 0x01 << COM21 ) | ( 0x00 << COM20 ) , BIT_MASK ( COM21 ) | BIT_MASK ( COM20 ) );
+                    REPLACE_BITS ( TCCR2 , ( 0x01 << COM21 ) | ( 0x00 << COM20 ) , BIT_MASK2 ( COM21 , COM20 ) );
                     break;
                 case FAST_PWM_SET_MATCH_CLEAR_BOTTOM :
-                    REPLACE_BITS ( TCCR2 , ( 0x01 << COM21 ) | ( 0x01 << COM20 ) , BIT_MASK ( COM21 ) | BIT_MASK ( COM20 ) );
+                    REPLACE_BITS ( TCCR2 , ( 0x01 << COM21 ) | ( 0x01 << COM20 ) , BIT_MASK2 ( COM21 , COM20 ) );
                     break;
                 case FAST_PWM_TOGGLE :
                 default:
@@ -913,13 +913,13 @@ TIMER_STD_ERR_t TIMER_setCorrectPwmSetting ( TIMER_t timer , TIMER_CORRECT_PWM_S
             switch ( settingToSet )
             {
                 case CORRECT_PWM_NORMAL :
-                    REPLACE_BITS ( TCCR0 , ( 0x00 << COM01 ) | ( 0x00 << COM00 ) , BIT_MASK ( COM01 ) | BIT_MASK ( COM00 ) );
+                    REPLACE_BITS ( TCCR0 , ( 0x00 << COM01 ) | ( 0x00 << COM00 ) , BIT_MASK2 ( COM01 , COM00 ) );
                     break;
                 case CORRECT_PWM_CLEAR_MATCH_UP_SET_MATCH_DOWN :
-                    REPLACE_BITS ( TCCR0 , ( 0x01 << COM01 ) | ( 0x00 << COM00 ) , BIT_MASK ( COM01 ) | BIT_MASK ( COM00 ) );
+                    REPLACE_BITS ( TCCR0 , ( 0x01 << COM01 ) | ( 0x00 << COM00 ) , BIT_MASK2 ( COM01 , COM00 ) );
                     break;
                 case CORRECT_PWM_SET_MATCH_UP_CLEAR_MATCH_DOWN :
-                    REPLACE_BITS ( TCCR0 , ( 0x01 << COM01 ) | ( 0x01 << COM00 ) , BIT_MASK ( COM01 ) | BIT_MASK ( COM00 ) );
+                    REPLACE_BITS ( TCCR0 , ( 0x01 << COM01 ) | ( 0x01 << COM00 ) , BIT_MASK2 ( COM01 , COM00 ) );
                     break;
                 case CORRECT_PWM_CORRECT :
                 default:
@@ -931,16 +931,16 @@ TIMER_STD_ERR_t TIMER_setCorrectPwmSetting ( TIMER_t timer , TIMER_CORRECT_PWM_S
             switch ( settingToSet )
             {
                 case CORRECT_PWM_NORMAL :
-                    REPLACE_BITS ( TCCR1A , ( 0x00 << COM1A1 ) | ( 0x00 << COM1A0 ) , BIT_MASK ( COM1A1 ) | BIT_MASK ( COM1A0 ) );
+                    REPLACE_BITS ( TCCR1A , ( 0x00 << COM1A1 ) | ( 0x00 << COM1A0 ) , BIT_MASK2 ( COM1A1 , COM1A0 ) );
                     break;
                 case CORRECT_PWM_CORRECT :
-                    REPLACE_BITS ( TCCR1A , ( 0x00 << COM1A1 ) | ( 0x01 << COM1A0 ) , BIT_MASK ( COM1A1 ) | BIT_MASK ( COM1A0 ) );
+                    REPLACE_BITS ( TCCR1A , ( 0x00 << COM1A1 ) | ( 0x01 << COM1A0 ) , BIT_MASK2 ( COM1A1 , COM1A0 ) );
                     break;
                 case CORRECT_PWM_CLEAR_MATCH_UP_SET_MATCH_DOWN :
-                    REPLACE_BITS ( TCCR1A , ( 0x01 << COM1A1 ) | ( 0x00 << COM1A0 ) , BIT_MASK ( COM1A1 ) | BIT_MASK ( COM1A0 ) );
+                    REPLACE_BITS ( TCCR1A , ( 0x01 << COM1A1 ) | ( 0x00 << COM1A0 ) , BIT_MASK2 ( COM1A1 , COM1A0 ) );
                     break;
                 case CORRECT_PWM_SET_MATCH_UP_CLEAR_MATCH_DOWN :
-                    REPLACE_BITS ( TCCR1A , ( 0x01 << COM1A1 ) | ( 0x01 << COM1A0 ) , BIT_MASK ( COM1A1 ) | BIT_MASK ( COM1A0 ) );
+                    REPLACE_BITS ( TCCR1A , ( 0x01 << COM1A1 ) | ( 0x01 << COM1A0 ) , BIT_MASK2 ( COM1A1 , COM1A0 ) );
                     break;
                 default:
                     opResult = TIMER_ERR_FAST_PWM_SETTING;
@@ -950,16 +950,16 @@ TIMER_STD_ERR_t TIMER_setCorrectPwmSetting ( TIMER_t timer , TIMER_CORRECT_PWM_S
             switch ( settingToSet )
             {
                 case CORRECT_PWM_NORMAL :
-                    REPLACE_BITS ( TCCR1B , ( 0x00 << COM1B1 ) | ( 0x00 << COM1B0 ) , BIT_MASK ( COM1B1 ) | BIT_MASK ( COM1B0 ) );
+                    REPLACE_BITS ( TCCR1B , ( 0x00 << COM1B1 ) | ( 0x00 << COM1B0 ) , BIT_MASK2 ( COM1B1 , COM1B0 ) );
                     break;
                 case CORRECT_PWM_CORRECT :
-                    REPLACE_BITS ( TCCR1B , ( 0x00 << COM1B1 ) | ( 0x01 << COM1B0 ) , BIT_MASK ( COM1B1 ) | BIT_MASK ( COM1B0 ) );
+                    REPLACE_BITS ( TCCR1B , ( 0x00 << COM1B1 ) | ( 0x01 << COM1B0 ) , BIT_MASK2 ( COM1B1 , COM1B0 ) );
                     break;
                 case CORRECT_PWM_CLEAR_MATCH_UP_SET_MATCH_DOWN :
-                    REPLACE_BITS ( TCCR1B , ( 0x01 << COM1B1 ) | ( 0x00 << COM1B0 ) , BIT_MASK ( COM1B1 ) | BIT_MASK ( COM1B0 ) );
+                    REPLACE_BITS ( TCCR1B , ( 0x01 << COM1B1 ) | ( 0x00 << COM1B0 ) , BIT_MASK2 ( COM1B1 , COM1B0 ) );
                     break;
                 case CORRECT_PWM_SET_MATCH_UP_CLEAR_MATCH_DOWN :
-                    REPLACE_BITS ( TCCR1B , ( 0x01 << COM1B1 ) | ( 0x01 << COM1B0 ) , BIT_MASK ( COM1B1 ) | BIT_MASK ( COM1B0 ) );
+                    REPLACE_BITS ( TCCR1B , ( 0x01 << COM1B1 ) | ( 0x01 << COM1B0 ) , BIT_MASK2 ( COM1B1 , COM1B0 ) );
                     break;
                 default:
                     opResult = TIMER_ERR_FAST_PWM_SETTING;
@@ -969,13 +969,13 @@ TIMER_STD_ERR_t TIMER_setCorrectPwmSetting ( TIMER_t timer , TIMER_CORRECT_PWM_S
             switch ( settingToSet )
             {
                 case CORRECT_PWM_NORMAL :
-                    REPLACE_BITS ( TCCR2 , ( 0x00 << COM21 ) | ( 0x00 << COM20 ) , BIT_MASK ( COM21 ) | BIT_MASK ( COM20 ) );
+                    REPLACE_BITS ( TCCR2 , ( 0x00 << COM21 ) | ( 0x00 << COM20 ) , BIT_MASK2 ( COM21 , COM20 ) );
                     break;
                 case CORRECT_PWM_CLEAR_MATCH_UP_SET_MATCH_DOWN :
-                    REPLACE_BITS ( TCCR2 , ( 0x01 << COM21 ) | ( 0x00 << COM20 ) , BIT_MASK ( COM21 ) | BIT_MASK ( COM20 ) );
+                    REPLACE_BITS ( TCCR2 , ( 0x01 << COM21 ) | ( 0x00 << COM20 ) , BIT_MASK2 ( COM21 , COM20 ) );
                     break;
                 case CORRECT_PWM_SET_MATCH_UP_CLEAR_MATCH_DOWN :
-                    REPLACE_BITS ( TCCR2 , ( 0x01 << COM21 ) | ( 0x01 << COM20 ) , BIT_MASK ( COM21 ) | BIT_MASK ( COM20 ) );
+                    REPLACE_BITS ( TCCR2 , ( 0x01 << COM21 ) | ( 0x01 << COM20 ) , BIT_MASK2 ( COM21 , COM20 ) );
                     break;
                 case CORRECT_PWM_CORRECT :
                 default:

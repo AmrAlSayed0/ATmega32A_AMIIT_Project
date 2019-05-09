@@ -1,22 +1,25 @@
 #include <util/delay.h>
+#include "FreeRTOS.h"
+#include "task.h"
 #include "bit_helpers.h"
+#include "time_helpers.h"
 #include "I2C.h"
 #include "EXT_EEPROM.h"
 #include "EXT_EEPROM_config.h"
 #include "EXT_EEPROM_private.h"
-#define CONTROL_ADDR ( 0x50 )
-#define HIGH_BYTE_MASK ( 0x0000FF00 )
-#define LOW_BYTE_MASK ( 0x000000FF )
+#define CONTROL_ADDR        ( 0x50 )
+#define HIGH_BYTE_MASK      ( 0x0000FF00 )
+#define LOW_BYTE_MASK       ( 0x000000FF )
 #define MAX_EXT_EEPROM_ADDR ( ( uint32_t ) 0x01FFFF )
-#define PAGE_BOUNDRY ( ( uint32_t ) 0x00FFFF )
-#define EMPTY_EEPROM_VALUE ( ( uint8_t ) 0xFF )
+#define PAGE_BOUNDRY        ( ( uint32_t ) 0x00FFFF )
+#define EMPTY_EEPROM_VALUE  ( ( uint8_t ) 0xFF )
 static EXT_EEPROM_STD_ERR_t read ( uint32_t addr , uint8_t* readValue )
 {
     EXT_EEPROM_STD_ERR_t opResult = EXT_EEPROM_OK;
     uint8_t controlByte = CONTROL_ADDR | LEFT_SHIFT ( READ_BIT ( addr , 16 ) , 2 );
     uint8_t highAddress = ( uint8_t ) READ_BITS_AND_SHIFT ( addr , HIGH_BYTE_MASK , 8 );
     uint8_t lowAddress = ( uint8_t ) READ_BITS_AND_SHIFT ( addr , LOW_BYTE_MASK , 0 );
-    I2C_STATUS_t currentStatus = I2C_STATUS_NONE;
+    I2C_STATUS_t currentStatus = I2C_STATUS_NO_INFO;
     uint8_t currentNumOfRetries;
     EXT_EEPROM_waitBusy ();
 START:
@@ -136,7 +139,7 @@ static EXT_EEPROM_STD_ERR_t write ( uint32_t addr , uint8_t valueToWrite )
     uint8_t highAddress = ( uint8_t ) READ_BITS_AND_SHIFT ( addr , HIGH_BYTE_MASK , 8 );
     uint8_t lowAddress = ( uint8_t ) READ_BITS_AND_SHIFT ( addr , LOW_BYTE_MASK , 0 );
     uint8_t currentNumOfRetries;
-    I2C_STATUS_t currentStatus = I2C_STATUS_NONE;
+    I2C_STATUS_t currentStatus = I2C_STATUS_NO_INFO;
     EXT_EEPROM_waitBusy ();
 START:
     currentNumOfRetries = 0;
@@ -240,7 +243,7 @@ DATA:
 void EXT_EEPROM_waitBusy ( void )
 {
     uint8_t controlByte = CONTROL_ADDR;
-    I2C_STATUS_t currentStatus = I2C_STATUS_NONE;
+    I2C_STATUS_t currentStatus = I2C_STATUS_NO_INFO;
 START:
     I2C_start ();
     currentStatus = I2C_readStatus ();
@@ -250,7 +253,11 @@ START:
         currentStatus = I2C_readStatus ();
         if ( currentStatus == I2C_STATUS_M_SLW_W_TRANS_NACK_REC || currentStatus == I2C_STATUS_M_ARB_LOST )
         {
+#if ( USE_FREE_RTOS_TASK_DELAY == 1 )
+            vTaskDelay ( calcTicksFromTimeMs ( EXT_EEPROM_WRITE_TIME_IN_MS ) );
+#elif
             _delay_ms ( EXT_EEPROM_WRITE_TIME_IN_MS );
+#endif
             goto START;
         }
         else
@@ -297,7 +304,7 @@ EXT_EEPROM_STD_ERR_t EXT_EEPROM_readSection ( uint32_t addr , uint32_t readSize 
         uint8_t highAddress;
         uint8_t lowAddress;
         uint32_t currentAddr = addr;
-        I2C_STATUS_t currentStatus = I2C_STATUS_NONE;
+        I2C_STATUS_t currentStatus = I2C_STATUS_NO_INFO;
         uint8_t currentNumOfRetries;
         uint32_t i = 0;
 SETUP:
@@ -478,7 +485,7 @@ EXT_EEPROM_STD_ERR_t EXT_EEPROM_writeSection ( uint32_t addr , uint32_t writeSiz
         uint8_t currentNumOfRetries;
         uint32_t i = 0;
         uint8_t currentByteNumber;
-        I2C_STATUS_t currentStatus = I2C_STATUS_NONE;
+        I2C_STATUS_t currentStatus = I2C_STATUS_NO_INFO;
 SETUP:
         controlByte = CONTROL_ADDR | LEFT_SHIFT ( READ_BIT ( addr , 16 ) , 2 );
         highAddress = ( uint8_t ) READ_BITS_AND_SHIFT ( addr , HIGH_BYTE_MASK , 8 );
@@ -679,7 +686,7 @@ EXT_EEPROM_STD_ERR_t EXT_EEPROM_fill ( uint32_t addr , uint32_t writeSize , uint
         uint8_t currentNumOfRetries;
         uint32_t i = 0;
         uint8_t currentByteNumber;
-        I2C_STATUS_t currentStatus = I2C_STATUS_NONE;
+        I2C_STATUS_t currentStatus = I2C_STATUS_NO_INFO;
 SETUP:
         controlByte = CONTROL_ADDR | LEFT_SHIFT ( READ_BIT ( addr , 16 ) , 2 );
         highAddress = ( uint8_t ) READ_BITS_AND_SHIFT ( addr , HIGH_BYTE_MASK , 8 );

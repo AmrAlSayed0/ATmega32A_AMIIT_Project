@@ -2,6 +2,7 @@
 #define AMIT_PROJECT_EXT_EEPROM_H_
 //24AA1025
 #include "std_types.h"
+#define EXT_EEPROM_SIZE_IN_BYTES ( ( uint32_t ) 0x020000 )
 typedef enum _EXT_EEPROM_STD_ERR_t
 {
     EXT_EEPROM_OK ,

@@ -1,5 +1,6 @@
 #ifndef AMIT_PROJECT_KEYPAD_H_
 #define AMIT_PROJECT_KEYPAD_H_
+#include "std_types.h"
 #define KEY_NONE    ( ( uint16_t ) 0 )
 #define KEY_0       ( ( uint16_t ) ( 0x01 << 0x00 ) )
 #define KEY_1       ( ( uint16_t ) ( 0x01 << 0x01 ) )
@@ -18,5 +19,5 @@
 #define KEY_MULT    ( ( uint16_t ) ( 0x01 << 0x0E ) )
 #define KEY_DIV     ( ( uint16_t ) ( 0x01 << 0x0F ) )
 void KEYPAD_init ( void );
-uint16_t KEYPAD_getPressedKey ( void );
+uint16_t KEYPAD_getPressedKeys ( void );
 #endif

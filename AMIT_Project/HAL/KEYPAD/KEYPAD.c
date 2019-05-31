@@ -25,7 +25,7 @@ void KEYPAD_init ( void )
     DIO_setDirection ( KEYPAD_ROW_D_PORT , KEYPAD_ROW_D_PIN , DIRECTION_OUTPUT );
     DIO_write ( KEYPAD_ROW_D_PORT , KEYPAD_ROW_D_PIN , PIN_STATE_HIGH );
 }
-uint16_t KEYPAD_getPressedKey ( void )
+uint16_t KEYPAD_getPressedKeys ( void )
 {
     uint16_t pressedKeys = KEY_NONE;
     DIO_write ( KEYPAD_ROW_A_PORT , KEYPAD_ROW_A_PIN , PIN_STATE_LOW );

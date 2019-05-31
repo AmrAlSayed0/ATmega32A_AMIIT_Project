@@ -51,7 +51,7 @@ static int16_t searchUsers ( UserCounter_t numOfUsers , UserId_t id )
         }
         uint16_t low = 0;
         uint16_t high = numOfUsers - 1;
-        uint16_t currentIndex;
+        uint16_t currentIndex = 0;
         while ( low <= high )
         {
             currentIndex = ( uint16_t ) floor ( ( ( ( double ) low ) + ( ( double ) high ) ) / ( ( double ) 2 ) );

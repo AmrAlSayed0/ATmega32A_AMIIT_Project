@@ -18,15 +18,20 @@
 #include "EXT_EEPROM.h"
 #include "RTC.h"
 #include "MOTOR.h"
+#include "APP_TASK.h"
+#include "LCD_TASK.h"
+#include "KEYPAD_TASK.h"
 void App_init ( void );
-void vTask1 ( void* vParameters );
 int main ( void )
 {
     App_init ();
-    xTaskCreate ( vTask1 , "Task1" , configMINIMAL_STACK_SIZE , ( void* ) 0 , 1 , NULL_PTR );
+    xTaskCreate ( vLCD_TASK , "LCD_TASK" , configMINIMAL_STACK_SIZE , ( void* ) 0 , 1 , NULL_PTR );
+    xTaskCreate ( vKEYPAD_TASK , "KEYPAD_TASK" , configMINIMAL_STACK_SIZE , ( void* ) 0 , 1 , NULL_PTR );
+    xTaskCreate ( vAPP_TASK , "APP_TASK" , configMINIMAL_STACK_SIZE , ( void* ) 0 , 2 , NULL_PTR );
     vTaskStartScheduler ();
     while ( 1 )
     {
+        UART_transmitString ( "w" );
     }
 }
 void App_init ( void )
@@ -54,38 +59,7 @@ void App_init ( void )
     KEYPAD_init ();
     MOTOR_init ();
 }
-void vTask1 ( void* vParameters )
+void vApplicationIdleHook ( void )
 {
-    TickType_t xLastWakeTime = xTaskGetTickCount ();
-    ( void ) vParameters;
-    uint16_t pressedKeys = KEY_NONE;
-    MOTOR_setSpeed ( 0.5 );
-    uint8_t i = 0;
-    while ( 1 )
-    {
-        i = 0xFF;
-        pressedKeys |= KEYPAD_getPressedKey ();
-        if ( pressedKeys != KEY_NONE )
-        {
-            MOTOR_start ();
-            while ( i-- > 0 )
-            {
-                UART_transmitChar ( '\b' );
-            }
-            UART_transmitString ( "Started" );
-            UART_transmitChar ( '\r' );
-        }
-        else
-        {
-            MOTOR_stop ();
-            while ( i-- > 0 )
-            {
-                UART_transmitChar ( '\b' );
-            }
-            UART_transmitString ( "Stopped" );
-            UART_transmitChar ( '\r' );
-        }
-        pressedKeys = KEY_NONE;
-        vTaskDelayUntil ( &xLastWakeTime , 1000 );
-    }
+    //UART_transmitString ( "Idle!\r" );
 }
